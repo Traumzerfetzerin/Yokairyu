@@ -9,15 +9,20 @@
     <title>Yokairyu</title>
 </head>
 
-<body>
+<body onload="init()">
 
     <h1>Yokairyu</h1>
-    <p>„Yokai“ + „Ryū“ (japanisch für Drache)</p>
+    <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
 
-    <canvas width="720" height="480">
+    <canvas id="canvas" width="720" height="480">
 
     </canvas>
 </body>
+<script src="models/movable-objects.class.js"></script>
+<script src="models/character.class.js"></script>
+<script src="models/chicken.class.js"></script>
+<script src="models/cloud.class.js"></script>
+<script src="models/world.class.js"></script>
 <script src="js/game.js"></script>
 
 </html>
