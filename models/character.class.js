@@ -14,7 +14,6 @@ class Character extends MovableObject {
         '../img/player/Kitsune/walk/remove/Walk_7-removebg-preview.png',
         '../img/player/Kitsune/walk/remove/Walk_8-removebg-preview.png',
     ];
-    currentImage = 0;
 
     constructor() {
         super().loadImage('../img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
