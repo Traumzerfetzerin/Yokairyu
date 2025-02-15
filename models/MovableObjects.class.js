@@ -32,8 +32,11 @@ class MovableObject {
 
 
     moveLeft() {
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.x -= this.speed;
+            if (this.x < -this.width) {
+                this.x = window.innerWidth; // Setzt es rechts neu an
+            }
         }, 1000 / 60);
     }
 }
