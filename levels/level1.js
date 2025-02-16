@@ -1,0 +1,27 @@
+const level1 = new Level(
+    [
+        new Chicken(),
+        new Chicken(),
+        new Chicken(),
+    ],
+    [
+        new Cloud(),
+    ],
+    [
+        new BackgroundObject('./img/background/Plan-5.png', -720),
+        new BackgroundObject('./img/background/Plan-3.png', -720),
+        new BackgroundObject('./img/background/Plan-2.png', -720),
+        new BackgroundObject('./img/background/Plan-1.png', -720),
+
+        new BackgroundObject('./img/background/Plan-5.png', 0),
+        // new BackgroundObject('img/background/Plan-4.png', 0),
+        new BackgroundObject('./img/background/Plan-3.png', 0),
+        new BackgroundObject('./img/background/Plan-2.png', 0),
+        new BackgroundObject('./img/background/Plan-1.png', 0),
+
+        new BackgroundObject('./img/background/Plan-5.png', 720),
+        new BackgroundObject('./img/background/Plan-3.png', 720),
+        new BackgroundObject('./img/background/Plan-2.png', 720),
+        new BackgroundObject('./img/background/Plan-1.png', 720),
+    ]
+);

@@ -4,6 +4,7 @@ class Character extends MovableObject {
     height = 150;
     y = 300;
     x = 0;
+    speed = 5;
     IMAGES_WALK = [
         // './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
         // './img/player/Kitsune/walk/remove/Walk_2-removebg-preview.png',
@@ -13,6 +14,7 @@ class Character extends MovableObject {
         // './img/player/Kitsune/walk/remove/Walk_6-removebg-preview.png',
         // './img/player/Kitsune/walk/remove/Walk_7-removebg-preview.png',
         // './img/player/Kitsune/walk/remove/Walk_8-removebg-preview.png',
+
         './img/player/Kitsune/run/remove/Run_1-removebg-preview.png',
         './img/player/Kitsune/run/remove/Run_2-removebg-preview.png',
         './img/player/Kitsune/run/remove/Run_3-removebg-preview.png',
@@ -24,8 +26,9 @@ class Character extends MovableObject {
     ];
     world;
 
+
     constructor() {
-        super().loadImage('./img/player/Kitsune/run/remove/Run_1-removebg-preview.png');
+        super().loadImage('./img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
 
         this.loadImages(this.IMAGES_WALK);
 
@@ -33,9 +36,26 @@ class Character extends MovableObject {
     }
 
     animate() {
+
+        setInterval(() => {
+            if (this.world.keyboard.RIGHT) {
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+
+            if (this.world.keyboard.LEFT) {
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+            this.world.camera_x = -this.x;
+        }, 1000 / 60);
+
+
         setInterval(() => {
 
-            if (this.world.keyboard.RIGHT) {
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+
+                // Walk animation
                 let i = this.currentImage % this.IMAGES_WALK.length; // let i = 7 % 6; => 1, Rest 1
                 // i = 0, 1, 2, 3, 4, 5, 6, 0
                 let path = this.IMAGES_WALK[i];
