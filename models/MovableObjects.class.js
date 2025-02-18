@@ -10,16 +10,21 @@ class MovableObject {
     speed = 0.15;
     otherDirection = false;
     speedY = 0;
-    acceleration = 1;
+    acceleration = 2.5;
 
 
     applyGravity() {
         setInterval(() => {
-            if (this.y < 300) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+    }
+
+
+    isAboveGround() {
+        return this.y < 300;
     }
 
 
@@ -49,16 +54,20 @@ class MovableObject {
 
 
     moveRight() {
-        console.log('Moving right');
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
 
     moveLeft() {
-        this.interval = setInterval(() => {
-            this.x -= this.speed;
-            if (this.x < -this.width) {
-                this.x = window.innerWidth; // Setzt es rechts neu an
-            }
-        }, 1000 / 60);
+        this.x -= this.speed;
+        if (this.x < -this.width) {
+            this.x = window.innerWidth; // Setzt es rechts neu an
+        }
+    }
+
+
+    jump() {
+        this.speedY = 30;
     }
 }

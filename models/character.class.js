@@ -26,12 +26,25 @@ class Character extends MovableObject {
         // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png',
     ];
     world;
+    IMAGES_JUMP = [
+        './img/player/Kitsune/jump/remove/Jump_1-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_2-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_3-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_4-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_5-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_6-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_7-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_8-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_9-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png',
+    ]
 
 
     constructor() {
         super().loadImage('./img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
 
         this.loadImages(this.IMAGES_WALK);
+        this.loadImages(this.IMAGES_JUMP);
 
         this.applyGravity();
 
@@ -42,31 +55,33 @@ class Character extends MovableObject {
 
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
+                this.moveRight();
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
-                this.x -= this.speed;
-                this.otherDirection = true;
+                this.moveLeft();
             }
+
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
+            }
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
 
         setInterval(() => {
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMP);
+            } else {
 
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
-                // Walk animation
-                this.playAnimation(this.IMAGES_WALK);
+                    // Walk animation
+                    this.playAnimation(this.IMAGES_WALK);
+                }
             }
         }, 100);
-
-    }
-
-
-    jump() {
 
     }
 }
