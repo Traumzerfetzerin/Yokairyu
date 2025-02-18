@@ -2,8 +2,7 @@ class Character extends MovableObject {
 
     width = 150;
     height = 150;
-    // y = 300;
-    y = 80;
+    y = 300;
     x = 0;
     speed = 5;
     IMAGES_WALK = [
@@ -52,14 +51,15 @@ class Character extends MovableObject {
     }
 
     animate() {
-
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
+                this.otherDirection = false;
             }
 
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
+                this.otherDirection = true;
             }
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
