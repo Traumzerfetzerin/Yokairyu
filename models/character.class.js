@@ -5,6 +5,7 @@ class Character extends MovableObject {
     y = 300;
     x = 0;
     speed = 5;
+    world;
     IMAGES_WALK = [
         './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_2-removebg-preview.png',
@@ -24,7 +25,6 @@ class Character extends MovableObject {
         // './img/player/Kitsune/run/remove/Run_7-removebg-preview.png',
         // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png',
     ];
-    world;
     IMAGES_JUMP = [
         './img/player/Kitsune/jump/remove/Jump_1-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_2-removebg-preview.png',
@@ -36,7 +36,7 @@ class Character extends MovableObject {
         './img/player/Kitsune/jump/remove/Jump_8-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_9-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png',
-    ]
+    ];
 
 
     constructor() {
