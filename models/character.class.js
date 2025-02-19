@@ -6,6 +6,14 @@ class Character extends MovableObject {
     x = 0;
     speed = 5;
     world;
+
+    offset = {
+        top: 120,
+        left: 30,
+        right: 40,
+        bottom: 30
+    }
+
     IMAGES_WALK = [
         './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_2-removebg-preview.png',
