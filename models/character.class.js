@@ -1,5 +1,4 @@
 class Character extends MovableObject {
-
     width = 150;
     height = 150;
     y = 300;
@@ -45,6 +44,22 @@ class Character extends MovableObject {
         './img/player/Kitsune/jump/remove/Jump_9-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png',
     ];
+    IMAGES_DEAD = [
+        './img/player/Kitsune/dead/remove/Dead_1-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_2-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_3-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_4-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_5-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_6-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_7-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_8-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_9-removebg-preview.png',
+        './img/player/Kitsune/dead/remove/Dead_10-removebg-preview.png'
+    ];
+    IMAGES_HURT = [
+        './img/player/Kitsune/hurt/Hurt_1.png',
+        './img/player/Kitsune/hurt/Hurt_2.png'
+    ]
 
 
     constructor() {
@@ -52,6 +67,8 @@ class Character extends MovableObject {
 
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HURT);
 
         this.applyGravity();
 
@@ -79,10 +96,17 @@ class Character extends MovableObject {
 
 
         setInterval(() => {
-            if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMP);
-            } else {
 
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+
+            } else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+
+            } else if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMP);
+
+            } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
                     // Walk animation
@@ -90,6 +114,5 @@ class Character extends MovableObject {
                 }
             }
         }, 100);
-
     }
 }
