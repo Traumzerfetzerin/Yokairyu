@@ -59,6 +59,18 @@ class Character extends MovableObject {
     IMAGES_HURT = [
         './img/player/Kitsune/hurt/Hurt_1.png',
         './img/player/Kitsune/hurt/Hurt_2.png'
+    ];
+    IMAGES_THROW = [
+        './img/player/Kitsune/attack_2/remove/Attack_2_1-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_2-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_3-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_4-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_5-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_6-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_7-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_8-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_9-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png',
     ]
 
 
@@ -69,6 +81,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_THROW);
 
         this.applyGravity();
 
@@ -105,7 +118,8 @@ class Character extends MovableObject {
 
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMP);
-
+            } else if (this.world.keyboard.THROW) {
+                this.playAnimation(this.IMAGES_THROW);
             } else {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 

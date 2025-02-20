@@ -9,6 +9,7 @@ class Chicken extends MovableObject {
         './img/enemy/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
     ];
 
+    
     constructor() {
         super().loadImage('./img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALK);
