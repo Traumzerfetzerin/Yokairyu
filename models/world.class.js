@@ -30,7 +30,7 @@ class World {
 
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    this.statusbar.setPercentage(this.character.enegy);
+                    this.statusbar.setPercentage(this.character.energy);
                 }
             });
         }, 200);
