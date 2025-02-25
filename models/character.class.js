@@ -21,7 +21,7 @@ class Character extends MovableObject {
         './img/player/Kitsune/walk/remove/Walk_5-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_6-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_7-removebg-preview.png',
-        './img/player/Kitsune/walk/remove/Walk_8-removebg-preview.png',
+        './img/player/Kitsune/walk/remove/Walk_8-removebg-preview.png'
 
         // './img/player/Kitsune/run/remove/Run_1-removebg-preview.png',
         // './img/player/Kitsune/run/remove/Run_2-removebg-preview.png',
@@ -30,7 +30,7 @@ class Character extends MovableObject {
         // './img/player/Kitsune/run/remove/Run_5-removebg-preview.png',
         // './img/player/Kitsune/run/remove/Run_6-removebg-preview.png',
         // './img/player/Kitsune/run/remove/Run_7-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png',
+        // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png'
     ];
     IMAGES_JUMP = [
         './img/player/Kitsune/jump/remove/Jump_1-removebg-preview.png',
@@ -42,7 +42,7 @@ class Character extends MovableObject {
         './img/player/Kitsune/jump/remove/Jump_7-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_8-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_9-removebg-preview.png',
-        './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png',
+        './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png'
     ];
     IMAGES_DEAD = [
         './img/player/Kitsune/dead/remove/Dead_1-removebg-preview.png',
@@ -70,7 +70,17 @@ class Character extends MovableObject {
         './img/player/Kitsune/attack_2/remove/Attack_2_7-removebg-preview.png',
         './img/player/Kitsune/attack_2/remove/Attack_2_8-removebg-preview.png',
         './img/player/Kitsune/attack_2/remove/Attack_2_9-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png',
+        './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png'
+    ];
+    IMAGES_IDLE = [
+        './img/player/Kitsune/idle/remove/Idle_1-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_2-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_3-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_4-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_5-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_6-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_7-removebg-preview.png',
+        './img/player/Kitsune/idle/remove/Idle_8-removebg-preview.png'
     ]
 
 
@@ -82,6 +92,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_THROW);
+        this.loadImages(this.IMAGES_IDLE);
 
         this.applyGravity();
 
@@ -109,10 +120,10 @@ class Character extends MovableObject {
 
         let gameOverScreen = new GameOverScreen();
 
-       setInterval(() => {
+        setInterval(() => {
 
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD.length);
+                // this.playAnimation(this.IMAGES_DEAD.length);
                 // gameOverScreen.drawGameOverScreen(this.world.ctx);
 
             } else if (this.isHurt()) {
@@ -124,13 +135,15 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.THROW) {
                 this.playAnimation(this.IMAGES_THROW);
 
-            } else {
+            } else
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
                     // Walk animation
                     this.playAnimation(this.IMAGES_WALK);
                 }
-            }
+                else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
         }, 100);
     }
 }
