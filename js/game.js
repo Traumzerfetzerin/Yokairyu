@@ -9,6 +9,11 @@ function init() {
 }
 
 
+function restartGame() {
+    location.reload();
+}
+
+
 window.addEventListener("keydown", (e) => {
     if (e.keyCode == 39 || e.keyCode == 68) {
         keyboard.RIGHT = true;
@@ -32,6 +37,11 @@ window.addEventListener("keydown", (e) => {
 
     if (e.keyCode == 69) {
         keyboard.THROW = true;
+    }
+
+    if (e.keyCode == 82) {
+        keyboard.RELOAD = true;
+        restartGame();
     }
 });
 
@@ -60,6 +70,11 @@ window.addEventListener("keyup", (e) => {
 
     if (e.keyCode == 69) {
         keyboard.THROW = false;
+    }
+
+    if (e.keyCode == 82) {
+        keyboard.RELOAD = false;
+        restartGame();
     }
 });
 
