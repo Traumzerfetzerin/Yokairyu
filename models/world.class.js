@@ -7,6 +7,7 @@ class World {
     camera_x = 0;
     statusbarHealth = new StatusbarHealth();
     statusbarCoins = new StatusbarCoins();
+    statusbarBottle = new StatusbarBottle();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
 
@@ -64,6 +65,7 @@ class World {
         // ----- space for fixed objects -----
         this.addToMap(this.statusbarHealth);
         this.addToMap(this.statusbarCoins);
+        this.addToMap(this.statusbarBottle);
 
         this.ctx.translate(this.camera_x, 0); // forwards
 
