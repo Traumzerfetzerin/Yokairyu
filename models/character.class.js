@@ -123,7 +123,7 @@ class Character extends MovableObject {
         setInterval(() => {
 
             if (this.isDead()) {
-                // this.playAnimation(this.IMAGES_DEAD.length);
+                this.playAnimation(this.IMAGES_DEAD);
                 // gameOverScreen.drawGameOverScreen(this.world.ctx);
 
             } else if (this.isHurt()) {

@@ -10,7 +10,7 @@ class StatusbarBottle extends DrawableObject {
 
 
     percentage = 0;
-
+    energy = 0;
 
     constructor() {
         super();
