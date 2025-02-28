@@ -9,13 +9,16 @@ class Bottles extends MovableObject {
         './img/shoot/shadow/44.png'
     ]
 
+
     constructor() {
         super().loadImage('./img/shoot/shadow/44.png');
         this.loadImages(this.IMAGES);
 
         this.x = this.getNonOverlappingX(500, 2000, 90);
 
+        this.type = 'bottle';
     }
+
 
     getNonOverlappingX(min, max, spacing) {
         let x;

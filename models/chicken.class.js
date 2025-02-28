@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
     width = 80;
     height = 80;
     y = 380;
+
     IMAGES_WALK = [
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
@@ -22,7 +23,7 @@ class Chicken extends MovableObject {
         './img/enemy/Spider/Spider_12.png',
     ];
 
-    
+
     constructor() {
         super().loadImage('./img/enemy/Spider/Spider_1.png');
         this.loadImages(this.IMAGES_WALK);

@@ -19,4 +19,14 @@ class ThrowableObject extends MovableObject {
             this.x += 10;
         }, 25);
     }
+
+
+    // checkCollisionsBottles() {
+    //     this.level.enemies.forEach((enemy) => {
+    //         if (this.character.isColliding(enemy)) {
+    //             // console.log('Collision with enemy detected', enemy);
+    //             this.enemies.hit();
+    //         }
+    //     });
+    // }
 }

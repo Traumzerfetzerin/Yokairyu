@@ -5,6 +5,8 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    collect = 0;
+    lastCollect = 100;
 
 
     applyGravity() {
@@ -41,6 +43,14 @@ class MovableObject extends DrawableObject {
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right &&
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
     }
+
+
+    // isColliding(mo) {
+    //     return this.x + this.width > mo.x &&
+    //         this.y + this.height > mo.y &&
+    //         this.x < mo.x + mo.width &&
+    //         this.y < mo.y + mo.height;
+    // }
 
 
     hit() {
@@ -92,7 +102,14 @@ class MovableObject extends DrawableObject {
     }
 
 
-    collect(){
-        
+    collectCoin() {
+        this.coinsCollected++;
+        console.log('Coins collected: ', this.coinsCollected);
+
+    }
+
+    collectBottle() {
+        this.bottlesCollected++;
+        console.log('Bottles collected: ', this.bottlesCollected);
     }
 }

@@ -2,7 +2,9 @@ class Level {
     enemies;
     clouds;
     coins;
+    totalCoins;
     bottles;
+    totalBottles;
     backgroundObjects;
     level_end_x = 2200;
 
@@ -10,7 +12,9 @@ class Level {
         this.enemies = enemies;
         this.clouds = clouds;
         this.coins = coins;
+        this.totalCoins = coins.length;
         this.bottles = bottles;
+        this.totalBottles = bottles.length;
         this.backgroundObjects = backgroundObjects;
     }
 }

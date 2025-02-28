@@ -7,11 +7,16 @@ class Character extends MovableObject {
     world;
 
     offset = {
-        top: 120,
-        left: 30,
-        right: 40,
-        bottom: 30
+        top: 0,
+        left: 15,
+        right: 15,
+        bottom: 0
     }
+
+    coinsCollected = 0;
+    bottlesCollected = 0;
+    lastCollect = 0;
+
 
     IMAGES_WALK = [
         './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
@@ -61,16 +66,28 @@ class Character extends MovableObject {
         './img/player/Kitsune/hurt/Hurt_2.png'
     ];
     IMAGES_THROW = [
-        './img/player/Kitsune/attack_2/remove/Attack_2_1-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_2-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_3-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_4-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_5-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_6-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_7-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_8-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_9-removebg-preview.png',
-        './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png'
+        // './img/player/Kitsune/attack_2/remove/Attack_2_1-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_2-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_3-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_4-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_5-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_6-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_7-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_8-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_9-removebg-preview.png',
+        // './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png'
+
+
+        './img/player/Kitsune/attack_1/remove/Attack_1_1-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_2-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_3-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_4-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_5-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_6-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_7-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_8-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_9-removebg-preview.png',
+        './img/player/Kitsune/attack_1/remove/Attack_1_10-removebg-preview.png'
     ];
     IMAGES_IDLE = [
         './img/player/Kitsune/idle/remove/Idle_1-removebg-preview.png',
@@ -121,7 +138,6 @@ class Character extends MovableObject {
         let gameOverScreen = new GameOverScreen();
 
         setInterval(() => {
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 // gameOverScreen.drawGameOverScreen(this.world.ctx);

@@ -3,6 +3,13 @@ class Coins extends MovableObject {
     height = 80;
     static positions = [];
 
+    offset = {
+        top: 10,
+        left: 10,
+        right: 10,
+        bottom: 10
+    }
+
     IMAGES = [
         './img/loot/shadow/19.png'
     ];
@@ -13,6 +20,8 @@ class Coins extends MovableObject {
 
         this.x = this.getNonOverlappingX(500, 2000, 90);
         this.y = 200 + Math.random() * 180;
+
+        this.type = 'coin';
     }
 
     getNonOverlappingX(min, max, spacing) {
