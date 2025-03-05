@@ -9,6 +9,11 @@ class Cloud extends MovableObject {
     ];
 
 
+    /**
+     * Initializes a new instance of the Cloud class.
+     * Loads the specified image and sets its initial x position to a random value between 0 and 500.
+     * Calls the animate() method to start animating the cloud.
+     */
     constructor() {
         super().loadImage('./img/background/4_clouds/1.png');
         this.x = Math.random() * 500;
@@ -16,6 +21,9 @@ class Cloud extends MovableObject {
     }
 
 
+    /**
+     * Animates the cloud by continuously moving it to the left at a rate of 60 frames per second.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();

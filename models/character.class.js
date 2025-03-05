@@ -101,6 +101,12 @@ class Character extends MovableObject {
     ]
 
 
+    /**
+     * Initializes a new instance of the Character class.
+     * Loads the initial image and all images for the character.
+     * Applies gravity to the character.
+     * Initializes all animations for the character.
+     */
     constructor() {
         super().loadImage('./img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
 
@@ -113,53 +119,134 @@ class Character extends MovableObject {
 
         this.applyGravity();
 
-        this.animate();
+        this.initAnimations();
     }
 
-    animate() {
+
+    /**
+     * Initializes all animations for the character.
+     * This function is called in the constructor of the Character class.
+     * It starts the movement handling, state animation and throw handling.
+     */
+    initAnimations() {
+        this.startMovementHandling();
+        this.startStateAnimation();
+        this.startThrowHandling();
+    }
+
+
+    /**
+     * Starts the movement handling for the character.
+     * This function is called in the constructor of the Character class.
+     * It starts an interval which calls the handleMovement() and updateCameraPosition() functions every 1/60th of a second.
+     * This allows the character to move and the camera to follow the character.
+     */
+    startMovementHandling() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                this.otherDirection = false;
-            }
-
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-            }
-
-            this.world.camera_x = -this.x + 100;
+            this.handleMovement();
+            this.updateCameraPosition();
         }, 1000 / 60);
+    }
 
+
+    /**
+     * Handles the movement of the character.
+     * This function is called in the startMovementHandling() function.
+     * It checks if the character should move left or right and if the character should jump.
+     * The character can only move left if it is not at the left edge of the screen and only move right if it is not at the right edge of the screen.
+     * The character can only jump if it is on the ground.
+     */
+    handleMovement() {
+        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+
+        if (this.world.keyboard.LEFT && this.x > 0) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+
+        if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+            this.jump();
+        }
+    }
+
+
+    /**
+     * Updates the camera position to follow the character.
+     * This function sets the camera's x position based on the character's
+     * current x position, ensuring that the character is always centered
+     * on the screen with an offset of 100 pixels.
+     */
+    updateCameraPosition() {
+        this.world.camera_x = -this.x + 100;
+    }
+
+
+    /**
+     * Starts the animation for the character's state by setting up a recurring
+     * interval. This interval calls the handleStateAnimation function every 100ms,
+     * passing in a new GameOverScreen instance. This function is responsible for
+     * updating the character's animation based on its current state, such as 
+     * whether it's dead, hurt, jumping, walking, or idle.
+     */
+    startStateAnimation() {
         let gameOverScreen = new GameOverScreen();
 
         setInterval(() => {
-            if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                // gameOverScreen.drawGameOverScreen(this.world.ctx);
-
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMP);
-
-            } else if (this.world.keyboard.THROW) {
-                this.playAnimation(this.IMAGES_THROW);
-
-            } else
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-
-                    // Walk animation
-                    this.playAnimation(this.IMAGES_WALK);
-                }
-                else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
+            this.handleStateAnimation(gameOverScreen);
         }, 100);
     }
+
+
+    /**
+     * Updates the character's animation based on its current state.
+     * If the character is dead, it plays the death animation and can 
+     * trigger the game over screen. If the character is hurt, it 
+     * plays the hurt animation. If the character is above ground, 
+     * it plays the jump animation. If the character is moving 
+     * right or left, it plays the walk animation. Otherwise, it 
+     * defaults to the idle animation.
+     *
+     * @param {GameOverScreen} gameOverScreen - The game over screen to be drawn if the character is dead.
+     */
+    handleStateAnimation(gameOverScreen) {
+        if (this.isDead()) {
+            this.playAnimation(this.IMAGES_DEAD);
+            // gameOverScreen.drawGameOverScreen(this.world.ctx);
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMP);
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALK); // Walk animation
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
+
+
+    /**
+     * Initializes the throw handling mechanism for the character.
+     * This function sets up an interval that repeatedly checks for
+     * the throw action every 50ms by calling the `handleThrow` method.
+     */
+    startThrowHandling() {
+        setInterval(() => {
+            this.handleThrow();
+        }, 50);
+    }
+
+
+    /**
+     * Handles the throw action for the character.
+     * If the character is throwing, it plays the throw animation.
+     */
+    handleThrow() {
+        if (this.world.keyboard.THROW) {
+            this.playAnimation(this.IMAGES_THROW);
+        }
+    }
+
 }

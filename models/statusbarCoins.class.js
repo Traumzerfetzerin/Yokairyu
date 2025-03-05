@@ -9,6 +9,11 @@ class StatusbarCoins extends DrawableObject {
     ];
 
 
+    /**
+     * Initializes a new instance of the StatusbarCoins class.
+     * Loads images for the status bar and sets its initial position
+     * and dimensions. The percentage is initially set to 0.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);

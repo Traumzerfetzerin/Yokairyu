@@ -3,12 +3,23 @@ let world;
 let keyboard = new Keyboard();
 
 
+/**
+ * Initializes the game by setting up the canvas and creating a new World instance.
+ * This function retrieves the canvas element from the DOM and instantiates the
+ * World object with the canvas and keyboard controls, starting the game environment.
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
 }
 
 
+/**
+ * Reloads the current webpage to restart the game.
+ * This function is triggered to refresh the game environment
+ * by reloading the browser, effectively resetting all game
+ * states and progress.
+ */
 function restartGame() {
     location.reload();
 }
@@ -44,7 +55,6 @@ window.addEventListener("keydown", (e) => {
         restartGame();
     }
 });
-
 
 
 window.addEventListener("keyup", (e) => {

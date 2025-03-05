@@ -1,5 +1,11 @@
 class GameOverScreen {
 
+
+    /**
+     * Initializes a new instance of the GameOverScreen class.
+     * Loads the "lose" image and sets a flag to track whether the image has finished loading.
+     * When the image has finished loading, sets the flag to true.
+     */
     constructor() {
         this.loseImage = new Image();
         this.loseImage.src = './img/lose.png';
@@ -11,6 +17,11 @@ class GameOverScreen {
     }
 
 
+    /**
+     * Draws the game over screen by clearing the canvas, drawing the "lose" image, and
+     * displaying a message to press 'R' to restart the game.
+     * @param {CanvasRenderingContext2D} ctx - The canvas context to draw on.
+     */
     drawGameOverScreen(ctx) {
         if (this.isImageLoaded) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);

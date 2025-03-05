@@ -11,6 +11,11 @@ class StatusbarHealth extends DrawableObject {
     percentage = 100;
 
 
+    /**
+     * Initializes a new instance of the StatusbarHealth class.
+     * Loads the initial health bar image and sets its initial position and dimensions.
+     * Sets the initial health percentage to 100.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -30,6 +35,17 @@ class StatusbarHealth extends DrawableObject {
     }
 
 
+    /**
+     * Calculates the index of the image to display based on the `percentage` property.
+     * The index is determined by the following rules:
+     * - 100%: 5
+     * - 80% - 99%: 4
+     * - 60% - 79%: 3
+     * - 40% - 59%: 2
+     * - 20% - 39%: 1
+     * - 0% - 19%: 0
+     * @returns {number} The index of the image to display.
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;

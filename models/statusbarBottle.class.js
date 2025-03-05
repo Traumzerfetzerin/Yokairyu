@@ -9,6 +9,11 @@ class StatusbarBottle extends DrawableObject {
     ]
 
 
+    /**
+     * Initializes a new instance of the StatusbarBottle class.
+     * Loads images for the status bar and sets its initial position
+     * and dimensions. The percentage is initially set to 0.
+     */
     constructor() {
         super();
         this.loadImages(this.IMAGES);
@@ -17,5 +22,5 @@ class StatusbarBottle extends DrawableObject {
         this.width = 200;
         this.height = 60;
         this.setPercentage(0)
-    } 
+    }
 }

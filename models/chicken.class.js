@@ -24,6 +24,13 @@ class Chicken extends MovableObject {
     ];
 
 
+    /**
+     * Initializes a new instance of the Chicken class.
+     * Loads the first image for the chicken and all images for the chicken's walk animation.
+     * Sets the chicken's x position to a random value between 200 and 700.
+     * Sets the chicken's speed to a random value between 0.15 and 0.40.
+     * Starts the chicken's animation.
+     */
     constructor() {
         super().loadImage('./img/enemy/Spider/Spider_1.png');
         this.loadImages(this.IMAGES_WALK);
@@ -34,6 +41,11 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * Animates the chicken by continuously moving it to the left, playing its walk animation,
+     * and checking if it is dead to change its image. The movement and animation are updated
+     * at different intervals, and the dead check occurs every second.
+     */
     animate() {
         setInterval(() => {
             this.moveLeft();
@@ -45,5 +57,11 @@ class Chicken extends MovableObject {
         }, 100);
 
         this.moveLeft();
+
+        setInterval(() => {
+            if (this.isDead()) {
+                this.loadImage('./img/enemy/Spider/Spider_6.png')
+            }
+        }, 1000);
     }
 }
