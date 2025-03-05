@@ -10,6 +10,7 @@ class World {
     statusbarBottle = new StatusbarBottle();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
+    audioCollectLoot = new Audio('./audio/collectShoot.mp3');
 
 
     /**
@@ -140,13 +141,14 @@ class World {
     /**
      * Checks for collisions between the character and all bottles in the level.
      * If a collision is detected, the character collects the bottle by calling the
-     * handleBottleCollision function, which increments the character's bottle count and
-     * updates the bottle status bar to reflect the new bottle count.
+     * handleBottleCollision function, which increments the character's bottle count
+     * and updates the bottle status bar to reflect the new number of bottles collected.
      */
     checkBottleCollisions() {
         this.level.bottles.forEach((bottle, b) => {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
+                this.audioCollectLoot.play();
             }
         });
     }

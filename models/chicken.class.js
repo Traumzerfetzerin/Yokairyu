@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
     width = 80;
     height = 80;
     y = 380;
+    audioWalk = new Audio('./audio/spiderWalk.mp3');
 
     IMAGES_WALK = [
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -42,9 +43,9 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Animates the chicken by continuously moving it to the left, playing its walk animation,
-     * and checking if it is dead to change its image. The movement and animation are updated
-     * at different intervals, and the dead check occurs every second.
+     * Animates the chicken by continuously moving it to the left at a rate of 60 frames per second.
+     * Plays the chicken's walk animation and plays the chicken's walk sound every 100 milliseconds.
+     * If the chicken is dead, its image is changed to the death image every 1000 milliseconds.
      */
     animate() {
         setInterval(() => {
@@ -54,6 +55,8 @@ class Chicken extends MovableObject {
 
         setInterval(() => {
             this.playAnimation(this.IMAGES_WALK)
+            this.audioWalk.play();
+            this.audioWalk.volume = 0.02;
         }, 100);
 
         this.moveLeft();

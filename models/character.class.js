@@ -6,6 +6,12 @@ class Character extends MovableObject {
     speed = 5;
     world;
 
+    // audio
+    audioWalk = new Audio('./audio/playerWalk.mp3');
+    audioJump = new Audio('./audio/playerJump.mp3');
+    audioShoot = new Audio('./audio/playerShoot.mp3');
+    audioHurt = new Audio('./audio/playerHurt.mp3');
+
     offset = {
         top: 0,
         left: 15,
@@ -151,24 +157,28 @@ class Character extends MovableObject {
 
     /**
      * Handles the movement of the character.
-     * This function is called in the startMovementHandling() function.
-     * It checks if the character should move left or right and if the character should jump.
-     * The character can only move left if it is not at the left edge of the screen and only move right if it is not at the right edge of the screen.
-     * The character can only jump if it is on the ground.
+     * This function is called at a 60 frames per second interval.
+     * It checks if the character is allowed to move left or right and if the character is allowed to jump.
+     * If the character is allowed to move left or right, it moves the character and starts the walk animation.
+     * If the character is allowed to jump, it makes the character jump and starts the jump animation.
      */
     handleMovement() {
         if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
+            this.audioWalk.play();
+            sound
         }
 
         if (this.world.keyboard.LEFT && this.x > 0) {
             this.moveLeft();
             this.otherDirection = true;
+            this.audioWalk.play();
         }
 
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+            this.audioJump.play();
         }
     }
 
@@ -202,14 +212,13 @@ class Character extends MovableObject {
 
     /**
      * Updates the character's animation based on its current state.
-     * If the character is dead, it plays the death animation and can 
-     * trigger the game over screen. If the character is hurt, it 
-     * plays the hurt animation. If the character is above ground, 
-     * it plays the jump animation. If the character is moving 
-     * right or left, it plays the walk animation. Otherwise, it 
-     * defaults to the idle animation.
-     *
-     * @param {GameOverScreen} gameOverScreen - The game over screen to be drawn if the character is dead.
+     * 
+     * This function is called at a 100ms interval and takes a GameOverScreen
+     * instance as a parameter. It checks if the character is dead, hurt, jumping,
+     * walking, or idle, and plays the corresponding animation. If the character
+     * is dead, it displays the game over screen.
+     * @param {GameOverScreen} gameOverScreen - The game over screen to display
+     *                                          when the character is dead.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
@@ -217,6 +226,7 @@ class Character extends MovableObject {
             // gameOverScreen.drawGameOverScreen(this.world.ctx);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
+            this.audioHurt.play();
         } else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMP);
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -240,13 +250,13 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the throw action for the character.
-     * If the character is throwing, it plays the throw animation.
+     * Handles the throw action for the character by playing the throw animation and
+     * the shoot sound effect if the throw action is triggered.
      */
     handleThrow() {
         if (this.world.keyboard.THROW) {
             this.playAnimation(this.IMAGES_THROW);
+            this.audioShoot.play();
         }
     }
-
 }
