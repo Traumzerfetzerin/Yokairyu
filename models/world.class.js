@@ -12,7 +12,7 @@ class World {
     gameOverScreen = new GameOverScreen();
 
     // audio
-    audioBackground = new Audio('./audio/background.mp3');
+    audioBackground = new Audio('./audio/backgroundSound.mp3');
     audioCollectLoot = new Audio('./audio/collectShoot.mp3');
 
 
@@ -30,7 +30,7 @@ class World {
         this.setWorld();
         this.run();
         this.audioBackground.play();
-        this.audioBackground.volume = 0.5;
+        this.audioBackground.volume = 0.1;
     }
 
 
