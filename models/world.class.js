@@ -13,7 +13,8 @@ class World {
 
     // audio
     audioBackground = new Audio('./audio/backgroundSound.mp3');
-    audioCollectLoot = new Audio('./audio/collectShoot.mp3');
+    audioCollectShoot = new Audio('./audio/collectShoot.mp3');
+    audioCollectLoot = new Audio('./audio/collectLoot.mp3');
 
 
     /**
@@ -120,6 +121,7 @@ class World {
         this.level.coins.forEach((coin, c) => {
             if (this.character.isColliding(coin)) {
                 this.handleCoinCollision(coin, c);
+                this.audioCollectLoot.play();
             }
         });
     }
@@ -153,7 +155,7 @@ class World {
         this.level.bottles.forEach((bottle, b) => {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
-                this.audioCollectLoot.play();
+                this.audioCollectShoot.play();
             }
         });
     }
