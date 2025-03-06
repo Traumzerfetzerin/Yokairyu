@@ -156,29 +156,87 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the movement of the character.
-     * This function is called at a 60 frames per second interval.
-     * It checks if the character is allowed to move left or right and if the character is allowed to jump.
-     * If the character is allowed to move left or right, it moves the character and starts the walk animation.
-     * If the character is allowed to jump, it makes the character jump and starts the jump animation.
+     * Handles the character's movement.
+     * This function is called in the interval started in the startMovementHandling() function.
+     * It checks if the character can move in the given direction and if the key for the direction is pressed.
+     * If the conditions are met, the character moves in the given direction and walking is set to true.
+     * The character's otherDirection is also set to indicate which direction the character is moving.
+     * The walking state is then passed to the handleWalkingAudio() function to handle the walking sound.
+     * The character's jumping is also handled by calling the handleJump() function.
      */
     handleMovement() {
-        if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-            this.moveRight();
-            this.otherDirection = false;
-            this.audioWalk.play();
-            sound
-        }
+        let walking = false;
 
-        if (this.world.keyboard.LEFT && this.x > 0) {
-            this.moveLeft();
-            this.otherDirection = true;
-            this.audioWalk.play();
-        }
+        walking = this.handleWalking(walking, 'RIGHT', false);
 
+        walking = this.handleWalking(walking, 'LEFT', true);
+
+        this.handleWalkingAudio(walking);
+
+        this.handleJump();
+    }
+
+
+    /**
+     * Handles the character's walking.
+     * Checks if the character can move in the given direction and if the key for the direction is pressed.
+     * If the conditions are met, the character moves in the given direction and walking is set to true.
+     * The character's otherDirection is also set to indicate which direction the character is moving.
+     * @param {boolean} walking - Whether the character is currently walking.
+     * @param {string} direction - The direction the character is moving in. Can be 'LEFT' or 'RIGHT'.
+     * @param {boolean} isLeft - Whether the character is moving to the left or not.
+     * @return {boolean} Walking state of the character.
+     */
+    handleWalking(walking, direction, isLeft) {
+        if (this.world.keyboard[direction] && (isLeft ? this.x > 0 : this.x < this.world.level.level_end_x)) {
+            if (isLeft) {
+                this.moveLeft();
+            } else {
+                this.moveRight();
+            }
+            this.otherDirection = isLeft;
+            walking = true;
+        }
+        return walking;
+    }
+
+
+    /**
+     * Plays or pauses the walking audio based on the character's walking state.
+     *
+     * If the character is walking, the walking audio is played if currently paused.
+     * If the character is not walking, the walking audio is paused and reset to the beginning.
+     *
+     * @param {boolean} walking - Indicates whether the character is currently walking.
+     */
+    handleWalkingAudio(walking) {
+        if (walking) {
+            if (this.audioWalk.paused) {
+                this.audioWalk.play();
+            }
+        } else {
+            this.audioWalk.pause();
+            this.audioWalk.currentTime = 0;
+        }
+    }
+
+
+    /**
+     * Handles the jump action for the character by calling the jump() function when the space key is pressed and the character is above the ground.
+     * This function is called in the handleMovement() function.
+     * It also plays the jump sound effect when the jump action is triggered.
+     */
+    handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
+
+            this.audioJump.currentTime = 0;
             this.audioJump.play();
+
+            setTimeout(() => {
+                this.audioJump.pause();
+                this.audioJump.currentTime = 0;
+            }, 2000);
         }
     }
 
@@ -250,13 +308,30 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the throw action for the character by playing the throw animation and
-     * the shoot sound effect if the throw action is triggered.
+     * Handles the throw action for the character.
+     *
+     * This function checks if the throw key is pressed.
+     * If so, it plays the throw animation and the shoot audio.
+     * The audio is played if it is currently paused and is 
+     * stopped after 2 seconds. If the throw key is not pressed, 
+     * the audio is paused and reset to 1 second.
      */
     handleThrow() {
         if (this.world.keyboard.THROW) {
             this.playAnimation(this.IMAGES_THROW);
-            this.audioShoot.play();
+
+            if (this.audioShoot.paused) {
+                this.audioShoot.currentTime = 1;
+                this.audioShoot.play();
+
+                setTimeout(() => {
+                    this.audioShoot.pause();
+                    this.audioShoot.currentTime = 1;
+                }, 2000);
+            }
+        } else {
+            this.audioShoot.pause();
+            this.audioShoot.currentTime = 1;
         }
     }
 }
