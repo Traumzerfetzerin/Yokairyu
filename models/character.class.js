@@ -11,6 +11,7 @@ class Character extends MovableObject {
     audioJump = new Audio('./audio/playerJump.mp3');
     audioShoot = new Audio('./audio/playerShoot.mp3');
     audioHurt = new Audio('./audio/playerHurt.mp3');
+    audioDead = new Audio('./audio/playerDead.mp3');
 
     offset = {
         top: 0,
@@ -281,6 +282,7 @@ class Character extends MovableObject {
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
+            this.audioDead.play();
             // gameOverScreen.drawGameOverScreen(this.world.ctx);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);

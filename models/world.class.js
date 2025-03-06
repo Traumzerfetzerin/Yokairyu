@@ -10,15 +10,17 @@ class World {
     statusbarBottle = new StatusbarBottle();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
-    
+
+    // audio
+    audioBackground = new Audio('./audio/background.mp3');
     audioCollectLoot = new Audio('./audio/collectShoot.mp3');
 
 
     /**
-     * Initializes the World object with the given canvas and keyboard.
-     * Sets up the context and canvas attributes, and calls the draw() and setWorld() methods.
-     * @param {HTMLCanvasElement} canvas - The canvas to draw on.
-     * @param {Keyboard} keyboard - The keyboard object to handle user input.
+     * Initializes the World object by setting the canvas and keyboard, drawing the world, setting the world of the character,
+     * starting the game loop, and playing the background music.
+     * @param {HTMLCanvasElement} canvas - The canvas element to draw the world on.
+     * @param {Keyboard} keyboard - The keyboard object to register key presses with.
      */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -27,6 +29,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.audioBackground.play();
+        this.audioBackground.volume = 0.5;
     }
 
 
