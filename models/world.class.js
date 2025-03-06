@@ -156,6 +156,7 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
                 this.audioCollectShoot.play();
+                this.audioCollectShoot.volume = 0.2;
             }
         });
     }
