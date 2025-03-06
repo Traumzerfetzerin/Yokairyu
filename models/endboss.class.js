@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
     height = 500;
     y = -20;
 
+    audioDragonRoar = new Audio('./audio/DragonRoar.mp3');
+
     IMAGES_WALK = [
         // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
         // './img/endboss/4_enemie_boss_chicken/2_alert/G6.png',
@@ -83,16 +85,23 @@ class Endboss extends MovableObject {
     }
 
 
-    /**
-     * Starts the animation of the endboss by creating a combined image of the
-     * body and the current head every 500ms. This function is called in the
-     * constructor of the Endboss class.
-     */
     startAnimationEndboss() {
         setInterval(() => {
             this.toggleHead();
             this.createCombinedImage();
+
+            if (this.isCharacterInRange()) {
+                this.audioDragonRoar.play();
+                this.audioDragonRoar.volume = 0.5;
+            }
         }, 500);
+    }
+
+
+    isCharacterInRange() {
+        // Hier prüfst du, ob der Charakter nahe genug an dem Drachen ist.
+        // Zum Beispiel, wenn der Charakter X-Koordinate zwischen 1900 und 2100 hat:
+        // return this.world.character.x > 1900 && this.world.character.x < 2100;
     }
 
 
