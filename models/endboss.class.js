@@ -85,23 +85,37 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * Starts the animation for the endboss.
+     * This function is called in the constructor of the Endboss class.
+     * It toggles the current head of the endboss between 1 and 2 every 500 milliseconds and
+     * creates a combined image with the current head and the body of the endboss.
+     * If the character is in range of the endboss (i.e. x > 1660 and x < 2000) and the
+     * dragon roar sound has not been played yet, it plays the sound and sets the volume to 0.5.
+     * @private
+     */
     startAnimationEndboss() {
+        let hasPlayedDragonRoar = false;
+
         setInterval(() => {
             this.toggleHead();
             this.createCombinedImage();
 
-            if (this.isCharacterInRange()) {
+            if (this.isCharacterInRange() && !hasPlayedDragonRoar) {
                 this.audioDragonRoar.play();
                 this.audioDragonRoar.volume = 0.5;
+                hasPlayedDragonRoar = true;
             }
         }, 500);
     }
 
 
+    /**
+     * Checks if the character is in range of the endboss.
+     * @return {boolean} true if the character is in range, false otherwise.
+     */
     isCharacterInRange() {
-        // Hier prüfst du, ob der Charakter nahe genug an dem Drachen ist.
-        // Zum Beispiel, wenn der Charakter X-Koordinate zwischen 1900 und 2100 hat:
-        // return this.world.character.x > 1900 && this.world.character.x < 2100;
+        return world.character.x > 1660 && world.character.x < 2000;
     }
 
 
