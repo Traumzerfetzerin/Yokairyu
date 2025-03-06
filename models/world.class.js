@@ -10,6 +10,7 @@ class World {
     statusbarBottle = new StatusbarBottle();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
+    
     audioCollectLoot = new Audio('./audio/collectShoot.mp3');
 
 

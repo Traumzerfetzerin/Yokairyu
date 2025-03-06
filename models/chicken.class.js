@@ -2,6 +2,7 @@ class Chicken extends MovableObject {
     width = 80;
     height = 80;
     y = 380;
+    
     audioWalk = new Audio('./audio/spiderWalk.mp3');
 
     IMAGES_WALK = [

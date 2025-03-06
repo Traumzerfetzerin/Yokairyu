@@ -11,13 +11,13 @@ class Cloud extends MovableObject {
 
     /**
      * Initializes a new instance of the Cloud class.
-     * Loads the specified image and sets its initial x position to a random value between 0 and 500.
-     * Calls the animate() method to start animating the cloud.
+     * Loads the first image for the cloud and starts its animation.
+     * Sets a non-overlapping random x position within a specified range.
      */
     constructor() {
         super().loadImage('./img/background/4_clouds/1.png');
-        this.x = Math.random() * 500;
         this.animate();
+        this.x = this.getNonOverlappingX(0, 2000, 90);
     }
 
 
@@ -28,5 +28,30 @@ class Cloud extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60);
+    }
+
+
+    /**
+     * Generates a random x position within the given range that does not overlap with existing cloud positions.
+     * Attempts to find a non-overlapping position up to 100 times; returns null if unsuccessful.
+     * @param {number} min - The minimum x position.
+     * @param {number} max - The maximum x position.
+     * @param {number} spacing - The minimum required spacing between clouds.
+     * @returns {number|null} The generated x position or null if no non-overlapping position could be found.
+     */
+    getNonOverlappingX(min, max, spacing) {
+        let x;
+        let attempts = 100;
+        do {
+            x = min + Math.random() * (max - min);
+            attempts--;
+        } while (Coins.positions.some(pos => Math.abs(pos - x) < spacing) && attempts > 0);
+
+        if (attempts > 0) {
+            Coins.positions.push(x);
+            return x;
+        } else {
+            return null;
+        }
     }
 }
