@@ -227,24 +227,24 @@ class World {
 
 
     /**
-     * Clears the canvas, translates the canvas to the character's position, draws the background objects,
-     * resets the canvas translation, draws the fixed objects, translates the canvas again, draws the character,
-     * draws the dynamic objects, resets the canvas translation again, and requests the next frame.
+     * Draws the entire game world by clearing the canvas, drawing the background objects,
+     * translating the camera to the character's position, drawing the character, drawing
+     * the dynamic objects, and finally drawing the fixed objects. The translation is reset
+     * after each step to ensure that the next step draws from the correct position. Finally,
+     * the next frame is requested.
      */
     draw() {
         this.clearCanvas();
         this.translateCamera();
-
         this.drawBackgroundObjects();
         this.resetCameraTranslation();
-
-        this.drawFixedObjects();
         this.translateCamera();
-
         this.drawCharacter();
         this.drawDynamicObjects();
         this.resetCameraTranslation();
-
+        this.drawFixedObjects();
+        this.translateCamera();
+        this.resetCameraTranslation();
         this.requestNextFrame();
     }
 
