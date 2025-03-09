@@ -15,23 +15,51 @@ class World {
     audioBackground = new Audio('./audio/backgroundSound.mp3');
     audioCollectShoot = new Audio('./audio/collectShoot.mp3');
     audioCollectLoot = new Audio('./audio/collectLoot.mp3');
+    audioSpiderDead = new Audio('./audio/spiderDead.mp3');
 
 
     /**
-     * Initializes the World object by setting the canvas and keyboard, drawing the world, setting the world of the character,
-     * starting the game loop, and playing the background music.
-     * @param {HTMLCanvasElement} canvas - The canvas element to draw the world on.
-     * @param {Keyboard} keyboard - The keyboard object to register key presses with.
+     * Constructor for the World class.
+     * @param {HTMLCanvasElement} canvas The canvas element to draw the world onto.
+     * @param {Keyboard} keyboard The keyboard object to use for key presses.
+     * Initializes the canvas 2D context, sets the canvas and keyboard properties, sets the audio background,
+     * draws the world, sets the world and runs the game.
      */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+
         this.draw();
         this.setWorld();
         this.run();
-        this.audioBackground.play();
-        this.audioBackground.volume = 0.1;
+
+        this.enableAudioOnUserInteraction();
+    }
+
+
+    /**
+     * Enables audio playback after the user has interacted with the page to comply with autoplay policies.
+     * It listens for the first click or keydown event on the page and then starts the audio background.
+     * This function is called in the constructor of the World class.
+     */
+    enableAudioOnUserInteraction() {
+        let playAudio = () => {
+            this.audioBackground.loop = true;
+            this.audioBackground.volume = 0.1;
+
+            this.audioBackground.play().then(() => {
+                console.log("Audio started.");
+            }).catch(error => {
+                console.log("Error during playback:", error);
+            });
+
+            document.removeEventListener("click", playAudio);
+            document.removeEventListener("keydown", playAudio);
+        };
+
+        document.addEventListener("click", playAudio, { once: true });
+        document.addEventListener("keydown", playAudio, { once: true });
     }
 
 
@@ -56,14 +84,25 @@ class World {
     }
 
 
-    /**
-     * Checks for collisions between the character and any bottles that are currently 
-     * in the level. If a collision is detected, the character collects the bottle and
-     * the bottle is removed from the level.
-     */
-    checkCollisionsBottles() {
+    checkCharacterHitEnemy() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isCollidingEnemy(enemy)) {
+                this.enemyIsDead(enemy);
+                enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                this.audioSpiderDead.play();
+                this.audioSpiderDead.volume = 0.2;
+            }
+        });
+    };
 
-    }
+
+    /**
+     * Sets the energy of the given enemy to 0, effectively killing it.
+     * @param {Enemy} enemy - The enemy to kill.
+     */
+    enemyIsDead(enemy) {
+        enemy.energy = 0;
+    };
 
 
     /**
@@ -90,6 +129,7 @@ class World {
      * respective collision handling functions.
      */
     checkCollisions() {
+        this.checkCharacterHitEnemy();
         this.checkEnemyCollisions();
         this.checkCoinCollisions();
         this.checkBottleCollisions();
@@ -157,9 +197,15 @@ class World {
                 this.handleBottleCollision(bottle, b);
                 this.audioCollectShoot.play();
                 this.audioCollectShoot.volume = 0.2;
+
+                setTimeout(() => {
+                    this.audioCollectShoot.pause();
+                    this.audioCollectShoot.currentTime = 0;
+                }, 550);
             }
         });
     }
+
 
 
     /**

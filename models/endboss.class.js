@@ -3,7 +3,7 @@ class Endboss extends MovableObject {
     height = 500;
     y = -20;
 
-    audioDragonRoar = new Audio('./audio/DragonRoar.mp3');
+    audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
 
     IMAGES_WALK = [
         // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
@@ -103,7 +103,7 @@ class Endboss extends MovableObject {
 
             if (this.isCharacterInRange() && !hasPlayedDragonRoar) {
                 this.audioDragonRoar.play();
-                this.audioDragonRoar.volume = 0.5;
+                this.audioDragonRoar.volume = 0.05;
                 hasPlayedDragonRoar = true;
             }
         }, 500);

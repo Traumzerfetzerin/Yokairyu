@@ -2,7 +2,8 @@ class Chicken extends MovableObject {
     width = 80;
     height = 80;
     y = 380;
-    
+    energy = 1;
+
     audioWalk = new Audio('./audio/spiderWalk.mp3');
 
     IMAGES_WALK = [
@@ -44,28 +45,44 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Animates the chicken by continuously moving it to the left at a rate of 60 frames per second.
-     * Plays the chicken's walk animation and plays the chicken's walk sound every 100 milliseconds.
-     * If the chicken is dead, its image is changed to the death image every 1000 milliseconds.
+     * Animates the chicken by continuously moving it to the left and playing the walk animation.
      */
     animate() {
-        setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60);
+        this.startMovingLeft();
+        this.startWalkingAnimation();
+    }
 
 
-        setInterval(() => {
-            this.playAnimation(this.IMAGES_WALK)
-            this.audioWalk.play();
-            this.audioWalk.volume = 0.02;
-        }, 100);
-
-        this.moveLeft();
-
-        setInterval(() => {
-            if (this.isDead()) {
-                this.loadImage('./img/enemy/Spider/Spider_6.png')
+    /**
+     * Starts an interval that moves the chicken to the left by calling the `moveLeft` method
+     * every 1/60th of a second, as long as the chicken's energy is greater than or equal to 0.
+     * If the energy reaches 0, the interval is cleared to stop the movement.
+     */
+    startMovingLeft() {
+        let moveLeft = setInterval(() => {
+            if (this.energy >= 0) {
+                this.moveLeft();
+            } else {
+                clearInterval(moveLeft);
             }
-        }, 1000);
+        }, 1000 / 60);
+    }
+
+
+    /**
+     * Starts an interval that updates the chicken's animation and plays the walk sound effect
+     * every 100ms, as long as the chicken's energy is greater than or equal to 0.
+     * If the energy reaches 0, the interval is cleared to stop the animation and sound.
+     */
+    startWalkingAnimation() {
+        let walkAnimation = setInterval(() => {
+            if (this.energy >= 0) {
+                this.playAnimation(this.IMAGES_WALK);
+                this.audioWalk.play();
+                this.audioWalk.volume = 0.05;
+            } else {
+                clearInterval(walkAnimation);
+            }
+        }, 100);
     }
 }

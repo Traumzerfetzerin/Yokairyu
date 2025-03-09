@@ -12,17 +12,20 @@ class Bottles extends MovableObject {
 
     /**
      * Initializes a new instance of the Bottles class.
-     * Loads the initial image and all images for the bottles.
+     * Loads the initial bottle image and all images for the bottles.
      * Sets a non-overlapping random x position within a specified range.
-     * Initializes the bottle type.
+     * Sets the type of the bottle to 'bottle'.
+     * Spawns the bottle.
      */
     constructor() {
         super().loadImage('./img/shoot/shadow/44.png');
         this.loadImages(this.IMAGES);
 
-        this.x = this.getNonOverlappingX(500, 2000, 90);
+        this.x = this.getNonOverlappingX(500, 1660, 90);
 
         this.type = 'bottle';
+
+        this.spawnBottle();
     }
 
 
@@ -48,5 +51,18 @@ class Bottles extends MovableObject {
         } else {
             return null;
         }
+    }
+
+
+    /**
+     * Spawns a new bottle every 10 seconds at a random x position that does not overlap with already existing bottle positions.
+     * The new bottle is added to the level's bottles array.
+     */
+    spawnBottle() {
+        setInterval(() => {
+            let bottle = new Bottles();
+            bottle.x = this.getNonOverlappingX(500, 1660, 90);
+            world.level.bottles.push(bottle);
+        }, 10000)
     }
 }

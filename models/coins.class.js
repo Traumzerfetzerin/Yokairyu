@@ -25,7 +25,7 @@ class Coins extends MovableObject {
         super().loadImage('./img/loot/shadow/19.png');
         this.loadImages(this.IMAGES);
 
-        this.x = this.getNonOverlappingX(500, 2000, 90);
+        this.x = this.getNonOverlappingX(500, 1660, 90);
         this.y = 200 + Math.random() * 180;
 
         this.type = 'coin';

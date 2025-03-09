@@ -51,6 +51,15 @@ class MovableObject extends DrawableObject {
 
 
     // character.isColliding(chicken);
+
+    /**
+     * Checks if the object is colliding with another object.
+     * The collision check is done by comparing the object's bounding box with the other object's bounding box.
+     * The bounding box is defined by the object's x and y coordinates as well as its width and height.
+     * The offset object can be used to adjust the bounding box of the object.
+     * @param {MovableObject} mo - The other object to check for collision with.
+     * @return {boolean} True if the object is colliding with the other object, false otherwise.
+     */
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left &&
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top &&
@@ -59,12 +68,19 @@ class MovableObject extends DrawableObject {
     }
 
 
-    // isColliding(mo) {
-    //     return this.x + this.width > mo.x &&
-    //         this.y + this.height > mo.y &&
-    //         this.x < mo.x + mo.width &&
-    //         this.y < mo.y + mo.height;
-    // }
+    /**
+     * Checks if the object is colliding with an enemy object from below.
+     * This check is done by comparing the object's bounding box with the enemy object's bounding box.
+     * The bounding box is defined by the object's x and y coordinates as well as its width and height.
+     * The check is done by verifying that the object's bottom edge is above the enemy object's top edge
+     * and that the object's left edge is to the right of the enemy object's left edge and to the left of the enemy object's right edge.
+     * @param {MovableObject} mo - The enemy object to check for collision with.
+     * @return {boolean} True if the object is colliding with the enemy object from below, false otherwise.
+     */
+    isCollidingEnemy(mo) {
+        // console.log(`${this. y + this.height < mo.y} && ${this.x + this.width > mo.x} && ${this.x < mo.x + mo.width}`);
+        return this.y + this.height < mo.y && this.x + this.width > mo.x && this.x < mo.x + mo.width;
+    }
 
 
     /**
@@ -172,6 +188,6 @@ class MovableObject extends DrawableObject {
      */
     collectBottle() {
         this.bottlesCollected++;
-        console.log('Bottles collected: ', this.bottlesCollected);
+        // console.log('Bottles collected: ', this.bottlesCollected);
     }
 }

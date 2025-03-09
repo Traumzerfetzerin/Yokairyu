@@ -214,7 +214,7 @@ class Character extends MovableObject {
         if (walking) {
             if (this.audioWalk.paused) {
                 this.audioWalk.play();
-                this.audioWalk.volume = 0.5;
+                this.audioWalk.volume = 0.2;
             }
         } else {
             this.audioWalk.pause();
@@ -285,12 +285,12 @@ class Character extends MovableObject {
         if (this.isDead()) {
             this.playAnimation(this.IMAGES_DEAD);
             this.audioDead.play();
-            this.audioDead.volume = 0.2;
+            this.audioDead.volume = 0.05;
             // gameOverScreen.drawGameOverScreen(this.world.ctx);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.audioHurt.play();
-            this.audioHurt.volume = 0.3;
+            this.audioHurt.volume = 0.1;
         } else if (this.isAboveGround()) {
             this.playAnimation(this.IMAGES_JUMP);
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
