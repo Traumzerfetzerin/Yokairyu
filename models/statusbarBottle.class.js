@@ -1,11 +1,19 @@
 class StatusbarBottle extends DrawableObject {
     IMAGES = [
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
-        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/20.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/40.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/60.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
+        // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
+
+
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_0.png',
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_20.png',
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_40.png',
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_60.png',
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_80.png',
+        './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_100.png'
     ]
 
 
@@ -18,7 +26,8 @@ class StatusbarBottle extends DrawableObject {
         super();
         this.loadImages(this.IMAGES);
         this.x = 40;
-        this.y = 100;
+        // this.y = 100;
+        this.y = 110;
         this.width = 200;
         this.height = 60;
         this.setPercentage(0)
