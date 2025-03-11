@@ -8,6 +8,7 @@ class World {
     statusbarHealth = new StatusbarHealth();
     statusbarCoins = new StatusbarCoins();
     statusbarBottle = new StatusbarBottle();
+    statusbarEndboss = new StatusbarEndboss();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
 
@@ -296,6 +297,7 @@ class World {
         this.addToMap(this.statusbarHealth);
         this.addToMap(this.statusbarCoins);
         this.addToMap(this.statusbarBottle);
+        this.addToMap(this.statusbarEndboss);
     }
 
 
