@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
     height = 500;
     y = -20;
 
+    statusbarEndboss = new StatusbarEndboss();
+
     audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
 
     IMAGES_WALK = [
