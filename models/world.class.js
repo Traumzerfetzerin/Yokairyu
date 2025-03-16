@@ -128,10 +128,10 @@ class World {
 
 
     /**
-     * Checks if the character is throwing and if they have any bottles to throw.
-     * If both conditions are true, a new ThrowableObject is created at the character's
-     * current position and added to the array of throwable objects, and the character's
-     * bottle count is decremented by 1.
+     * Checks if the throw key is pressed and if the character has collected bottles.
+     * If both conditions are met, a new ThrowableObject is created at the character's position,
+     * the character's bottle count is decremented, and the bottle statusbar is updated.
+     * If the character has no bottles, nothing is done.
      */
     checkThrowObjects() {
         if (this.keyboard.THROW) {
@@ -140,6 +140,10 @@ class World {
                 let bottle = new ThrowableObject(this.character.x + 100, this.character.y)
                 this.throwableObjects.push(bottle);
                 this.character.bottlesCollected--;
+
+                let collectedBottles = this.character.bottlesCollected;
+                let percentBottles = (collectedBottles / this.level.totalBottles) * 100;
+                this.statusbarBottle.setPercentage(percentBottles);
             }
         }
     }

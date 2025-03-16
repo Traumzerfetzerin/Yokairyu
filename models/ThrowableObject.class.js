@@ -18,38 +18,46 @@ class ThrowableObject extends MovableObject {
     }
 
 
-
+    /**
+     * Initiates the throwing animation of the object.
+     * Sets the vertical speed for the throw and applies gravity.
+     * The object's position is updated at a regular interval, moving it horizontally.
+     * Continuously checks for collisions with enemies.
+     * Stops the interval when the object goes beyond a vertical position of 500.
+     */
     throw() {
         this.speedY = 30;
         this.applyGravity();
 
-        let throwInterval = setInterval(() => {
-            if (thix.y > 400) {
-                window.clearInterval(throwInterval);
-            } else {
-                this.x += 10;
+        let intervallnummer = setInterval(() => {
+            this.checkBottleHitEnemy();
+            this.x += 10;
+            if (this.y > 500) {
+                window.clearInterval(intervallnummer)
             }
         }, 25);
     }
 
 
+    isBottleUsed = false;
+
+    /**
+     * Checks if the thrown bottle hits an enemy.
+     * If it does and the bottle has not been used yet, it marks the bottle as used and
+     * kills the enemy by calling the enemyIsDead function on the enemy object.
+     * It also plays the spider dead sound effect.
+     * If the bottle has already been used, it does nothing.
+     */
     checkBottleHitEnemy() {
-        this.bottle.forEach((enemy) => {
-            if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
-                this.isUsed = true;
-                let collidingInterval = setInterval(() => {
-                    if (this.character.isColliding(enemy)) {
-                        this.enemyIsDead(enemy);
-                        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-                        this.audioSpiderDead.play();
-                        this.audioSpiderDead.volume = 0.2;
-                        window.clearInterval(collidingInterval);
-                    };
-                }, 1000 / 60);
-                setTimeout(() => {
-                    window.clearInterval(collidingInterval);
-                }, 2000)
+        world.level.enemies.forEach((enemy) => {
+            // console.log(!this.isBottleUsed && this.isColliding(enemy));
+            if (!this.isBottleUsed && this.isColliding(enemy)) {
+                this.isBottleUsed = true
+                this.enemyIsDead(enemy);
+                enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                this.audioSpiderDead.play();
+                this.audioSpiderDead.volume = 0.2;
             }
         });
-    };
+    }
 }
