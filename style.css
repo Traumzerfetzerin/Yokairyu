@@ -5,6 +5,9 @@ body {
     background-image: url('./img/background.png');
     color: #FF6046;
     background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 canvas {
@@ -21,6 +24,8 @@ html {
 
     src: url('./fonts/Grechen_Fuemen/GrechenFuemen-Regular.ttf');
 }
+
+
 
 h1 {
     font-size: 100px;

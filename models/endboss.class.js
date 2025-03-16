@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     y = -20;
+    energy = 1;
 
     statusbarEndboss = new StatusbarEndboss();
 
