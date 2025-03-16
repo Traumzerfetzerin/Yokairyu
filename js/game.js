@@ -4,9 +4,8 @@ let keyboard = new Keyboard();
 
 
 /**
- * Initializes the game by setting up the canvas and creating a new World instance.
- * This function retrieves the canvas element from the DOM and instantiates the
- * World object with the canvas and keyboard controls, starting the game environment.
+ * Initializes the game by getting the canvas element and creating a new
+ * World object with the canvas and Keyboard object.
  */
 function init() {
     canvas = document.getElementById('canvas');

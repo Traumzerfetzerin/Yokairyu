@@ -18,15 +18,38 @@ class ThrowableObject extends MovableObject {
     }
 
 
-    /**
-     * Animates the object being thrown by setting its vertical speed to 30, applying gravity, and moving it horizontally to the right at a rate of 40 pixels per second.
-     */
+
     throw() {
         this.speedY = 30;
         this.applyGravity();
 
-        setInterval(() => {
-            this.x += 10;
+        let throwInterval = setInterval(() => {
+            if (thix.y > 400) {
+                window.clearInterval(throwInterval);
+            } else {
+                this.x += 10;
+            }
         }, 25);
     }
+
+
+    checkBottleHitEnemy() {
+        this.bottle.forEach((enemy) => {
+            if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
+                this.isUsed = true;
+                let collidingInterval = setInterval(() => {
+                    if (this.character.isColliding(enemy)) {
+                        this.enemyIsDead(enemy);
+                        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                        this.audioSpiderDead.play();
+                        this.audioSpiderDead.volume = 0.2;
+                        window.clearInterval(collidingInterval);
+                    };
+                }, 1000 / 60);
+                setTimeout(() => {
+                    window.clearInterval(collidingInterval);
+                }, 2000)
+            }
+        });
+    };
 }

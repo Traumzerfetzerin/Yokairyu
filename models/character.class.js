@@ -24,7 +24,7 @@ class Character extends MovableObject {
     bottlesCollected = 0;
     lastCollect = 0;
 
-
+    // img
     IMAGES_WALK = [
         './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_2-removebg-preview.png',
@@ -44,6 +44,7 @@ class Character extends MovableObject {
         // './img/player/Kitsune/run/remove/Run_7-removebg-preview.png',
         // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png'
     ];
+
     IMAGES_JUMP = [
         './img/player/Kitsune/jump/remove/Jump_1-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_2-removebg-preview.png',
@@ -56,6 +57,7 @@ class Character extends MovableObject {
         './img/player/Kitsune/jump/remove/Jump_9-removebg-preview.png',
         './img/player/Kitsune/jump/remove/Jump_10-removebg-preview.png'
     ];
+
     IMAGES_DEAD = [
         './img/player/Kitsune/dead/remove/Dead_1-removebg-preview.png',
         './img/player/Kitsune/dead/remove/Dead_2-removebg-preview.png',
@@ -68,10 +70,12 @@ class Character extends MovableObject {
         './img/player/Kitsune/dead/remove/Dead_9-removebg-preview.png',
         './img/player/Kitsune/dead/remove/Dead_10-removebg-preview.png'
     ];
+
     IMAGES_HURT = [
         './img/player/Kitsune/hurt/Hurt_1.png',
         './img/player/Kitsune/hurt/Hurt_2.png'
     ];
+
     IMAGES_THROW = [
         // './img/player/Kitsune/attack_2/remove/Attack_2_1-removebg-preview.png',
         // './img/player/Kitsune/attack_2/remove/Attack_2_2-removebg-preview.png',
@@ -96,6 +100,7 @@ class Character extends MovableObject {
         './img/player/Kitsune/attack_1/remove/Attack_1_9-removebg-preview.png',
         './img/player/Kitsune/attack_1/remove/Attack_1_10-removebg-preview.png'
     ];
+
     IMAGES_IDLE = [
         './img/player/Kitsune/idle/remove/Idle_1-removebg-preview.png',
         './img/player/Kitsune/idle/remove/Idle_2-removebg-preview.png',

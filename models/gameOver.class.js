@@ -1,6 +1,4 @@
 class GameOverScreen {
-
-
     /**
      * Initializes a new instance of the GameOverScreen class.
      * Loads the "lose" image and sets a flag to track whether the image has finished loading.
@@ -11,6 +9,12 @@ class GameOverScreen {
         this.loseImage.src = './img/lose.png';
         this.isImageLoaded = false;
 
+
+        /**
+         * Called when the "lose" image has finished loading.
+         * Sets a flag to indicate that the image has finished loading.
+         * @listens onload
+         */
         this.loseImage.onload = () => {
             this.isImageLoaded = true;
         };

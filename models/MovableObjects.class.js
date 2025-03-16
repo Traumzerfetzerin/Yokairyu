@@ -69,15 +69,15 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Checks if the object is colliding with an enemy object from below.
-     * This check is done by comparing the object's bounding box with the enemy object's bounding box.
-     * The bounding box is defined by the object's x and y coordinates as well as its width and height.
-     * The check is done by verifying that the object's bottom edge is above the enemy object's top edge
-     * and that the object's left edge is to the right of the enemy object's left edge and to the left of the enemy object's right edge.
+     * Checks if the character is above an enemy.
+     * The collision check is done by comparing the character's bounding box with the enemy's bounding box.
+     * The bounding box is defined by the character's x and y coordinates as well as its width and height.
+     * The character is considered above the enemy if its bottom edge is higher than the enemy's top edge
+     * and its left and right edges are inside the enemy's left and right edges.
      * @param {MovableObject} mo - The enemy object to check for collision with.
-     * @return {boolean} True if the object is colliding with the enemy object from below, false otherwise.
+     * @return {boolean} True if the character is above the enemy, false otherwise.
      */
-    isCollidingEnemy(mo) {
+    isCharacterAboveEnemy(mo) {
         // console.log(`${this. y + this.height < mo.y} && ${this.x + this.width > mo.x} && ${this.x < mo.x + mo.width}`);
         return this.y + this.height < mo.y && this.x + this.width > mo.x && this.x < mo.x + mo.width;
     }

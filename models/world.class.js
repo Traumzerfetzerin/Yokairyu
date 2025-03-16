@@ -74,8 +74,9 @@ class World {
 
 
     /**
-     * Runs the game loop by checking for collisions and throw objects at an interval of 200ms.
-     * This method is called once when the World object is constructed, and sets up the game loop.
+     * Begins the main game loop, periodically checking for collisions
+     * and handling throwable objects. This function runs at a fixed 
+     * interval of 200 milliseconds, ensuring continuous gameplay updates.
      */
     run() {
         setInterval(() => {
@@ -85,13 +86,33 @@ class World {
     }
 
 
+    isUsed = false;
+
+    /**
+     * Checks if the character is above an enemy and initiates a collision check.
+     * If the character is above an enemy and not already in a collision state,
+     * the function sets a flag to indicate a collision is in progress. It then
+     * starts an interval to continuously check for a collision with the enemy.
+     * If a collision is detected, the enemy is marked as dead, its image is updated
+     * to a "dead" state, and a sound effect is played. The collision interval is
+     * cleared once the collision is confirmed or after a timeout period.
+     */
     checkCharacterHitEnemy() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isCollidingEnemy(enemy)) {
-                this.enemyIsDead(enemy);
-                enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-                this.audioSpiderDead.play();
-                this.audioSpiderDead.volume = 0.2;
+            if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
+                this.isUsed = true;
+                let collidingInterval = setInterval(() => {
+                    if (this.character.isColliding(enemy)) {
+                        this.enemyIsDead(enemy);
+                        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                        this.audioSpiderDead.play();
+                        this.audioSpiderDead.volume = 0.2;
+                        window.clearInterval(collidingInterval);
+                    };
+                }, 1000 / 60);
+                setTimeout(() => {
+                    window.clearInterval(collidingInterval);
+                }, 2000)
             }
         });
     };
@@ -125,9 +146,10 @@ class World {
 
 
     /**
-     * Checks for collisions between the character and various objects in the level.
-     * This function checks for enemy, coin, and bottle collisions by calling the 
-     * respective collision handling functions.
+     * Checks for collisions between the character and various objects in the level,
+     * including enemies, coins, and bottles. If a collision is detected with an enemy,
+     * the character's health is affected. If a collision is detected with a coin or bottle,
+     * the character collects the item and updates the corresponding status bar.
      */
     checkCollisions() {
         this.checkCharacterHitEnemy();
@@ -206,7 +228,6 @@ class World {
             }
         });
     }
-
 
 
     /**

@@ -54,34 +54,37 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Starts an interval that moves the chicken to the left by calling the `moveLeft` method
-     * every 1/60th of a second, as long as the chicken's energy is greater than or equal to 0.
-     * If the energy reaches 0, the interval is cleared to stop the movement.
+     * Starts an interval that moves the chicken to the left every 1/60th of a second as long as its energy is greater than 0.
+     * If the energy reaches 0, the interval is cleared and the chicken will stop moving to the left.
      */
     startMovingLeft() {
         let moveLeft = setInterval(() => {
-            if (this.energy >= 0) {
+            // console.log(this.energy);
+            if (this.energy > 0) {
                 this.moveLeft();
             } else {
-                clearInterval(moveLeft);
+                window.clearInterval(moveLeft);
             }
         }, 1000 / 60);
     }
 
 
     /**
-     * Starts an interval that updates the chicken's animation and plays the walk sound effect
-     * every 100ms, as long as the chicken's energy is greater than or equal to 0.
-     * If the energy reaches 0, the interval is cleared to stop the animation and sound.
+     * Starts the walking animation for the chicken.
+     * 
+     * This function sets up a recurring interval that plays the walking
+     * animation and audio as long as the chicken's energy is greater than 0.
+     * The interval updates every 100 milliseconds. If the energy reaches 0,
+     * the interval is cleared, stopping the animation.
      */
     startWalkingAnimation() {
         let walkAnimation = setInterval(() => {
-            if (this.energy >= 0) {
+            if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALK);
                 this.audioWalk.play();
                 this.audioWalk.volume = 0.05;
             } else {
-                clearInterval(walkAnimation);
+                window.clearInterval(walkAnimation);
             }
         }, 100);
     }

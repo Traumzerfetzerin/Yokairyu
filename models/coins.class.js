@@ -31,6 +31,7 @@ class Coins extends MovableObject {
         this.type = 'coin';
     }
 
+    
     /**
      * Generates a random x position within the given range that does not overlap with existing coin positions.
      * Attempts to find a non-overlapping position up to 100 times; returns null if unsuccessful.
