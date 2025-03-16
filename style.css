@@ -25,7 +25,9 @@ html {
     src: url('./fonts/Grechen_Fuemen/GrechenFuemen-Regular.ttf');
 }
 
-
+img {
+    border-radius: 100%;
+}
 
 h1 {
     font-size: 100px;
@@ -44,9 +46,6 @@ span {
     color: whitesmoke;
 }
 
-img {
-    border-radius: 100%;
-}
 
 /* Media Queries */
 @media only screen and (max-width: 760px) {
