@@ -88,35 +88,91 @@ class World {
 
     isUsed = false;
 
+
     /**
-     * Checks if the character is above an enemy and initiates a collision check.
-     * If the character is above an enemy and not already in a collision state,
-     * the function sets a flag to indicate a collision is in progress. It then
-     * starts an interval to continuously check for a collision with the enemy.
-     * If a collision is detected, the enemy is marked as dead, its image is updated
-     * to a "dead" state, and a sound effect is played. The collision interval is
-     * cleared once the collision is confirmed or after a timeout period.
+     * Checks if the character is above an enemy.
+     * If the character is above an enemy, it sets the isUsed flag to true and calls the handleEnemyCollision method.
+     * The handleEnemyCollision method takes the enemy object and its index as arguments.
      */
     checkCharacterHitEnemy() {
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, index) => {
             if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
                 this.isUsed = true;
-                let collidingInterval = setInterval(() => {
-                    if (this.character.isColliding(enemy)) {
-                        this.enemyIsDead(enemy);
-                        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-                        this.audioSpiderDead.play();
-                        this.audioSpiderDead.volume = 0.2;
-                        window.clearInterval(collidingInterval);
-                    };
-                }, 1000 / 60);
-                setTimeout(() => {
-                    window.clearInterval(collidingInterval);
-                }, 2000)
+                this.handleEnemyCollision(enemy, index);
             }
         });
-    };
+    }
 
+
+    /**
+     * Handles the collision of the character with an enemy.
+     * Creates an interval that checks every 1/60th of a second if the character is colliding with the enemy.
+     * If the character is colliding, it marks the enemy as dead, plays the enemy death animation, and clears the interval.
+     * After the animation is complete, it calls the makeEnemyFall() method to make the enemy fall off the screen.
+     * The interval is cleared after 2 seconds to prevent infinite looping if the character is stuck in the enemy.
+     * @param {MovableObject} enemy - The enemy object to check for collision with.
+     * @param {number} index - The index of the enemy in the level's enemies array.
+     */
+    handleEnemyCollision(enemy, index) {
+        let collidingInterval = setInterval(() => {
+            if (this.character.isColliding(enemy)) {
+                this.enemyIsDead(enemy);
+                this.playEnemyDeathAnimation(enemy);
+                window.clearInterval(collidingInterval);
+
+                setTimeout(() => {
+                    this.makeEnemyFall(enemy, index);
+                }, 1000);
+            }
+        }, 1000 / 60);
+
+        setTimeout(() => {
+            window.clearInterval(collidingInterval);
+        }, 2000);
+    }
+
+
+    /**
+     * Plays the enemy death animation and sound effect.
+     * Loads the dead spider image onto the enemy and plays the spider dead sound effect with a volume of 0.2.
+     * @param {MovableObject} enemy - The enemy object that died.
+     */
+    playEnemyDeathAnimation(enemy) {
+        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+        this.audioSpiderDead.play();
+        this.audioSpiderDead.volume = 0.2;
+    }
+
+
+    /**
+     * Makes the enemy fall off the screen after dying.
+     * Sets the enemy's isDead flag to true and sets its gravity to 2.
+     * Creates an interval that increases the enemy's y position by its gravity every 1/60th of a second.
+     * If the enemy's y position exceeds the height of the canvas, it clears the interval and removes the enemy from the level.
+     * @param {MovableObject} enemy - The enemy object that died.
+     * @param {number} index - The index of the enemy in the level's enemies array.
+     */
+    makeEnemyFall(enemy, index) {
+        enemy.isDead = true;
+        enemy.gravity = 2;
+
+        let fallInterval = setInterval(() => {
+            enemy.y += enemy.gravity;
+            if (enemy.y > canvas.height) {
+                clearInterval(fallInterval);
+                this.removeEnemyFromLevel(index);
+            }
+        }, 1000 / 60);
+    }
+
+
+    /**
+     * Removes the enemy at the given index from the level's enemies array.
+     * @param {number} index - The index of the enemy to remove from the level's enemies array.
+     */
+    removeEnemyFromLevel(index) {
+        this.level.enemies.splice(index, 1);
+    }
 
     /**
      * Sets the energy of the given enemy to 0, effectively killing it.

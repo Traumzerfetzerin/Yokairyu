@@ -2,6 +2,7 @@ class ThrowableObject extends MovableObject {
     width = 50;
     height = 50;
 
+    audioSpiderDead = new Audio('./audio/spiderDead.mp3');
 
     /**
      * Initializes a new instance of the ThrowableObject class.
@@ -53,7 +54,7 @@ class ThrowableObject extends MovableObject {
             // console.log(!this.isBottleUsed && this.isColliding(enemy));
             if (!this.isBottleUsed && this.isColliding(enemy)) {
                 this.isBottleUsed = true
-                this.enemyIsDead(enemy);
+                world.enemyIsDead(enemy);
                 enemy.loadImage('./img/enemy/Spider/Spider_6.png');
                 this.audioSpiderDead.play();
                 this.audioSpiderDead.volume = 0.2;
