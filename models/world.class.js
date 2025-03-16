@@ -89,6 +89,11 @@ class World {
     isUsed = false;
 
 
+    /**
+     * Checks if the character is above an enemy and handles the collision.
+     * If the character is above an enemy and the isUsed flag is false, it sets the isUsed flag to true and calls the handleEnemyCollision function.
+     * This function is used to prevent the character from colliding with the same enemy multiple times.
+     */
     checkCharacterHitEnemy() {
         this.level.enemies.forEach((enemy, index) => {
             if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
@@ -99,6 +104,15 @@ class World {
     }
 
 
+    /**
+     * Handles the collision between the character and an enemy.
+     * This function first checks if the character is still colliding with the enemy.
+     * If it is, it kills the enemy by calling the enemyIsDead method and plays the death animation using the playEnemyDeathAnimation method.
+     * Then, it waits for 1 second and makes the enemy fall by calling the makeEnemyFall method with the enemy and its index as arguments.
+     * If the character is no longer colliding with the enemy after 2 seconds, this function is terminated.
+     * @param {Enemy} enemy - The enemy that the character is colliding with.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
     handleEnemyCollision(enemy, index) {
         let collidingInterval = setInterval(() => {
             if (this.character.isColliding(enemy)) {
@@ -118,6 +132,12 @@ class World {
     }
 
 
+    /**
+     * Plays the death animation for an enemy.
+     * This function loads the 'Spider_6.png' image for the enemy, plays the spider dead sound effect,
+     * and sets the volume of the sound effect to 0.2.
+     * @param {Enemy} enemy - The enemy to play the death animation for.
+     */
     playEnemyDeathAnimation(enemy) {
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
         this.audioSpiderDead.play();
@@ -125,6 +145,14 @@ class World {
     }
 
 
+    /**
+     * Makes an enemy fall to the ground after being killed by the character.
+     * This function sets the enemy's isDead property to true and its gravity to 2.
+     * It then starts an interval that moves the enemy downwards at a rate of 2 pixels per frame.
+     * When the enemy reaches the ground, the interval is cleared and the enemy is removed from the level.
+     * @param {Enemy} enemy - The enemy to make fall.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
     makeEnemyFall(enemy, index) {
         enemy.isDead = true;
         enemy.gravity = 2;
@@ -139,6 +167,10 @@ class World {
     }
 
 
+    /**
+     * Removes the enemy at the given index from the level.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
     removeEnemyFromLevel(index) {
         this.level.enemies.splice(index, 1);
     }
