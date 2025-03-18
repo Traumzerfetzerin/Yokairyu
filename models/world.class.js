@@ -13,7 +13,6 @@ class World {
     gameOverScreen = new GameOverScreen();
 
     // audio
-    audioBackground = new Audio('./audio/backgroundSound.mp3');
     audioCollectShoot = new Audio('./audio/collectShoot.mp3');
     audioCollectLoot = new Audio('./audio/collectLoot.mp3');
     audioSpiderDead = new Audio('./audio/spiderDead.mp3');
@@ -34,33 +33,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
-        this.enableAudioOnUserInteraction();
-    }
-
-
-    /**
-     * Enables audio playback after the user has interacted with the page to comply with autoplay policies.
-     * It listens for the first click or keydown event on the page and then starts the audio background.
-     * This function is called in the constructor of the World class.
-     */
-    enableAudioOnUserInteraction() {
-        let playAudio = () => {
-            this.audioBackground.loop = true;
-            this.audioBackground.volume = 0.1;
-
-            this.audioBackground.play().then(() => {
-                console.log("Audio started.");
-            }).catch(error => {
-                console.log("Error during playback:", error);
-            });
-
-            document.removeEventListener("click", playAudio);
-            document.removeEventListener("keydown", playAudio);
-        };
-
-        document.addEventListener("click", playAudio, { once: true });
-        document.addEventListener("keydown", playAudio, { once: true });
     }
 
 

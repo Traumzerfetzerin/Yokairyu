@@ -16,17 +16,58 @@
     <h1>Yokairyu</h1>
     <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
 
-    <br>
+    <div id="start" class="cursorPointer">
+        <img onclick="startGame()" src="./img/icons/start-knopf.png" alt="">
+    </div>
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+    <div class="menu">
+        <div class="dropdownControl cursorPointer" onclick="toggleDropdown()">
+            How to control it
+            <div>
+                <img src="./img/icons/Property 1=Variant4.svg" id="dropdown"
+                    class="cursorPointer margin-right dropdownimg">
+                <img src="./img/icons/arrow_drop_downaa.svg" id="dropdown1"
+                    class="cursorPointer margin-right dropdownimg d-none">
+            </div>
 
-    <br>
+            <div id="dropdownControl" class="dropdown d-none">
+                <div class="space-between">
+                    <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                    <img src="./img/icons/buchstabe-a.png" alt="">
+                    <span>Left</span>
+                </div>
+                <div class="space-between">
+                    <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                    <img src="./img/icons/buchstabe-d.png" alt="">
+                    <span>Right</span>
+                </div>
+                <div class="space-between">
+                    <img src="./img/icons/raum.png" alt="">
+                    <span>Jump</span>
+                </div>
+                <div class="space-between">
+                    <img src="./img/icons/links-klick-schwarz.png" alt="">
+                    <img src="./img/icons/buchstabe-e.png" alt="">
+                    <span>Shoot</span>
+                </div>
+                <div class="space-between">
+                    <img src="./img/icons/buchstabe-r.png" alt="">
+                    <span>Restart</span>
+                </div>
+            </div>
+        </div>
 
-    <span>Left or A = Left</span>
-    <span>Right or D = Right</span>
-    <span>Space = Jump</span>
-    <span>LMB or E = Shoot</span>
-    <span>R = Restart</span>
+        <div id="backToMenu" class="cursorPointer d-none" onclick="backToMenu()"><img src="./img/icons/zuruck-pfeil.png"
+                alt="">
+        </div>
+    </div>
+
+    <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
+
+    <div id="soundbar" class="soundbar cursorPointer d-none">
+        <div onclick="toggleSound()"><img id="sound" src="./img/icons/volumen.png" alt=""></div>
+        <div onclick="toggleFullscreen()"><img src="./img/icons/vollbild.png" alt=""></div>
+    </div>
 
 </body>
 
@@ -53,6 +94,6 @@
 
 </html>
 
-<footer>
+<footer id="footer">
     <a href="./impressum.html">Impressum</a>
 </footer>

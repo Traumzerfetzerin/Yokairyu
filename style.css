@@ -2,12 +2,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('./img/background.png');
+    background-image: url('./img/startscreen.png');
+    /* background-image: url('./img/background.png'); */
     color: #FF6046;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    max-width: 1920px;
 }
 
 canvas {
@@ -29,6 +31,20 @@ html {
     display: none;
 }
 
+.flex {
+    display: flex;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
 .logo {
     border-radius: 100%;
 }
@@ -45,11 +61,83 @@ p {
     color: #312132;
 }
 
-span {
-    font-size: 20px;
-    color: whitesmoke;
+/* #start:hover img {
+    transform: scale(1.2);
+    transition: transform 4s ease-out;
+    transition-behavior: normal;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+    transition-property: transform;
+} */
+
+.menu {
+    display: flex;
+    gap: 12px;
 }
 
+#backToMenu img {
+    width: 50px;
+    height: 50px;
+}
+
+#backToMenu:hover img {
+    transform: scale(1.2);
+    transition: transform 4s ease-out;
+    transition-behavior: normal;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+    transition-property: transform;
+}
+
+.soundbar img {
+    width: 50px;
+    height: 50px;
+}
+
+.dropdownControl {
+    display: flex;
+    background-color: #FF6046;
+    border-radius: 12px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#dropdownControl {
+    position: absolute;
+    top: 50px;
+    background-color: #FF6046;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+#dropdownControl img {
+    width: 50px;
+    height: 50px;
+}
+
+.dropdownControl,
+#dropdownControl,
+footer a {
+    font-size: 20px;
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+footer:hover a {
+    font-size: 25px;
+}
+
+.test {
+    display: flex;
+}
+
+.neuertest {
+    flex-direction: column;
+}
 
 /* Media Queries */
 @media only screen and (max-width: 760px) {
