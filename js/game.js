@@ -224,3 +224,61 @@ window.addEventListener("mouseup", (e) => {
         keyboard.THROW = false;
     }
 });
+
+
+/**
+ * Handles touch start events on the game canvas.
+ * This function prevents the default touch event behavior and checks which
+ * virtual button was touched. Depending on the touched button, the corresponding
+ * keyboard event is triggered.
+ * @param {event} e The touch event object.
+ */
+function handleTouchStart(e) {
+    e.preventDefault();
+
+    const touchX = e.touches[0].clientX;
+    const touchY = e.touches[0].clientY;
+
+    const leftBtn = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+    const jumpBtn = document.getElementById('jumpBtn');
+    const shootBtn = document.getElementById('shootBtn');
+
+    const leftRect = leftBtn.getBoundingClientRect();
+    const rightRect = rightBtn.getBoundingClientRect();
+    const jumpRect = jumpBtn.getBoundingClientRect();
+    const shootRect = shootBtn.getBoundingClientRect();
+
+    if (touchX >= leftRect.left && touchX <= leftRect.right && touchY >= leftRect.top && touchY <= leftRect.bottom) {
+        keyboard.LEFT = true;
+    }
+
+    if (touchX >= rightRect.left && touchX <= rightRect.right && touchY >= rightRect.top && touchY <= rightRect.bottom) {
+        keyboard.RIGHT = true;
+    }
+
+    if (touchX >= jumpRect.left && touchX <= jumpRect.right && touchY >= jumpRect.top && touchY <= jumpRect.bottom) {
+        keyboard.SPACE = true;
+    }
+
+    if (touchX >= shootRect.left && touchX <= shootRect.right && touchY >= shootRect.top && touchY <= shootRect.bottom) {
+        keyboard.THROW = true;
+    }
+}
+
+
+/**
+ * Resets all keyboard events to false on touch end event.
+ */
+function handleTouchEnd() {
+    keyboard.LEFT = false;
+    keyboard.RIGHT = false;
+    keyboard.SPACE = false;
+    keyboard.THROW = false;
+}
+
+
+const touchArea = document.getElementById('touch');
+touchArea.addEventListener('touchstart', handleTouchStart, { passive: false });
+touchArea.addEventListener('touchend', handleTouchEnd, { passive: false });
+touchArea.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
