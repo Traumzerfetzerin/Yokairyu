@@ -61,15 +61,14 @@ class World {
     isUsed = false;
 
     /**
-     * Checks if the character is above any enemy in the current level.
-     * If the character is above an enemy and the enemy has not been marked as used,
-     * it marks the enemy as used and calls the handleEnemyCollision method to handle
-     * the collision. This function iterates through all enemies in the level.
+     * Checks if the character is colliding with an enemy and if the character is above only one enemy.
+     * If the character is colliding with an enemy and is above only one enemy, the enemy is killed and the character jumps.
+     * The enemy is then made to fall to the ground with the makeEnemyFall() method.
      */
     checkCharacterHitEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            if (!enemy.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
-                enemy.isUsed = true; // Markiere den Gegner als getroffen
+            if (!enemy.isUsed && this.character.isCharacterAboveEnemy(enemy) && this.isCharacterAboveOnlyOneEnemy(enemy)) {
+                enemy.isUsed = true;
                 this.handleEnemyCollision(enemy, index);
             }
         });
@@ -77,12 +76,21 @@ class World {
 
 
     /**
+     * Checks if the character is above only one enemy.
+     * @returns {boolean} true if the character is above only one enemy, false otherwise.
+     */
+    isCharacterAboveOnlyOneEnemy(enemy) {
+        return this.level.enemies.filter(e => this.character.isCharacterAboveEnemy(e)).length === 1;
+    }
+
+
+    /**
      * Handles the collision between the character and an enemy.
-     * This function first checks if the character is still colliding with the enemy.
-     * If it is, it kills the enemy by calling the enemyIsDead method and plays the death animation using the playEnemyDeathAnimation method.
-     * Then, it waits for 1 second and makes the enemy fall by calling the makeEnemyFall method with the enemy and its index as arguments.
-     * If the character is no longer colliding with the enemy after 2 seconds, this function is terminated.
-     * @param {Enemy} enemy - The enemy that the character is colliding with.
+     * This function checks if the character is colliding with the enemy at a fixed interval
+     * of 200 milliseconds. If a collision is detected, the enemy is killed and the character
+     * jumps. The enemy is then made to fall to the ground with the makeEnemyFall() method.
+     * The interval is cleared after 2000 milliseconds.
+     * @param {Enemy} enemy - The enemy to handle the collision for.
      * @param {number} index - The index of the enemy in the enemies array.
      */
     handleEnemyCollision(enemy, index) {
@@ -90,6 +98,7 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.enemyIsDead(enemy);
                 this.playEnemyDeathAnimation(enemy);
+                this.character.jump();
                 window.clearInterval(collidingInterval);
 
                 setTimeout(() => {
