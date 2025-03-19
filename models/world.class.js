@@ -60,16 +60,16 @@ class World {
 
     isUsed = false;
 
-
     /**
-     * Checks if the character is above an enemy and handles the collision.
-     * If the character is above an enemy and the isUsed flag is false, it sets the isUsed flag to true and calls the handleEnemyCollision function.
-     * This function is used to prevent the character from colliding with the same enemy multiple times.
+     * Checks if the character is above any enemy in the current level.
+     * If the character is above an enemy and the enemy has not been marked as used,
+     * it marks the enemy as used and calls the handleEnemyCollision method to handle
+     * the collision. This function iterates through all enemies in the level.
      */
     checkCharacterHitEnemy() {
         this.level.enemies.forEach((enemy, index) => {
-            if (!this.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
-                this.isUsed = true;
+            if (!enemy.isUsed && this.character.isCharacterAboveEnemy(enemy)) {
+                enemy.isUsed = true; // Markiere den Gegner als getroffen
                 this.handleEnemyCollision(enemy, index);
             }
         });
@@ -195,19 +195,18 @@ class World {
 
     /**
      * Checks for collisions between the character and all enemies in the level.
-     * If a collision is detected, the character's health is affected by calling the
-     * hit method and updating the health status bar to reflect the new health value.
+     * If a collision is detected with an enemy and the character is not above the enemy,
+     * the character's health is affected. The character's health status bar is updated
+     * to reflect the new health value.
      */
     checkEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (!enemy.isDead() && this.character.isColliding(enemy) && !this.character.isCharacterAboveEnemy(enemy)) {
+            if (!enemy.isDead && this.character.isColliding(enemy) && !this.character.isCharacterAboveEnemy(enemy)) {
                 this.character.hit();
                 this.statusbarHealth.setPercentage(this.character.energy);
             }
         });
     }
-
-
 
 
     /**

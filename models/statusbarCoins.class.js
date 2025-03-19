@@ -13,7 +13,7 @@ class StatusbarCoins extends DrawableObject {
         './img/7_statusbars/1_statusbar/1_statusbar_coin/green/statusbarLoot_40.png',
         './img/7_statusbars/1_statusbar/1_statusbar_coin/green/statusbarLoot_60.png',
         './img/7_statusbars/1_statusbar/1_statusbar_coin/green/statusbarLoot_80.png',
-        '/img/7_statusbars/1_statusbar/1_statusbar_coin/green/statusbarLoot_100.png'
+        './img/7_statusbars/1_statusbar/1_statusbar_coin/green/statusbarLoot_100.png'
     ];
 
 
