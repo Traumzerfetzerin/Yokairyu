@@ -15,6 +15,11 @@ function init() {
 }
 
 
+/**
+ * Starts the game by hiding the start screen, showing the game canvas
+ * and soundbar, hiding the footer, and setting the background image.
+ * Also enables audio on user interaction.
+ */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
@@ -25,6 +30,13 @@ function startGame() {
     enableAudioOnUserInteraction();
 }
 
+
+/**
+ * Goes back to the start screen by hiding the game canvas and showing the start
+ * screen, hiding the back to menu button, hiding the dropdown control, hiding the
+ * soundbar, and showing the footer. Also sets the background image to the start screen
+ * image.
+ */
 function backToMenu() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('start').classList.remove('d-none');
@@ -35,21 +47,26 @@ function backToMenu() {
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
 }
 
+
+/**
+ * Toggles the sound on and off.
+ * If the sound is currently on, it is turned off and the sound image is changed to the
+ * "no sound" image.
+ * If the sound is currently off, it is turned on and the sound image is changed to the
+ * "sound" image.
+ */
 function toggleSound() {
     let img = document.getElementById('sound');
     if (img.src.includes("volumen.png")) {
         img.src = "./img/icons/keinen-ton.png";
-    }
-
-    else {
+        audioBackground.pause();
+    } else {
         img.src = "./img/icons/volumen.png";
+        if (audioBackground.paused) {
+            audioBackground.play();
+        }
     }
 }
-// if (audioBackground.paused) {
-//     audioBackground.play();
-// } else {
-//     audioBackground.pause();
-// }
 
 
 /**
@@ -97,15 +114,23 @@ function toggleDropdown() {
     }
 }
 
-canvas = document.getElementById('canvas');
+
+/**
+ * Toggles the game canvas to full screen mode.
+ * If the canvas is currently in windowed mode, it is set to full screen mode.
+ * If the canvas is currently in full screen mode, it is set to windowed mode.
+ * The function uses the appropriate full screen mode API depending on the
+ * browser vendor (e.g. requestFullscreen for Chrome and Firefox, webkitRequestFullscreen
+ * for Safari, and msRequestFullscreen for IE11).
+ */
 function toggleFullscreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  } else if (canvas.webkitRequestFullscreen) { /* Safari */
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) { /* IE11 */
-    canvas.msRequestFullscreen();
-  }
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Safari */
+        canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE11 */
+        canvas.msRequestFullscreen();
+    }
 }
 
 

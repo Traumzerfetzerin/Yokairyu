@@ -208,6 +208,8 @@ class World {
     }
 
 
+
+
     /**
      * Checks for collisions between the character and all coins in the level.
      * If a collision is detected, the character collects the coin by calling the

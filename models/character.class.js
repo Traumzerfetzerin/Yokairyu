@@ -13,6 +13,7 @@ class Character extends MovableObject {
     audioHurt = new Audio('./audio/playerHurt.mp3');
     audioDead = new Audio('./audio/playerDead.mp3');
 
+
     offset = {
         top: 0,
         left: 15,

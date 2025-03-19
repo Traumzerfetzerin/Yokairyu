@@ -4,7 +4,7 @@ class Chicken extends MovableObject {
     y = 380;
     energy = 1;
 
-    audioWalk = new Audio('./audio/spiderWalk.mp3');
+    audioSpiderWalk = new Audio('./audio/spiderWalk.mp3');
 
     IMAGES_WALK = [
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -81,8 +81,8 @@ class Chicken extends MovableObject {
         let walkAnimation = setInterval(() => {
             if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALK);
-                this.audioWalk.play();
-                this.audioWalk.volume = 0.05;
+                this.audioSpiderWalk.play();
+                this.audioSpiderWalk.volume = 0.05;
             } else {
                 window.clearInterval(walkAnimation);
             }
