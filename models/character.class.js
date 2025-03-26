@@ -289,10 +289,10 @@ class Character extends MovableObject {
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
+            this.playAnimation(this.IMAGES_DEAD.length);
             this.audioDead.play();
             this.audioDead.volume = 0.05;
-            // gameOverScreen.drawGameOverScreen(this.world.ctx);
+            gameOverScreen.drawGameOverScreen(this.world.ctx);
         } else if (this.isHurt()) {
             this.playAnimation(this.IMAGES_HURT);
             this.audioHurt.play();

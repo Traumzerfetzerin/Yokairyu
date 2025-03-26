@@ -32,6 +32,7 @@ class ThrowableObject extends MovableObject {
 
         let intervallnummer = setInterval(() => {
             this.checkBottleHitEnemy();
+            // console.log(world.level.enemies[0]);
             this.x += 10;
             if (this.y > 500) {
                 window.clearInterval(intervallnummer)
@@ -42,22 +43,35 @@ class ThrowableObject extends MovableObject {
 
     isBottleUsed = false;
 
+
     /**
-     * Checks if the thrown bottle hits an enemy.
-     * If it does and the bottle has not been used yet, it marks the bottle as used and
-     * kills the enemy by calling the enemyIsDead function on the enemy object.
-     * It also plays the spider dead sound effect.
-     * If the bottle has already been used, it does nothing.
+     * Checks for collisions between the throwable bottle and enemies in the level.
+     * If a collision is detected and the bottle has not been used yet, it marks the bottle as used.
+     * If the enemy is an instance of Endboss, it reduces the enemy's energy and updates the status bar.
+     * If the Endboss's energy reaches 0, it triggers the enemy's death sequence.
+     * For other enemies, it directly triggers the enemy's death sequence and plays the spider dead audio.
      */
     checkBottleHitEnemy() {
         world.level.enemies.forEach((enemy) => {
             // console.log(!this.isBottleUsed && this.isColliding(enemy));
             if (!this.isBottleUsed && this.isColliding(enemy)) {
                 this.isBottleUsed = true
-                world.enemyIsDead(enemy);
-                enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-                this.audioSpiderDead.play();
-                this.audioSpiderDead.volume = 0.2;
+                if (enemy instanceof Endboss) {
+                    // console.log(enemy.energy);
+                    enemy.hit();
+                    // console.log(enemy.energy);
+                    world.statusbarEndboss.setPercentage(enemy.energy);
+                    if (enemy.isDead()) {
+                        world.enemyIsDead(enemy);
+                        enemy.clearTempCanvas();
+                    }
+                }
+                if (!enemy instanceof Endboss) {
+                    world.enemyIsDead(enemy);
+                    enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                    this.audioSpiderDead.play();
+                    this.audioSpiderDead.volume = 0.2;
+                }
             }
         });
     }

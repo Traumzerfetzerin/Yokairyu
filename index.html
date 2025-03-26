@@ -12,9 +12,11 @@
 
 <body onload="init()">
 
-    <img class="logo" width="100" src="./img/logo.png" alt="">
-    <h1>Yokairyu</h1>
-    <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
+    <div id="title">
+        <img class="logo" width="100" src="./img/logo.png" alt="">
+        <h1>Yokairyu</h1>
+        <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
+    </div>
 
     <div id="start" class="cursorPointer">
         <img onclick="startGame()" src="./img/icons/start-knopf.png" alt="">
@@ -64,7 +66,7 @@
 
     <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
 
-    <div id="touch">
+    <div id="touch" class="d-none">
         <img id="leftBtn" src="./img/icons/pfeiltaste_dick_links.png" alt="">
         <img id="jumpBtn" src="./img/icons/raum.png" alt="">
         <img id="rightBtn" src="./img/icons/pfeiltaste_dick_rechts.png" alt="">

@@ -90,6 +90,8 @@ class MovableObject extends DrawableObject {
      */
     hit() {
         this.energy -= 5;
+        console.log(this.energy);
+
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -177,7 +179,7 @@ class MovableObject extends DrawableObject {
      */
     collectCoin() {
         this.coinsCollected++;
-        console.log('Coins collected: ', this.coinsCollected);
+        // console.log('Coins collected: ', this.coinsCollected);
 
     }
 

@@ -80,9 +80,9 @@ function enableAudioOnUserInteraction() {
         this.audioBackground.volume = 0.1;
 
         this.audioBackground.play().then(() => {
-            console.log("Audio started.");
+            // console.log("Audio started.");
         }).catch(error => {
-            console.log("Error during playback:", error);
+            // console.log("Error during playback:", error);
         });
 
         document.removeEventListener("click", playAudio);

@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     y = -20;
-    energy = 10;
+    energy = 100;
 
     audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
 
@@ -85,6 +85,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    animateEndboss;
 
     /**
      * Starts the animation for the endboss.
@@ -98,7 +99,7 @@ class Endboss extends MovableObject {
     startAnimationEndboss() {
         let hasPlayedDragonRoar = false;
 
-        setInterval(() => {
+        this.animateEndboss = setInterval(() => {
             this.toggleHead();
             this.createCombinedImage();
 
@@ -128,34 +129,54 @@ class Endboss extends MovableObject {
     }
 
 
+    tempCanvas = document.createElement('canvas');
+    tempCtx = this.tempCanvas.getContext('2d');
+
+
     /**
-     * Creates a combined image of the endboss by drawing the body and 
-     * its components (e.g., head, paws, wings) onto a temporary canvas.
-     * The body is drawn at a fixed position, while the head toggles 
-     * between two images based on the current state. Other components 
-     * are drawn at their respective positions. The resulting image is 
-     * stored in this.img for rendering.
+     * Creates a combined image with the current head and the body of the endboss.
+     * This function is called in the animateEndboss function every 500 milliseconds.
+     * It creates a temporary canvas with the width and height of 2000.
+     * It then draws the body of the endboss at the position (500, 400) and the wings at the position (600, 1100).
+     * If the current head is 1, it draws the first head at the position (750, 50), otherwise it draws the second head at the same position.
+     * It then draws the tail at the position (1350, 1110) and the legs at the position (1410, 265).
+     * Finally, it sets the combined image as the img property of the endboss.
      */
     createCombinedImage() {
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
+        this.tempCanvas.width = 2000;
+        this.tempCanvas.height = 2000;
 
-        tempCanvas.width = 2000;
-        tempCanvas.height = 2000;
-
-        tempCtx.drawImage(this.loadedImages[0], 500, 400);
+        this.tempCtx.drawImage(this.loadedImages[0], 500, 400);
 
         if (this.currentHead === 1) {
-            tempCtx.drawImage(this.loadedImages[1], 750, 50);
+            this.tempCtx.drawImage(this.loadedImages[1], 750, 50);
         } else {
-            tempCtx.drawImage(this.loadedImages[2], 750, 50);
+            this.tempCtx.drawImage(this.loadedImages[2], 750, 50);
         }
 
-        tempCtx.drawImage(this.loadedImages[3], 600, 1100);
-        tempCtx.drawImage(this.loadedImages[4], 300, 250);
-        tempCtx.drawImage(this.loadedImages[5], 1350, 1110);
-        tempCtx.drawImage(this.loadedImages[6], 1410, 265);
+        this.tempCtx.drawImage(this.loadedImages[3], 600, 1100);
+        this.tempCtx.drawImage(this.loadedImages[4], 300, 250);
+        this.tempCtx.drawImage(this.loadedImages[5], 1350, 1110);
+        this.tempCtx.drawImage(this.loadedImages[6], 1410, 265);
 
-        this.img = tempCanvas;
+        this.img = this.tempCanvas;
+    }
+
+
+    // hitEndboss() {
+    //     this.tempCtx.beginPath();
+    //     this.tempCtx.fillStyle = "rgba(255, 0, 0, 0.5)";
+    //     this.tempCtx.fillRect(2000, 100, 500, 500);
+    //     this.tempCtx.stroke();
+    // }
+
+
+    /**
+     * Clears the temporary canvas by calling clearInterval on the animateEndboss
+     * interval and then clearing the canvas context with clearRect.
+     */
+    clearTempCanvas() {
+        clearInterval(this.animateEndboss);
+        this.tempCtx.clearRect(0, 0, this.tempCanvas.width, this.tempCanvas.height);
     }
 }
