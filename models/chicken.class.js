@@ -59,7 +59,6 @@ class Chicken extends MovableObject {
      */
     startMovingLeft() {
         let moveLeft = setInterval(() => {
-            // console.log(this.energy);
             if (this.energy > 0) {
                 this.moveLeft();
             } else {

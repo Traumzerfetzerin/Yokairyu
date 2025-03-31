@@ -78,7 +78,6 @@ class MovableObject extends DrawableObject {
      * @return {boolean} True if the character is above the enemy, false otherwise.
      */
     isCharacterAboveEnemy(mo) {
-        // console.log(`${this. y + this.height < mo.y} && ${this.x + this.width > mo.x} && ${this.x < mo.x + mo.width}`);
         return this.y + this.height < mo.y && this.x + this.width > mo.x && this.x < mo.x + mo.width;
     }
 
@@ -90,12 +89,10 @@ class MovableObject extends DrawableObject {
      */
     hit() {
         this.energy -= 5;
-        console.log("Enemy getroffen! Neue Energie:", this.energy);
 
         if (this.energy <= 0) {
             this.energy = 0;
             this.dead = true;
-            console.log("Enemy ist jetzt tot!");
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -180,8 +177,6 @@ class MovableObject extends DrawableObject {
      */
     collectCoin() {
         this.coinsCollected++;
-        // console.log('Coins collected: ', this.coinsCollected);
-
     }
 
 
@@ -191,6 +186,5 @@ class MovableObject extends DrawableObject {
      */
     collectBottle() {
         this.bottlesCollected++;
-        // console.log('Bottles collected: ', this.bottlesCollected);
     }
 }

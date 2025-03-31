@@ -45,6 +45,7 @@ function backToMenu() {
     document.getElementById('soundbar').classList.remove('flex');
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
+    restartGame();
 }
 
 

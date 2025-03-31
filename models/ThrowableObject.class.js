@@ -32,7 +32,6 @@ class ThrowableObject extends MovableObject {
 
         let intervallnummer = setInterval(() => {
             this.checkBottleHitEnemy();
-            // console.log(world.level.enemies[0]);
             this.x += 10;
             if (this.y > 500) {
                 window.clearInterval(intervallnummer)
@@ -59,11 +58,9 @@ class ThrowableObject extends MovableObject {
 
                 if (enemy instanceof Endboss) {
                     enemy.hit();
-                    console.log("Enemy isDead:", enemy.isDead());
                     world.statusbarEndboss.setPercentage(enemy.energy);
 
                     if (enemy.isDead()) {
-                        console.log("Endboss wurde besiegt!");
                         world.enemyIsDead(enemy);
                         if (enemy.clearTempCanvas) {
                             enemy.clearTempCanvas();
