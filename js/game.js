@@ -46,6 +46,8 @@ function backToMenu() {
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
     restartGame();
+    audioBackground.pause();
+    audioBackground.currentTime = 0;
 }
 
 
