@@ -84,16 +84,18 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Reduces the energy of the object by 5.
-     * If the energy reaches 0 or below, it is set to 0.
-     * The last hit time is recorded as the current time in milliseconds.
+     * Reduces the energy of the object by 5 and checks if the energy has dropped to 0 or below.
+     * If the energy is 0 or less, the object is marked as dead. Otherwise, the time of the last hit 
+     * is recorded. Logs messages indicating the new energy level and death status.
      */
     hit() {
         this.energy -= 5;
-        console.log(this.energy);
+        console.log("Enemy getroffen! Neue Energie:", this.energy);
 
-        if (this.energy < 0) {
+        if (this.energy <= 0) {
             this.energy = 0;
+            this.dead = true;
+            console.log("Enemy ist jetzt tot!");
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -109,7 +111,6 @@ class MovableObject extends DrawableObject {
      * 
      * @returns {boolean} True if the object is hurt, false otherwise.
      */
-
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // difference in ms
         timepassed = timepassed / 1000; // difference in s
@@ -118,12 +119,12 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Determines if the object is currently dead.
-     * The object is considered dead if its energy is equal to 0.
+     * Checks if the object is currently dead.
+     * The object is marked as dead when its energy drops to 0 or below.
      * @returns {boolean} True if the object is dead, false otherwise.
      */
     isDead() {
-        return this.energy == 0;
+        return this.dead === true;
     }
 
 

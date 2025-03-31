@@ -127,15 +127,16 @@ class World {
 
 
     /**
-     * Makes an enemy fall to the ground after being killed by the character.
-     * This function sets the enemy's isDead property to true and its gravity to 2.
-     * It then starts an interval that moves the enemy downwards at a rate of 2 pixels per frame.
-     * When the enemy reaches the ground, the interval is cleared and the enemy is removed from the level.
+     * Makes an enemy fall to the ground after being killed.
+     * This function sets the enemy's dead flag to true and its gravity to 2.
+     * It then starts an interval that increases the enemy's y position by its gravity
+     * at a rate of 60 times per second. If the enemy's y position exceeds the canvas
+     * height, the interval is cleared and the enemy is removed from the level.
      * @param {Enemy} enemy - The enemy to make fall.
      * @param {number} index - The index of the enemy in the enemies array.
      */
     makeEnemyFall(enemy, index) {
-        enemy.isDead = true;
+        enemy.dead = true;
         enemy.gravity = 2;
 
         let fallInterval = setInterval(() => {
@@ -146,6 +147,7 @@ class World {
             }
         }, 1000 / 60);
     }
+
 
 
     /**

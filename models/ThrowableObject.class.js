@@ -46,27 +46,31 @@ class ThrowableObject extends MovableObject {
 
     /**
      * Checks for collisions between the throwable bottle and enemies in the level.
-     * If a collision is detected and the bottle has not been used yet, it marks the bottle as used.
-     * If the enemy is an instance of Endboss, it reduces the enemy's energy and updates the status bar.
-     * If the Endboss's energy reaches 0, it triggers the enemy's death sequence.
-     * For other enemies, it directly triggers the enemy's death sequence and plays the spider dead audio.
+     * If a collision is detected, the bottle is marked as used. 
+     * For an Endboss enemy, it inflicts a hit, updates the Endboss's health status bar, 
+     * and checks if the Endboss is dead. If dead, it handles the Endboss's death and 
+     * clears its temporary canvas if applicable. For other enemies, it plays the death 
+     * animation and sound.
      */
     checkBottleHitEnemy() {
         world.level.enemies.forEach((enemy) => {
-            // console.log(!this.isBottleUsed && this.isColliding(enemy));
             if (!this.isBottleUsed && this.isColliding(enemy)) {
-                this.isBottleUsed = true
+                this.isBottleUsed = true;
+
                 if (enemy instanceof Endboss) {
-                    // console.log(enemy.energy);
                     enemy.hit();
-                    // console.log(enemy.energy);
+                    console.log("Enemy isDead:", enemy.isDead());
                     world.statusbarEndboss.setPercentage(enemy.energy);
+
                     if (enemy.isDead()) {
+                        console.log("Endboss wurde besiegt!");
                         world.enemyIsDead(enemy);
-                        enemy.clearTempCanvas();
+                        if (enemy.clearTempCanvas) {
+                            enemy.clearTempCanvas();
+                        }
                     }
                 }
-                if (!enemy instanceof Endboss) {
+                else {
                     world.enemyIsDead(enemy);
                     enemy.loadImage('./img/enemy/Spider/Spider_6.png');
                     this.audioSpiderDead.play();
