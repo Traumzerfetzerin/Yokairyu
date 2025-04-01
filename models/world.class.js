@@ -251,6 +251,7 @@ class World {
             if (this.character.isColliding(coin)) {
                 this.handleCoinCollision(coin, c);
                 soundManager.playSound('collectLoot', false);
+                this.audioCollectLoot = soundManager.sounds['collectLoot'];
                 this.audioCollectLoot.play();
                 this.audioCollectLoot.volume = 0.2;
             }
