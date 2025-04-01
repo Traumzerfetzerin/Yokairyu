@@ -241,10 +241,9 @@ class World {
 
     /**
      * Checks for collisions between the character and all coins in the level.
-     * If a collision is detected with a coin, the character collects the coin
-     * by calling the handleCoinCollision function, which increments the character's
-     * coin count and updates the coin status bar to reflect the new number of coins
-     * collected. The sound effect for collecting a coin is also played.
+     * If a collision is detected with a coin, the character collects the coin,
+     * the coin is removed from the level, and the coin status bar is updated
+     * to reflect the new number of coins collected.
      */
     checkCoinCollisions() {
         this.level.coins.forEach((coin, c) => {
@@ -279,16 +278,17 @@ class World {
 
     /**
      * Checks for collisions between the character and all bottles in the level.
-     * If a collision is detected, the character collects the bottle by calling the
-     * handleBottleCollision function, which increments the character's bottle count and
-     * updates the bottle status bar to reflect the new number of bottles collected.
-     * The sound effect for collecting a bottle is also played.
+     * If a collision is detected with a bottle, the character collects the bottle
+     * by calling the handleBottleCollision function, which increments the character's
+     * bottle count and updates the bottle status bar to reflect the new number of bottles
+     * collected. The sound effect for collecting a bottle is also played.
      */
     checkBottleCollisions() {
         this.level.bottles.forEach((bottle, b) => {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
                 soundManager.playSound('collectShoot', false);
+                this.audioCollectShoot = soundManager.sounds['collectShoot'];
                 this.audioCollectShoot.play();
                 this.audioCollectShoot.volume = 0.2;
 
