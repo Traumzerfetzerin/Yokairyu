@@ -4,7 +4,6 @@ class Endboss extends MovableObject {
     y = -20;
     energy = 100;
 
-    audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
 
     IMAGES_WALK = [
         // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
@@ -31,6 +30,7 @@ class Endboss extends MovableObject {
      * Initializes a new instance of the Endboss class.
      * Loads all images for the endboss and starts its animation.
      * The endboss is positioned at (2000, 100) by default.
+     * The sound for the endboss's roar is also loaded.
      */
     constructor() {
         super();
@@ -42,6 +42,12 @@ class Endboss extends MovableObject {
 
         this.loadImages();
         this.startAnimationEndboss();
+
+        // Load the sound for the endboss's roar
+        let soundManager = new SoundManager();
+        soundManager.loadSound('dragonRoar', './audio/dragonRoar.mp3');
+        this.audioDragonRoar = soundManager.sounds['dragonRoar'];
+        this.audioDragonRoar.volume = 0.05;
     }
 
 
@@ -87,6 +93,7 @@ class Endboss extends MovableObject {
 
     animateEndboss;
 
+
     /**
      * Starts the animation for the endboss.
      * This function is called in the constructor of the Endboss class.
@@ -104,8 +111,7 @@ class Endboss extends MovableObject {
             this.createCombinedImage();
 
             if (this.isCharacterInRange() && !hasPlayedDragonRoar) {
-                this.audioDragonRoar.play();
-                this.audioDragonRoar.volume = 0.05;
+                soundManager.playSound('dragonRoar', false);
                 hasPlayedDragonRoar = true;
             }
         }, 500);
