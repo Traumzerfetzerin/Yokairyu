@@ -12,18 +12,14 @@ class World {
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
 
-    // audio
-    audioCollectShoot = new Audio('./audio/collectShoot.mp3');
-    audioCollectLoot = new Audio('./audio/collectLoot.mp3');
-    audioSpiderDead = new Audio('./audio/spiderDead.mp3');
-
 
     /**
-     * Constructor for the World class.
-     * @param {HTMLCanvasElement} canvas The canvas element to draw the world onto.
-     * @param {Keyboard} keyboard The keyboard object to use for key presses.
-     * Initializes the canvas 2D context, sets the canvas and keyboard properties, sets the audio background,
-     * draws the world, sets the world and runs the game.
+     * Initializes a new instance of the World class.
+     * Sets up the canvas, drawing context, and keyboard.
+     * Calls the draw, setWorld, and run methods to start the game loop.
+     * Loads sound effects for the spider's death, collecting coins, and shooting bottles.
+     * @param {HTMLCanvasElement} canvas - The canvas element to draw on.
+     * @param {Keyboard} keyboard - The keyboard object to read input from.
      */
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -33,6 +29,12 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+
+        // Load sound effects
+        let soundManager = new SoundManager();
+        soundManager.loadSound('collectShoot', './audio/collectShoot.mp3');
+        soundManager.loadSound('collectLoot', './audio/collectLoot.mp3');
+        soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
     }
 
 
@@ -114,13 +116,15 @@ class World {
 
 
     /**
-     * Plays the death animation for an enemy.
-     * This function loads the 'Spider_6.png' image for the enemy, plays the spider dead sound effect,
-     * and sets the volume of the sound effect to 0.2.
-     * @param {Enemy} enemy - The enemy to play the death animation for.
+     * Plays the enemy's death animation and sound effect.
+     * Loads a specific image to represent the enemy's death state,
+     * plays the 'spiderDead' sound effect, and sets the volume of
+     * the death sound effect to 0.2.
+     * @param {Enemy} enemy - The enemy object for which the death animation and sound are played.
      */
     playEnemyDeathAnimation(enemy) {
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+        soundManager.playSound('spiderDead', false);
         this.audioSpiderDead.play();
         this.audioSpiderDead.volume = 0.2;
     }
@@ -147,7 +151,6 @@ class World {
             }
         }, 1000 / 60);
     }
-
 
 
     /**
@@ -222,15 +225,18 @@ class World {
 
     /**
      * Checks for collisions between the character and all coins in the level.
-     * If a collision is detected, the character collects the coin by calling the
-     * handleCoinCollision function, which increments the character's coin count and
-     * updates the health status bar to reflect the new coin count.
+     * If a collision is detected with a coin, the character collects the coin
+     * by calling the handleCoinCollision function, which increments the character's
+     * coin count and updates the coin status bar to reflect the new number of coins
+     * collected. The sound effect for collecting a coin is also played.
      */
     checkCoinCollisions() {
         this.level.coins.forEach((coin, c) => {
             if (this.character.isColliding(coin)) {
                 this.handleCoinCollision(coin, c);
+                soundManager.playSound('collectLoot', false);
                 this.audioCollectLoot.play();
+                this.audioCollectLoot.volume = 0.2;
             }
         });
     }
@@ -257,13 +263,15 @@ class World {
     /**
      * Checks for collisions between the character and all bottles in the level.
      * If a collision is detected, the character collects the bottle by calling the
-     * handleBottleCollision function, which increments the character's bottle count
-     * and updates the bottle status bar to reflect the new number of bottles collected.
+     * handleBottleCollision function, which increments the character's bottle count and
+     * updates the bottle status bar to reflect the new number of bottles collected.
+     * The sound effect for collecting a bottle is also played.
      */
     checkBottleCollisions() {
         this.level.bottles.forEach((bottle, b) => {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
+                soundManager.playSound('collectShoot', false);
                 this.audioCollectShoot.play();
                 this.audioCollectShoot.volume = 0.2;
 

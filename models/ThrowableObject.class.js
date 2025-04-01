@@ -5,10 +5,10 @@ class ThrowableObject extends MovableObject {
 
     /**
      * Initializes a new instance of the ThrowableObject class.
-     * Loads the initial image and sets the initial x and y coordinates.
-     * Calls the throw method to start the animation.
-     * @param {number} x - The initial x position of the object.
-     * @param {number} y - The initial y position of the object.
+     * Loads the initial image and throws the object from the given position.
+     * Also loads the sound for the animation of the spider when it is hit.
+     * @param {number} x - The x position of the object.
+     * @param {number} y - The y position of the object.
      */
     constructor(x, y) {
         super().loadImage('./img/shoot/shadow/44.png');
@@ -16,6 +16,7 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.throw();
 
+        // Load the sound for the spider's death animation
         let soundManager = new SoundManager();
         soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
         this.audioSpiderDead = soundManager.sounds['spiderDead'];
@@ -48,12 +49,11 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Checks for collisions between the throwable bottle and enemies in the level.
-     * If a collision is detected, the bottle is marked as used. 
-     * For an Endboss enemy, it inflicts a hit, updates the Endboss's health status bar, 
-     * and checks if the Endboss is dead. If dead, it handles the Endboss's death and 
-     * clears its temporary canvas if applicable. For other enemies, it plays the death 
-     * animation and sound.
+     * Checks for collisions between the bottle and all enemies in the level.
+     * If a collision is detected with an enemy and the bottle has not been used yet,
+     * the bottle is marked as used, the enemy is hit, and the enemy's status bar is updated.
+     * If the enemy is the endboss and it is dead, the endboss is removed from the level.
+     * If the enemy is a spider, it is removed from the level and the spider dead sound is played.
      */
     checkBottleHitEnemy() {
         world.level.enemies.forEach((enemy) => {
