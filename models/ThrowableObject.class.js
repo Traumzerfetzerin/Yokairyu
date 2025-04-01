@@ -2,7 +2,6 @@ class ThrowableObject extends MovableObject {
     width = 50;
     height = 50;
 
-    audioSpiderDead = new Audio('./audio/spiderDead.mp3');
 
     /**
      * Initializes a new instance of the ThrowableObject class.
@@ -16,6 +15,11 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.throw();
+
+        let soundManager = new SoundManager();
+        soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
+        this.audioSpiderDead = soundManager.sounds['spiderDead'];
+        this.audioSpiderDead.volume = 0.2;
     }
 
 
@@ -70,8 +74,8 @@ class ThrowableObject extends MovableObject {
                 else {
                     world.enemyIsDead(enemy);
                     enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+                    soundManager.playSound('spiderDead', false);
                     this.audioSpiderDead.play();
-                    this.audioSpiderDead.volume = 0.2;
                 }
             }
         });
