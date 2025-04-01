@@ -29,12 +29,28 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.startBackgroundSound();
 
         // Load sound effects
         let soundManager = new SoundManager();
+        soundManager.loadSound('background', './audio/backgroundSound.mp3');
         soundManager.loadSound('collectShoot', './audio/collectShoot.mp3');
         soundManager.loadSound('collectLoot', './audio/collectLoot.mp3');
         soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
+    }
+
+
+    /**
+     * Starts the background music when the start button is clicked.
+     * Retrieves the background sound from the sound manager and sets its volume to 0.2.
+     */
+    startBackgroundSound() {
+        this.audioBackground = soundManager.sounds['background'];
+
+        document.getElementById('startImage').addEventListener('click', () => {
+            this.audioBackground.play();
+            this.audioBackground.volume = 0.2;
+        });
     }
 
 

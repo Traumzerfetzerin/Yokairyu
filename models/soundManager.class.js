@@ -85,7 +85,7 @@ class SoundManager {
     updateSoundButton() {
         const soundButton = document.getElementById('sound');
         if (this.isMuted) {
-            soundButton.src = './img/icons/muted.png';
+            soundButton.src = './img/icons/keinen-ton.png';
         } else {
             soundButton.src = './img/icons/volumen.png';
         }

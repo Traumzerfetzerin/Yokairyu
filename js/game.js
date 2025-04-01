@@ -2,8 +2,6 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 
-audioBackground = new Audio('./audio/backgroundSound.mp3');
-
 
 /**
  * Initializes the game by getting the canvas element and creating a new
@@ -27,7 +25,6 @@ function startGame() {
     document.getElementById('soundbar').classList.add('flex');
     document.getElementById('footer').classList.add('d-none');
     document.body.style.backgroundImage = "url('./img/background.png')";
-    enableAudioOnUserInteraction();
 }
 
 
@@ -46,54 +43,6 @@ function backToMenu() {
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
     restartGame();
-    audioBackground.pause();
-    audioBackground.currentTime = 0;
-}
-
-
-/**
- * Toggles the sound on and off.
- * If the sound is currently on, it is turned off and the sound image is changed to the
- * "no sound" image.
- * If the sound is currently off, it is turned on and the sound image is changed to the
- * "sound" image.
- */
-function toggleSound() {
-    let img = document.getElementById('sound');
-    if (img.src.includes("volumen.png")) {
-        img.src = "./img/icons/keinen-ton.png";
-        audioBackground.pause();
-    } else {
-        img.src = "./img/icons/volumen.png";
-        if (audioBackground.paused) {
-            audioBackground.play();
-        }
-    }
-}
-
-
-/**
- * Enables audio playback on user interaction, i.e. on a click or key press event.
- * This is necessary because autoplaying audio is not allowed in most browsers.
- * Once the audio has been started, the event listeners are removed.
- */
-function enableAudioOnUserInteraction() {
-    let playAudio = () => {
-        this.audioBackground.loop = true;
-        this.audioBackground.volume = 0.1;
-
-        this.audioBackground.play().then(() => {
-            // console.log("Audio started.");
-        }).catch(error => {
-            // console.log("Error during playback:", error);
-        });
-
-        document.removeEventListener("click", playAudio);
-        document.removeEventListener("keydown", playAudio);
-    };
-
-    document.addEventListener("click", playAudio, { once: true });
-    document.addEventListener("keydown", playAudio, { once: true });
 }
 
 
