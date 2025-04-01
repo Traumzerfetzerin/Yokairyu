@@ -132,15 +132,15 @@ class World {
 
 
     /**
-     * Plays the enemy's death animation and sound effect.
-     * Loads a specific image to represent the enemy's death state,
-     * plays the 'spiderDead' sound effect, and sets the volume of
-     * the death sound effect to 0.2.
-     * @param {Enemy} enemy - The enemy object for which the death animation and sound are played.
+     * Plays the death animation for an enemy.
+     * This function sets the enemy's image to the death image, plays the death sound effect,
+     * and sets the volume of the sound effect to 0.2.
+     * @param {Enemy} enemy - The enemy to play the death animation for.
      */
     playEnemyDeathAnimation(enemy) {
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
         soundManager.playSound('spiderDead', false);
+        this.audioSpiderDead = soundManager.sounds['spiderDead'];
         this.audioSpiderDead.play();
         this.audioSpiderDead.volume = 0.2;
     }
