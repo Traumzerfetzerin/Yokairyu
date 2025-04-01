@@ -6,13 +6,6 @@ class Character extends MovableObject {
     speed = 5;
     world;
 
-    // audio
-    audioWalk = new Audio('./audio/playerWalk.mp3');
-    audioJump = new Audio('./audio/playerJump.mp3');
-    audioShoot = new Audio('./audio/playerShoot.mp3');
-    audioHurt = new Audio('./audio/playerHurt.mp3');
-    audioDead = new Audio('./audio/playerDead.mp3');
-
 
     offset = {
         top: 0,
@@ -21,9 +14,11 @@ class Character extends MovableObject {
         bottom: 0
     }
 
+
     coinsCollected = 0;
     bottlesCollected = 0;
     lastCollect = 0;
+
 
     // img
     IMAGES_WALK = [
@@ -115,14 +110,16 @@ class Character extends MovableObject {
 
 
     /**
-     * Initializes a new instance of the Character class.
-     * Loads the initial image and all images for the character.
-     * Applies gravity to the character.
-     * Initializes all animations for the character.
+     * Constructor for the Character class.
+     * Calls the parent constructor and loads the first image of the walk animation.
+     * Then it loads all other image arrays and applies gravity.
+     * Finally, it initializes all animations by calling the `initAnimations` method.
+     * Additionally, it loads all the sound effects that are used in the game.
      */
     constructor() {
         super().loadImage('./img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
 
+        // Load all images for the character
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
@@ -133,6 +130,15 @@ class Character extends MovableObject {
         this.applyGravity();
 
         this.initAnimations();
+
+        // Load sound effects
+        let soundManager = new SoundManager();
+        soundManager = new SoundManager();
+        soundManager.loadSound('walk', this.audioWalk);
+        soundManager.loadSound('jump', this.audioJump);
+        soundManager.loadSound('shoot', this.audioShoot);
+        soundManager.loadSound('hurt', this.audioHurt);
+        soundManager.loadSound('dead', this.audioDead);
     }
 
 
@@ -209,42 +215,55 @@ class Character extends MovableObject {
 
 
     /**
-     * Plays or pauses the walking audio based on the character's walking state.
-     *
-     * If the character is walking, the walking audio is played if currently paused.
-     * If the character is not walking, the walking audio is paused and reset to the beginning.
-     *
-     * @param {boolean} walking - Indicates whether the character is currently walking.
+     * Handles the walking sound effect for the character.
+     * If the character is walking, this function plays the walking sound effect.
+     * If the character is not walking, this function stops the walking sound effect.
+     * @param {boolean} walking - Whether the character is currently walking.
      */
     handleWalkingAudio(walking) {
         if (walking) {
-            if (this.audioWalk.paused) {
-                this.audioWalk.play();
+            if (!this.audioWalk || this.audioWalk.paused) {
+                this.audioWalk = soundManager.sounds['walk'];
+                soundManager.playSound('walk', true);
                 this.audioWalk.volume = 0.2;
             }
         } else {
-            this.audioWalk.pause();
-            this.audioWalk.currentTime = 0;
+            if (this.audioWalk) {
+                this.audioWalk.pause();
+                this.audioWalk.currentTime = 0;
+            }
         }
     }
 
 
     /**
-     * Handles the jump action for the character by calling the jump() function when the space key is pressed and the character is above the ground.
-     * This function is called in the handleMovement() function.
-     * It also plays the jump sound effect when the jump action is triggered.
+     * Handles the character's jumping.
+     * This function is called in the interval started in the startMovementHandling() function.
+     * It checks if the character can jump and if the space bar is pressed.
+     * If the conditions are met, the character jumps by calling the jump() function.
+     * The jumping sound effect is also handled by checking if the sound exists and has not been played yet.
+     * If the sound exists and has not been played yet, the sound is played and its volume is set to 0.2.
+     * The sound is also paused after 2 seconds.
      */
     handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
 
-            this.audioJump.currentTime = 0;
-            this.audioJump.play();
-            this.audioJump.volume = 0.2;
+            this.audioJump = soundManager.sounds['jump'];
 
-            setTimeout(() => {
-                this.audioJump.pause();
+            // Check if the sound exists and is not already playing
+            if (this.audioJump && this.audioJump.paused) {
                 this.audioJump.currentTime = 0;
+                this.audioJump.volume = 0.2;
+                soundManager.playSound('jump', false);
+            }
+
+            // Pause the sound after 2 seconds
+            setTimeout(() => {
+                if (this.audioJump && !this.audioJump.paused) {
+                    this.audioJump.pause();
+                    this.audioJump.currentTime = 0;
+                }
             }, 2000);
         }
     }
@@ -278,32 +297,83 @@ class Character extends MovableObject {
 
 
     /**
-     * Updates the character's animation based on its current state.
-     * 
-     * This function is called at a 100ms interval and takes a GameOverScreen
-     * instance as a parameter. It checks if the character is dead, hurt, jumping,
-     * walking, or idle, and plays the corresponding animation. If the character
-     * is dead, it displays the game over screen.
-     * @param {GameOverScreen} gameOverScreen - The game over screen to display
-     *                                          when the character is dead.
+     * Handles the animation for the character's state by calling the appropriate
+     * handling function based on the character's current state.
+     * The character's state can be one of the following: dead, hurt, jumping, walking, or idle.
+     * This function is called in a recurring interval set up by the startStateAnimation() function.
+     * @param {GameOverScreen} gameOverScreen - An instance of GameOverScreen, used to handle the game over screen.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
-            this.playAnimation(this.IMAGES_DEAD);
-            this.audioDead.play();
-            this.audioDead.volume = 0.05;
-            // gameOverScreen.drawGameOverScreen(this.world.ctx);
+            this.handleDeadState();
         } else if (this.isHurt()) {
-            this.playAnimation(this.IMAGES_HURT);
-            this.audioHurt.play();
-            this.audioHurt.volume = 0.1;
+            this.handleHurtState();
         } else if (this.isAboveGround()) {
-            this.playAnimation(this.IMAGES_JUMP);
+            this.handleJumpState();
         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(this.IMAGES_WALK); // Walk animation
+            this.handleWalkState();
         } else {
-            this.playAnimation(this.IMAGES_IDLE);
+            this.handleIdleState();
         }
+    }
+
+
+    /**
+     * Handles the character's dead state.
+     * Plays the dead animation and sound effect for the character.
+     * Sets the volume of the dead sound effect to 0.05 if the sound exists.
+     */
+    handleDeadState() {
+        this.playAnimation(this.IMAGES_DEAD);
+        soundManager.playSound('dead', false);
+
+        this.audioDead = soundManager.sounds['dead'];
+        if (this.audioDead) {
+            this.audioDead.volume = 0.05;
+        }
+    }
+
+
+    /**
+     * Handles the character's hurt state.
+     * Plays the hurt animation and sound effect for the character.
+     * Sets the volume of the hurt sound effect to 0.1 if the sound exists.
+     */
+    handleHurtState() {
+        this.playAnimation(this.IMAGES_HURT);
+        soundManager.playSound('hurt', false);
+
+        this.audioHurt = soundManager.sounds['hurt'];
+        if (this.audioHurt) {
+            this.audioHurt.volume = 0.1;
+        }
+    }
+
+
+    /**
+     * Handles the character's jump state.
+     * Plays the jump animation for the character.
+     */
+    handleJumpState() {
+        this.playAnimation(this.IMAGES_JUMP);
+    }
+
+
+    /**
+     * Handles the character's walk state.
+     * Plays the walk animation for the character.
+     */
+    handleWalkState() {
+        this.playAnimation(this.IMAGES_WALK); // Walk animation
+    }
+
+
+    /**
+     * Handles the character's idle state.
+     * Plays the idle animation for the character.
+     */
+    handleIdleState() {
+        this.playAnimation(this.IMAGES_IDLE);
     }
 
 
@@ -320,30 +390,25 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the throw action for the character.
-     *
-     * This function checks if the throw key is pressed.
-     * If so, it plays the throw animation and the shoot audio.
-     * The audio is played if it is currently paused and is 
-     * stopped after 2 seconds. If the throw key is not pressed, 
-     * the audio is paused and reset to 1 second.
+     * Handles the character's throw action.
+     * Checks if the throw key is pressed and if so, plays the throw animation.
+     * If the throw sound is paused, sets the sound to its start time and plays it.
+     * If the throw key is not pressed and the sound is not paused, pauses the sound and
+     * sets it to its start time.
      */
     handleThrow() {
         if (this.world.keyboard.THROW) {
             this.playAnimation(this.IMAGES_THROW);
 
-            if (this.audioShoot.paused) {
-                this.audioShoot.currentTime = 1;
-                this.audioShoot.play();
+            this.audioShoot = soundManager.sounds['shoot'];
 
-                setTimeout(() => {
-                    this.audioShoot.pause();
-                    this.audioShoot.currentTime = 1;
-                }, 2000);
+            if (this.audioShoot && this.audioShoot.paused) {
+                this.audioShoot.currentTime = 0;
+                soundManager.playSound('shoot', false);
             }
-        } else {
+        } else if (this.audioShoot) {
             this.audioShoot.pause();
-            this.audioShoot.currentTime = 1;
+            this.audioShoot.currentTime = 0;
         }
     }
 }
