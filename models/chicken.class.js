@@ -4,7 +4,6 @@ class Chicken extends MovableObject {
     y = 380;
     energy = 1;
 
-    audioSpiderWalk = new Audio('./audio/spiderWalk.mp3');
 
     IMAGES_WALK = [
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -32,15 +31,21 @@ class Chicken extends MovableObject {
      * Loads the first image for the chicken and all images for the chicken's walk animation.
      * Sets the chicken's x position to a random value between 200 and 700.
      * Sets the chicken's speed to a random value between 0.15 and 0.40.
-     * Starts the chicken's animation.
+     * Starts the chicken's animation and loads the walk sound.
      */
     constructor() {
         super().loadImage('./img/enemy/Spider/Spider_1.png');
         this.loadImages(this.IMAGES_WALK);
 
-        this.x = 200 + Math.random() * 500; // Zahl wischen 200 und 700
+        this.x = 200 + Math.random() * 500; // random x position between 200 and 700
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
+
+        // Load the sound for the chicken's walk animation
+        let soundManager = new SoundManager();
+        soundManager.loadSound('spiderWalk', './audio/spiderWalk.mp3');
+        this.audioSpiderWalk = soundManager.sounds['spiderWalk'];
+        this.audioSpiderWalk.volume = 0.05;
     }
 
 
@@ -80,8 +85,7 @@ class Chicken extends MovableObject {
         let walkAnimation = setInterval(() => {
             if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALK);
-                this.audioSpiderWalk.play();
-                this.audioSpiderWalk.volume = 0.05;
+                soundManager.playSound('spiderWalk', true);
             } else {
                 window.clearInterval(walkAnimation);
             }
