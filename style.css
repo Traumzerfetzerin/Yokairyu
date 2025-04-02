@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -69,8 +75,15 @@ p {
 }
 
 .menu {
-    display: flex;
-    gap: 12px;
+    position: relative;
+    width: 200px;
+    bottom: 50px;
+}
+
+#backToMenu {
+    position: relative;
+    left: 110px;
+    top: 50px;
 }
 
 #backToMenu img {
@@ -85,6 +98,12 @@ p {
     transition-duration: 0.5s;
     transition-delay: 0s;
     transition-property: transform;
+}
+
+.soundbar {
+    position: relative;
+    bottom: 110px;
+    left: 305px;
 }
 
 .soundbar img {
@@ -126,8 +145,9 @@ footer a {
 }
 
 #touch {
-    position: absolute;
-    bottom: 230px;
+    position: relative;
+    bottom: 80px;
+    gap: 50px;
 }
 
 #touch img {
@@ -161,12 +181,23 @@ footer:hover a {
 
 
 /* Media Queries */
-@media only screen and (orientation: portrait) and (max-width: 720px) {
-    #turn {
-        display: inline;
+@media (max-width: 1024px) {
+    #title {
+        display: none;
     }
 
-    #touch {
+
+}
+
+@media (max-width: 935px) {
+    #startImage {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media only screen and (orientation: portrait) and (max-width: 720px) {
+    #turn {
         display: inline;
     }
 
@@ -182,10 +213,6 @@ footer:hover a {
     }
 
     #turn {
-        display: inline;
-    }
-
-    #touch {
         display: inline;
     }
 

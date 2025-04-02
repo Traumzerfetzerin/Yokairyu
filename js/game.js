@@ -21,10 +21,12 @@ function init() {
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
+    document.getElementById('menu').style.bottom = '0px';
     document.getElementById('backToMenu').classList.remove('d-none');
     document.getElementById('soundbar').classList.add('flex');
     document.getElementById('footer').classList.add('d-none');
     document.body.style.backgroundImage = "url('./img/background.png')";
+    document.getElementById('touch').style.display = 'flex';
 }
 
 
@@ -37,11 +39,13 @@ function startGame() {
 function backToMenu() {
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('start').classList.remove('d-none');
+    document.getElementById('menu').style.bottom = '50px';
     document.getElementById('backToMenu').classList.add('d-none');
     document.getElementById('dropdownControl').classList.add('d-none');
     document.getElementById('soundbar').classList.remove('flex');
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
+    document.getElementById('touch').style.display = 'none';
     restartGame();
 }
 
