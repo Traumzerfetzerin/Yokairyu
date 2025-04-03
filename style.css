@@ -74,6 +74,30 @@ p {
     color: #312132;
 }
 
+#restart {
+    /* justify-content: center;
+    align-items: center;
+    gap: 20px; */
+    font-size: 50px;
+    position: relative;
+    text-shadow: 0 0 0 white;
+    top: 440px;
+}
+
+#restart img {
+    width: 50px;
+    height: 50px;
+}
+
+#restart img:hover {
+    transform: scale(1.2);
+    transition: transform 4s ease-out;
+    transition-behavior: normal;
+    transition-duration: 0.5s;
+    transition-delay: 0s;
+    transition-property: transform;
+}
+
 .menu {
     position: relative;
     width: 200px;

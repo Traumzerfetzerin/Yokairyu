@@ -320,13 +320,11 @@ class World {
 
 
     /**
-     * Draws all the objects in the game world onto the canvas.
-     * This function is the main game loop and is called by the requestNextFrame function.
-     * It clears the canvas, translates the canvas to the character's position, draws the background objects,
-     * resets the canvas translation, translates the canvas to the character's position again, draws the character,
-     * draws all the dynamic objects, resets the canvas translation, draws all the fixed objects, translates the canvas
-     * to the character's position once more, resets the canvas translation, and finally requests the next frame.
-     * If the character is dead, this function does nothing.
+     * Draws the game world onto the canvas by calling the necessary methods to
+     * draw the background objects, character, dynamic objects, and fixed objects.
+     * The camera translation is used to move the view window across the game world
+     * as the character moves. If the character is dead, this method does not do anything.
+     * @private
      */
     draw() {
         if (this.character.isDead()) {

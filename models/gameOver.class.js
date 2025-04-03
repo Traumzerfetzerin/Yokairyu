@@ -34,7 +34,7 @@ class GameOverScreen {
             ctx.fillStyle = "white";
             ctx.font = "bold 30px Arial";
             ctx.textAlign = "center";
-            ctx.fillText("Press 'R' to restart", canvas.width / 2, canvas.height - 50);
+            // ctx.fillText("Press 'R' to restart", canvas.width / 2, canvas.height - 50);
         } return;
     }
 
@@ -43,5 +43,6 @@ class GameOverScreen {
         document.getElementById('menu').classList.add('d-none');
         document.getElementById('touch').style.display = 'none';
         document.getElementById('soundbar').style.display = 'none';
+        document.getElementById('restart').classList.remove('d-none');
     }
 }

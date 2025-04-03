@@ -280,6 +280,13 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Starts the state animation for the character.
+     * This function sets up an interval that periodically calls the handleStateAnimation method.
+     * It creates a GameOverScreen instance to manage the game's end state.
+     * The interval updates every 100 milliseconds, ensuring that the character's state
+     * animations are handled in a timely manner.
+     */
     startStateAnimation() {
         let gameOverScreen = new GameOverScreen();
 
@@ -290,6 +297,12 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Handles the character's current state and performs the corresponding animation.
+     * Checks the character's state and calls the appropriate method to handle the animation.
+     * If the character is dead, it stops the animation and draws the game over screen.
+     * @param {GameOverScreen} gameOverScreen - The GameOverScreen instance to use for drawing the game over screen.
+     */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.handleDeadState();
@@ -308,6 +321,10 @@ class Character extends MovableObject {
     }
 
 
+    /**
+     * Stops the character's animation by clearing the animation interval.
+     * If the animation interval is not null, it clears the interval and sets it to null.
+     */
     stopAnimation() {
         if (this.animationInterval) {
             clearInterval(this.animationInterval); // Stop the animation interval
