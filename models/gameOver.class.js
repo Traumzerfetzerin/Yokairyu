@@ -35,6 +35,13 @@ class GameOverScreen {
             ctx.font = "bold 30px Arial";
             ctx.textAlign = "center";
             ctx.fillText("Press 'R' to restart", canvas.width / 2, canvas.height - 50);
-        }
+        } return;
+    }
+
+    hideButton() {
+        document.getElementById('backToMenu').classList.add('d-none');
+        document.getElementById('menu').classList.add('d-none');
+        document.getElementById('touch').style.display = 'none';
+        document.getElementById('soundbar').style.display = 'none';
     }
 }

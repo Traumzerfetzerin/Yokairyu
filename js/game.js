@@ -168,18 +168,18 @@ window.addEventListener("keyup", (e) => {
 
 
 // Mouse event listeners
-window.addEventListener("mousedown", (e) => {
-    if (e.button == 0 && e.target === canvas) {
-        keyboard.THROW = true;
-    }
-});
+// window.addEventListener("mousedown", (e) => {
+//     if (e.button == 0 && e.target === canvas) {
+//         keyboard.THROW = true;
+//     }
+// });
 
 
-window.addEventListener("mouseup", (e) => {
-    if (e.button == 0 && e.target === canvas) {
-        keyboard.THROW = false;
-    }
-});
+// window.addEventListener("mouseup", (e) => {
+//     if (e.button == 0 && e.target === canvas) {
+//         keyboard.THROW = false;
+//     }
+// });
 
 
 /**

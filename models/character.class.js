@@ -280,32 +280,22 @@ class Character extends MovableObject {
     }
 
 
-    /**
-     * Starts the animation for the character's state by setting up a recurring
-     * interval. This interval calls the handleStateAnimation function every 100ms,
-     * passing in a new GameOverScreen instance. This function is responsible for
-     * updating the character's animation based on its current state, such as 
-     * whether it's dead, hurt, jumping, walking, or idle.
-     */
     startStateAnimation() {
         let gameOverScreen = new GameOverScreen();
 
-        setInterval(() => {
+        // Set up an interval to handle the character's state animation
+        this.animationInterval = setInterval(() => {
             this.handleStateAnimation(gameOverScreen);
         }, 100);
     }
 
 
-    /**
-     * Handles the animation for the character's state by calling the appropriate
-     * handling function based on the character's current state.
-     * The character's state can be one of the following: dead, hurt, jumping, walking, or idle.
-     * This function is called in a recurring interval set up by the startStateAnimation() function.
-     * @param {GameOverScreen} gameOverScreen - An instance of GameOverScreen, used to handle the game over screen.
-     */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.handleDeadState();
+            gameOverScreen.drawGameOverScreen(this.world.ctx);
+            this.stopAnimation();
+            gameOverScreen.hideButton();
         } else if (this.isHurt()) {
             this.handleHurtState();
         } else if (this.isAboveGround()) {
@@ -314,6 +304,14 @@ class Character extends MovableObject {
             this.handleWalkState();
         } else {
             this.handleIdleState();
+        }
+    }
+
+
+    stopAnimation() {
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval); // Stop the animation interval
+            this.animationInterval = null; // Reset the animation interval
         }
     }
 
