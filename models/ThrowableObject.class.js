@@ -86,6 +86,7 @@ class ThrowableObject extends MovableObject {
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
                 world.showWinScreen = true;
+                world.winScreen.hideButton();
             }
         }
     }
