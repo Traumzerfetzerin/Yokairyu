@@ -25,6 +25,7 @@ class SoundManager {
         this.audioSpiderWalk = new Audio('./audio/spiderWalk.mp3');
         this.audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
         this.audioSpiderDead = new Audio('./audio/spiderDead.mp3');
+        this.audioDragonDead = new Audio('./audio/dragonGrowl.mp3');
 
         // Collect-Sounds
         this.audioCollectShoot = new Audio('./audio/collectShoot.mp3');
@@ -42,6 +43,7 @@ class SoundManager {
         this.addSound('spiderDead', this.audioSpiderDead);
         this.addSound('collectShoot', this.audioCollectShoot);
         this.addSound('collectLoot', this.audioCollectLoot);
+        this.addSound('dragonDead', this.audioDragonDead);
     }
 
 
