@@ -47,13 +47,14 @@ class ThrowableObject extends MovableObject {
 
     isBottleUsed = false;
 
+    showWinScreen = false;
+
 
     /**
-     * Checks for collisions between the bottle and all enemies in the level.
-     * If a collision is detected with an enemy and the bottle has not been used yet,
-     * the bottle is marked as used, the enemy is hit, and the enemy's status bar is updated.
-     * If the enemy is the endboss and it is dead, the endboss is removed from the level.
-     * If the enemy is a spider, it is removed from the level and the spider dead sound is played.
+     * Checks if the throwable object is colliding with any enemies in the level.
+     * If a collision is detected and the object has not been used, the collision is handled.
+     * If the enemy is an instance of Endboss, it calls the handleEndbossHit function.
+     * Otherwise, it calls the handleNormalEnemyHit function.
      */
     checkBottleHitEnemy() {
         world.level.enemies.forEach((enemy) => {
@@ -61,23 +62,46 @@ class ThrowableObject extends MovableObject {
                 this.isBottleUsed = true;
 
                 if (enemy instanceof Endboss) {
-                    enemy.hit();
-                    world.statusbarEndboss.setPercentage(enemy.energy);
-
-                    if (enemy.isDead()) {
-                        world.enemyIsDead(enemy);
-                        if (enemy.clearTempCanvas) {
-                            enemy.clearTempCanvas();
-                        }
-                    }
-                }
-                else {
-                    world.enemyIsDead(enemy);
-                    enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-                    soundManager.playSound('spiderDead', false);
-                    this.audioSpiderDead.play();
+                    this.handleEndbossHit(enemy);
+                } else {
+                    this.handleNormalEnemyHit(enemy);
                 }
             }
         });
     }
+
+
+    /**
+     * Handles the hit on the endboss by a throwable object.
+     * Makes the endboss take damage and updates the status bar.
+     * If the endboss is killed, removes it from the level and shows the win screen.
+     * @param {Endboss} enemy - The endboss that was hit.
+     */
+    handleEndbossHit(enemy) {
+        enemy.hit();
+        world.statusbarEndboss.setPercentage(enemy.energy);
+
+        if (enemy.isDead()) {
+            world.enemyIsDead(enemy);
+            if (enemy.clearTempCanvas) {
+                enemy.clearTempCanvas();
+                world.showWinScreen = true;
+            }
+        }
+    }
+
+
+    /**
+     * Handles the hit on a normal enemy by a throwable object.
+     * This function marks the enemy as dead, updates its image to the death image,
+     * and plays the spider death sound effect.
+     * @param {MovableObject} enemy - The enemy object that has been hit.
+     */
+    handleNormalEnemyHit(enemy) {
+        world.enemyIsDead(enemy);
+        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+        soundManager.playSound('spiderDead', false);
+        this.audioSpiderDead.play();
+    }
+
 }

@@ -11,7 +11,7 @@ class World {
     statusbarEndboss = new StatusbarEndboss();
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
-
+    winScreen = new WinScreen();
 
     /**
      * Initializes a new instance of the World class.
@@ -319,15 +319,21 @@ class World {
     }
 
 
+
     /**
-     * Draws the game world onto the canvas by calling the necessary methods to
-     * draw the background objects, character, dynamic objects, and fixed objects.
-     * The camera translation is used to move the view window across the game world
-     * as the character moves. If the character is dead, this method does not do anything.
-     * @private
+     * Draws the game world on the canvas by first checking if the character
+     * is dead or if the win screen should be displayed. If neither condition
+     * is met, it clears the canvas, sets the camera translation, and draws
+     * background objects, the character, dynamic objects, and fixed objects
+     * in the correct order. Finally, it requests the next animation frame
+     * to continue the game loop.
      */
     draw() {
         if (this.character.isDead()) {
+            return;
+        }
+        if (this.showWinScreen) {
+            this.winScreen.drawWinScreen(this.ctx);
             return;
         }
         this.clearCanvas();
