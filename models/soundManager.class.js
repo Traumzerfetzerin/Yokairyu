@@ -50,12 +50,12 @@ class SoundManager {
      * The mute state of all sounds is updated in the {@link SoundManager#sounds} object.
      * The sound button icon is also updated based on the mute state.
      */
-    toggleSounds() {
-        this.isMuted = !this.isMuted;
+    toggleSounds(state=!this.isMuted) {
+        this.isMuted = state;
     
         Object.values(this).forEach((elem) => {
             if (elem instanceof HTMLAudioElement) {
-                this.muteMe(elem);
+                this.muteMe(elem, state);
             }
         });
     
@@ -64,8 +64,8 @@ class SoundManager {
 
 
 
-    muteMe(elem) {
-        elem.muted = this.isMuted;
+    muteMe(elem, state) {
+        elem.muted = state;
         elem.pause();
     }
 

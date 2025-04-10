@@ -82,7 +82,7 @@ class ThrowableObject extends MovableObject {
                 enemy.clearTempCanvas();
                 world.showWinScreen = true;
                 world.winScreen.hideButton();
-                // soundManager.toggleSounds();
+                soundManager.toggleSounds(true);
             }
         }
     }
