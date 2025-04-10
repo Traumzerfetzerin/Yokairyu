@@ -130,15 +130,6 @@ class Character extends MovableObject {
         this.applyGravity();
 
         this.initAnimations();
-
-        // Load sound effects
-        let soundManager = new SoundManager();
-        soundManager = new SoundManager();
-        soundManager.loadSound('walk', this.audioWalk);
-        soundManager.loadSound('jump', this.audioJump);
-        soundManager.loadSound('shoot', this.audioShoot);
-        soundManager.loadSound('hurt', this.audioHurt);
-        soundManager.loadSound('dead', this.audioDead);
     }
 
 
@@ -222,15 +213,13 @@ class Character extends MovableObject {
      */
     handleWalkingAudio(walking) {
         if (walking) {
-            if (!this.audioWalk || this.audioWalk.paused) {
-                this.audioWalk = soundManager.sounds['walk'];
-                soundManager.playSound('walk', true);
-                this.audioWalk.volume = 0.2;
+            if (!soundManager.audioWalk || soundManager.audioWalk.paused) {
+                soundManager.audioWalk.play();
             }
         } else {
-            if (this.audioWalk) {
-                this.audioWalk.pause();
-                this.audioWalk.currentTime = 0;
+            if (soundManager.audioWalk) {
+                soundManager.audioWalk.pause();
+                soundManager.audioWalk.currentTime = 0;
             }
         }
     }
@@ -309,6 +298,7 @@ class Character extends MovableObject {
             gameOverScreen.drawGameOverScreen(this.world.ctx);
             this.stopAnimation();
             gameOverScreen.hideButton();
+            // soundManager.toggleSounds();
         } else if (this.isHurt()) {
             this.handleHurtState();
         } else if (this.isAboveGround()) {
@@ -340,12 +330,7 @@ class Character extends MovableObject {
      */
     handleDeadState() {
         this.playAnimation(this.IMAGES_DEAD);
-        soundManager.playSound('dead', false);
-
-        this.audioDead = soundManager.sounds['dead'];
-        if (this.audioDead) {
-            this.audioDead.volume = 0.05;
-        }
+        soundManager.audioDead.play();
     }
 
 
@@ -356,12 +341,7 @@ class Character extends MovableObject {
      */
     handleHurtState() {
         this.playAnimation(this.IMAGES_HURT);
-        soundManager.playSound('hurt', false);
-
-        this.audioHurt = soundManager.sounds['hurt'];
-        if (this.audioHurt) {
-            this.audioHurt.volume = 0.1;
-        }
+        soundManager.audioHurt.play();
     }
 
 

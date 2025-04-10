@@ -42,12 +42,6 @@ class Endboss extends MovableObject {
 
         this.loadImages();
         this.startAnimationEndboss();
-
-        // Load the sound for the endboss's roar
-        let soundManager = new SoundManager();
-        soundManager.loadSound('dragonRoar', './audio/dragonRoar.mp3');
-        this.audioDragonRoar = soundManager.sounds['dragonRoar'];
-        this.audioDragonRoar.volume = 0.05;
     }
 
 

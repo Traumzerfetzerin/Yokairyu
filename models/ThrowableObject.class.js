@@ -15,15 +15,6 @@ class ThrowableObject extends MovableObject {
         this.x = x;
         this.y = y;
         this.throw();
-
-        // Load the sound for the spider's death animation
-        let soundManager = new SoundManager();
-        soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
-        soundManager.loadSound('dragonDead', './audio/dragonGrowl.mp3');
-        this.audioSpiderDead = soundManager.sounds['spiderDead'];
-        this.audioDragonDead = soundManager.sounds['dragonDead'];
-        this.audioSpiderDead.volume = 0.2;
-        this.audioDragonDead.volume = 0.2;
     }
 
 
@@ -92,6 +83,7 @@ class ThrowableObject extends MovableObject {
                 enemy.clearTempCanvas();
                 world.showWinScreen = true;
                 world.winScreen.hideButton();
+                // soundManager.toggleSounds();
             }
         }
     }
@@ -109,5 +101,4 @@ class ThrowableObject extends MovableObject {
         soundManager.playSound('spiderDead', false);
         this.audioSpiderDead.play();
     }
-
 }

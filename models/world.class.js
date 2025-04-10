@@ -1,4 +1,5 @@
 class World {
+
     character = new Character();
     level = level1;
     canvas;
@@ -30,13 +31,6 @@ class World {
         this.setWorld();
         this.run();
         this.startBackgroundSound();
-
-        // Load sound effects
-        let soundManager = new SoundManager();
-        soundManager.loadSound('background', './audio/backgroundSound.mp3');
-        soundManager.loadSound('collectShoot', './audio/collectShoot.mp3');
-        soundManager.loadSound('collectLoot', './audio/collectLoot.mp3');
-        soundManager.loadSound('spiderDead', './audio/spiderDead.mp3');
     }
 
 
@@ -45,11 +39,9 @@ class World {
      * Retrieves the background sound from the sound manager and sets its volume to 0.2.
      */
     startBackgroundSound() {
-        this.audioBackground = soundManager.sounds['background'];
-
         document.getElementById('startImage').addEventListener('click', () => {
-            this.audioBackground.play();
-            this.audioBackground.volume = 0.2;
+            soundManager.audioBackground.play();
+            soundManager.audioBackground.volume = 0.2;
         });
     }
 
@@ -139,10 +131,8 @@ class World {
      */
     playEnemyDeathAnimation(enemy) {
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-        soundManager.playSound('spiderDead', false);
-        this.audioSpiderDead = soundManager.sounds['spiderDead'];
-        this.audioSpiderDead.play();
-        this.audioSpiderDead.volume = 0.2;
+        soundManager.audioSpiderDead.play();
+        soundManager.audioSpiderDead.volume = 0.2;
     }
 
 
@@ -249,10 +239,8 @@ class World {
         this.level.coins.forEach((coin, c) => {
             if (this.character.isColliding(coin)) {
                 this.handleCoinCollision(coin, c);
-                soundManager.playSound('collectLoot', false);
-                this.audioCollectLoot = soundManager.sounds['collectLoot'];
-                this.audioCollectLoot.play();
-                this.audioCollectLoot.volume = 0.2;
+                soundManager.audioCollectLoot.play();
+                soundManager.audioCollectLoot.volume = 0.2;
             }
         });
     }
@@ -287,14 +275,12 @@ class World {
         this.level.bottles.forEach((bottle, b) => {
             if (this.character.isColliding(bottle)) {
                 this.handleBottleCollision(bottle, b);
-                soundManager.playSound('collectShoot', false);
-                this.audioCollectShoot = soundManager.sounds['collectShoot'];
-                this.audioCollectShoot.play();
-                this.audioCollectShoot.volume = 0.2;
+                soundManager.audioCollectShoot.play();
+                soundManager.audioCollectShoot.volume = 0.2;
 
                 setTimeout(() => {
-                    this.audioCollectShoot.pause();
-                    this.audioCollectShoot.currentTime = 0;
+                    soundManager.audioCollectShoot.pause();
+                    soundManager.audioCollectShoot.currentTime = 0;
                 }, 550);
             }
         });
@@ -348,6 +334,13 @@ class World {
         this.translateCamera();
         this.resetCameraTranslation();
         this.requestNextFrame();
+    }
+
+
+    clearAllIntervalls() {
+        for (let i = 1; i < 9999; i++) {
+            window.clearInterval(i);
+        }
     }
 
 
