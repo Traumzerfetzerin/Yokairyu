@@ -77,8 +77,7 @@ class ThrowableObject extends MovableObject {
 
         if (enemy.isDead()) {
             world.enemyIsDead(enemy);
-            soundManager.playSound('dragonDead', false);
-            this.audioDragonDead.play();
+            soundManager.audioDragonDead.play();
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
                 world.showWinScreen = true;
@@ -98,7 +97,6 @@ class ThrowableObject extends MovableObject {
     handleNormalEnemyHit(enemy) {
         world.enemyIsDead(enemy);
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
-        soundManager.playSound('spiderDead', false);
-        this.audioSpiderDead.play();
+        soundManager.audioSpiderDead.play();
     }
 }

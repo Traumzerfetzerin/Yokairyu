@@ -8,11 +8,11 @@ class SoundManager {
      */
     constructor() {
         this.isMuted = false;
-        this.sounds = {};
 
         // Background-Sound
         this.audioBackground = new Audio('./audio/backgroundSound.mp3');
         this.audioBackground.loop = true;
+        this.audioBackground.volume = 0.1;
 
         // Player-Sounds
         this.audioWalk = new Audio('./audio/playerWalk.mp3');
@@ -29,6 +29,8 @@ class SoundManager {
 
         // Monster-Sounds
         this.audioSpiderWalk = new Audio('./audio/spiderWalk.mp3');
+        this.audioSpiderWalk.volume = 0.1;
+
         this.audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
         this.audioSpiderDead = new Audio('./audio/spiderDead.mp3');
         this.audioDragonDead = new Audio('./audio/dragonGrowl.mp3');
@@ -50,12 +52,21 @@ class SoundManager {
      */
     toggleSounds() {
         this.isMuted = !this.isMuted;
-
-        Object.values(this.sounds).forEach((sound) => {
-            sound.muted = this.isMuted;
+    
+        Object.values(this).forEach((elem) => {
+            if (elem instanceof HTMLAudioElement) {
+                this.muteMe(elem);
+            }
         });
-
+    
         this.updateSoundButton();
+    }
+
+
+
+    muteMe(elem) {
+        elem.muted = this.isMuted;
+        elem.pause();
     }
 
 
