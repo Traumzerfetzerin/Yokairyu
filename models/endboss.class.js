@@ -2,8 +2,7 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     y = -20;
-    energy = 1;
-
+    energy = 100;
 
     IMAGES_WALK = [
         // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
@@ -14,7 +13,6 @@ class Endboss extends MovableObject {
         // './img/endboss/4_enemie_boss_chicken/2_alert/G10.png',
         // './img/endboss/4_enemie_boss_chicken/2_alert/G11.png',
         // './img/endboss/4_enemie_boss_chicken/2_alert/G12.png'
-
 
         './img/endboss/Dragon/Body.png',
         './img/endboss/Dragon/Head_1.png',
@@ -85,6 +83,7 @@ class Endboss extends MovableObject {
         }
     }
 
+    
     animateEndboss;
 
 

@@ -66,10 +66,11 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Handles the hit on the endboss by a throwable object.
-     * Makes the endboss take damage and updates the status bar.
-     * If the endboss is killed, removes it from the level and shows the win screen.
-     * @param {Endboss} enemy - The endboss that was hit.
+     * Handles the collision between a throwable object and the endboss.
+     * Decreases the endboss's energy and updates the endboss status bar.
+     * If the endboss is dead, it plays the dragon death sound, clears its temporary canvas,
+     * shows the win screen, and stops sound effects.
+     * @param {Endboss} enemy - The endboss to hit.
      */
     handleEndbossHit(enemy) {
         enemy.hit();
@@ -89,10 +90,10 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Handles the hit on a normal enemy by a throwable object.
-     * This function marks the enemy as dead, updates its image to the death image,
-     * and plays the spider death sound effect.
-     * @param {MovableObject} enemy - The enemy object that has been hit.
+     * Handles the collision between a throwable object and a normal enemy.
+     * Sets the enemy's energy to 0, plays the enemy's death animation, and
+     * plays the spider death sound effect.
+     * @param {Enemy} enemy - The normal enemy to hit.
      */
     handleNormalEnemyHit(enemy) {
         world.enemyIsDead(enemy);

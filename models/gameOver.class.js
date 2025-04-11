@@ -38,6 +38,11 @@ class GameOverScreen {
         } return;
     }
 
+
+    /**
+     * Hides the 'Back to menu' button, the 'Menu' container, the touch controls, and the soundbar.
+     * Shows the 'Restart' button.
+     */
     hideButton() {
         document.getElementById('backToMenu').classList.add('d-none');
         document.getElementById('menu').classList.add('d-none');

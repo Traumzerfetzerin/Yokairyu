@@ -9,6 +9,12 @@ class DrawableObject {
 
 
     // loadImage('img/test.png');
+
+    /**
+     * Loads a single image for the object.
+     * @param {string} path - The path to the image to load.
+     * @private
+     */
     loadImage(path) {
         this.img = new Image(); // this.img = document.getElementById('image') <img id="image" src="img/test.png" />
         this.img.src = path;

@@ -4,12 +4,10 @@ class Chicken extends MovableObject {
     y = 380;
     energy = 1;
 
-
     IMAGES_WALK = [
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
-
 
         './img/enemy/Spider/Spider_1.png',
         './img/enemy/Spider/Spider_2.png',
@@ -68,12 +66,8 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Starts the walking animation for the chicken.
-     * 
-     * This function sets up a recurring interval that plays the walking
-     * animation and audio as long as the chicken's energy is greater than 0.
-     * The interval updates every 100 milliseconds. If the energy reaches 0,
-     * the interval is cleared, stopping the animation.
+     * Starts an interval that updates the chicken's animation and plays the walk sound effect every 100 milliseconds as long as the chicken's energy is greater than 0.
+     * If the energy reaches 0, the interval is cleared and the animation and sound effect will stop.
      */
     startWalkingAnimation() {
         let walkAnimation = setInterval(() => {

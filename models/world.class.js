@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     canvas;
@@ -13,6 +12,7 @@ class World {
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
     winScreen = new WinScreen();
+
 
     /**
      * Initializes a new instance of the World class.
@@ -35,8 +35,9 @@ class World {
 
 
     /**
-     * Starts the background music when the start button is clicked.
-     * Retrieves the background sound from the sound manager and sets its volume to 0.2.
+     * Starts the background sound effect when the game is started.
+     * This is achieved by adding an event listener to the start button
+     * that plays the background sound and sets its volume to 0.2.
      */
     startBackgroundSound() {
         document.getElementById('startImage').addEventListener('click', () => {
@@ -124,10 +125,10 @@ class World {
 
 
     /**
-     * Plays the death animation for an enemy.
-     * This function sets the enemy's image to the death image, plays the death sound effect,
-     * and sets the volume of the sound effect to 0.2.
-     * @param {Enemy} enemy - The enemy to play the death animation for.
+     * Plays the death animation and sound effect for an enemy.
+     * This function loads the death image for the enemy and plays the death sound effect.
+     * The volume of the sound effect is set to 0.2.
+     * @param {Enemy} enemy - The enemy to play the death animation and sound for.
      */
     playEnemyDeathAnimation(enemy) {
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
@@ -231,9 +232,9 @@ class World {
 
     /**
      * Checks for collisions between the character and all coins in the level.
-     * If a collision is detected with a coin, the character collects the coin,
-     * the coin is removed from the level, and the coin status bar is updated
-     * to reflect the new number of coins collected.
+     * If a collision is detected with a coin, the character collects the coin by calling the handleCoinCollision function,
+     * which increments the character's coin count and updates the coin status bar to reflect the new number of coins collected.
+     * The sound effect for collecting loot is also played.
      */
     checkCoinCollisions() {
         this.level.coins.forEach((coin, c) => {
@@ -266,10 +267,9 @@ class World {
 
     /**
      * Checks for collisions between the character and all bottles in the level.
-     * If a collision is detected with a bottle, the character collects the bottle
-     * by calling the handleBottleCollision function, which increments the character's
-     * bottle count and updates the bottle status bar to reflect the new number of bottles
-     * collected. The sound effect for collecting a bottle is also played.
+     * If a collision is detected with a bottle, the character collects the bottle by calling the handleBottleCollision function,
+     * which increments the character's bottle count and updates the bottle status bar to reflect the new number of bottles collected.
+     * The sound effect for collecting shoot is also played.
      */
     checkBottleCollisions() {
         this.level.bottles.forEach((bottle, b) => {
@@ -303,7 +303,6 @@ class World {
             this.statusbarBottle.setPercentage(percentBottles);
         }
     }
-
 
 
     /**

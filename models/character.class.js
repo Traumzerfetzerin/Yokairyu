@@ -6,7 +6,6 @@ class Character extends MovableObject {
     speed = 5;
     world;
 
-
     offset = {
         top: 0,
         left: 15,
@@ -14,11 +13,9 @@ class Character extends MovableObject {
         bottom: 0
     }
 
-
     coinsCollected = 0;
     bottlesCollected = 0;
     lastCollect = 0;
-
 
     // img
     IMAGES_WALK = [
@@ -207,8 +204,8 @@ class Character extends MovableObject {
 
     /**
      * Handles the walking sound effect for the character.
-     * If the character is walking, this function plays the walking sound effect.
-     * If the character is not walking, this function stops the walking sound effect.
+     * If the character is walking, the sound is played if it is not already playing.
+     * If the character is not walking, the sound is paused and its current time is set to 0.
      * @param {boolean} walking - Whether the character is currently walking.
      */
     handleWalkingAudio(walking) {
@@ -226,32 +223,26 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the character's jumping.
-     * This function is called in the interval started in the startMovementHandling() function.
-     * It checks if the character can jump and if the space bar is pressed.
-     * If the conditions are met, the character jumps by calling the jump() function.
-     * The jumping sound effect is also handled by checking if the sound exists and has not been played yet.
-     * If the sound exists and has not been played yet, the sound is played and its volume is set to 0.2.
-     * The sound is also paused after 2 seconds.
+     * Handles the character's jump action.
+     * If the space bar is pressed and the character is not above the ground, the character jumps.
+     * The jump animation and sound effect are played once every 2 seconds to prevent
+     * continuous playing of the sound effect when the space bar is held down.
      */
     handleJump() {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
 
-            this.audioJump = soundManager.sounds['jump'];
-
             // Check if the sound exists and is not already playing
-            if (this.audioJump && this.audioJump.paused) {
-                this.audioJump.currentTime = 0;
-                this.audioJump.volume = 0.2;
-                soundManager.playSound('jump', false);
+            if (soundManager.audioJump && soundManager.audioJump.paused) {
+                soundManager.audioJump.play();
+                soundManager.audioJump.currentTime = 0;
             }
 
             // Pause the sound after 2 seconds
             setTimeout(() => {
-                if (this.audioJump && !this.audioJump.paused) {
-                    this.audioJump.pause();
-                    this.audioJump.currentTime = 0;
+                if (soundManager.audioJump && !soundManager.audioJump.paused) {
+                    soundManager.audioJump.pause();
+                    soundManager.audioJump.currentTime = 0;
                 }
             }, 2000);
         }
@@ -287,10 +278,15 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the character's current state and performs the corresponding animation.
-     * Checks the character's state and calls the appropriate method to handle the animation.
-     * If the character is dead, it stops the animation and draws the game over screen.
-     * @param {GameOverScreen} gameOverScreen - The GameOverScreen instance to use for drawing the game over screen.
+     * Handles the character's state animation based on its current status.
+     * 
+     * This function checks the character's state and triggers the appropriate
+     * animation and sound effects. It also manages the game over state by drawing
+     * the game over screen and stopping animations when the character is dead.
+     * 
+     * @param {GameOverScreen} gameOverScreen - The game over screen instance used to
+     *                                          manage the display and sound when the
+     *                                          character is dead.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
@@ -326,7 +322,6 @@ class Character extends MovableObject {
     /**
      * Handles the character's dead state.
      * Plays the dead animation and sound effect for the character.
-     * Sets the volume of the dead sound effect to 0.05 if the sound exists.
      */
     handleDeadState() {
         this.playAnimation(this.IMAGES_DEAD);
@@ -337,7 +332,6 @@ class Character extends MovableObject {
     /**
      * Handles the character's hurt state.
      * Plays the hurt animation and sound effect for the character.
-     * Sets the volume of the hurt sound effect to 0.1 if the sound exists.
      */
     handleHurtState() {
         this.playAnimation(this.IMAGES_HURT);
@@ -386,24 +380,28 @@ class Character extends MovableObject {
 
     /**
      * Handles the character's throw action.
-     * Checks if the throw key is pressed and if so, plays the throw animation.
-     * If the throw sound is paused, sets the sound to its start time and plays it.
-     * If the throw key is not pressed and the sound is not paused, pauses the sound and
-     * sets it to its start time.
+     * 
+     * This function is called at a regular interval (every 50ms) to check for the throw action.
+     * If the throw key is pressed, it plays the throw animation and sound effect.
+     * If the throw key is not pressed, it stops the throw animation and sound effect.
+     * The throw animation and sound effect are played once every second (1000ms) to prevent
+     * continuous playing of the sound effect when the throw key is held down.
      */
     handleThrow() {
         if (this.world.keyboard.THROW) {
             this.playAnimation(this.IMAGES_THROW);
 
-            this.audioShoot = soundManager.sounds['shoot'];
+            if (!soundManager.audioShoot || soundManager.audioShoot.paused) {
+                soundManager.audioShoot.play();
 
-            if (this.audioShoot && this.audioShoot.paused) {
-                this.audioShoot.currentTime = 0;
-                soundManager.playSound('shoot', false);
+                setTimeout(() => {
+                    soundManager.audioShoot.pause();
+                    soundManager.audioShoot.currentTime = 0;
+                }, 1000);
             }
-        } else if (this.audioShoot) {
-            this.audioShoot.pause();
-            this.audioShoot.currentTime = 0;
+        } else if (soundManager.audioShoot) {
+            soundManager.audioShoot.pause();
+            soundManager.audioShoot.currentTime = 0;
         }
     }
 }

@@ -7,7 +7,6 @@ class StatusbarBottle extends DrawableObject {
         // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/80.png',
         // './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/100.png',
 
-
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_0.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_20.png',
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/green/statusbarBottle_40.png',

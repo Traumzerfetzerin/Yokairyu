@@ -19,6 +19,8 @@ class SoundManager {
         this.audioWalk.volume = 0.2;
 
         this.audioJump = new Audio('./audio/playerJump.mp3');
+        this.audioJump.volume = 0.2;
+
         this.audioShoot = new Audio('./audio/playerShoot.mp3');
 
         this.audioHurt = new Audio('./audio/playerHurt.mp3');
@@ -32,38 +34,46 @@ class SoundManager {
         this.audioSpiderWalk.volume = 0.1;
 
         this.audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
+
         this.audioSpiderDead = new Audio('./audio/spiderDead.mp3');
+
         this.audioDragonDead = new Audio('./audio/dragonGrowl.mp3');
 
         // Collect-Sounds
         this.audioCollectShoot = new Audio('./audio/collectShoot.mp3');
+        
         this.audioCollectLoot = new Audio('./audio/collectLoot.mp3');
     }
 
 
     /**
-     * Toggles the mute state of all sounds.
-     *
-     * If the sound is currently playing, it is muted.
-     * If the sound is currently muted, it is unmuted.
-     *
-     * The mute state of all sounds is updated in the {@link SoundManager#sounds} object.
-     * The sound button icon is also updated based on the mute state.
+     * Toggles the mute state of all sounds in the game.
+     * 
+     * If the mute state is true, all sounds are muted. If the mute state is false,
+     * all sounds are unmuted.
+     * 
+     * If no value is provided, the mute state is toggled.
+     * @param {boolean} [state] - The mute state. If not provided, the mute state is toggled.
      */
-    toggleSounds(state=!this.isMuted) {
+    toggleSounds(state = !this.isMuted) {
         this.isMuted = state;
-    
+
         Object.values(this).forEach((elem) => {
             if (elem instanceof HTMLAudioElement) {
                 this.muteMe(elem, state);
             }
         });
-    
+
         this.updateSoundButton();
     }
 
 
-
+    /**
+     * Mutes a given HTMLAudioElement and pauses it.
+     * 
+     * @param {HTMLAudioElement} elem - The audio element to mute.
+     * @param {boolean} state - The mute state. If true, the audio is muted. Otherwise, the audio is unmuted.
+     */
     muteMe(elem, state) {
         elem.muted = state;
         elem.pause();
