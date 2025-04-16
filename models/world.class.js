@@ -336,11 +336,11 @@ class World {
     }
 
 
-    clearAllIntervalls() {
-        for (let i = 1; i < 9999; i++) {
-            window.clearInterval(i);
-        }
-    }
+    // clearAllIntervalls() {
+    //     for (let i = 1; i < 9999; i++) {
+    //         window.clearInterval(i);
+    //     }
+    // }
 
 
     /**

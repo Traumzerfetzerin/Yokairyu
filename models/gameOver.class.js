@@ -49,5 +49,10 @@ class GameOverScreen {
         document.getElementById('touch').style.display = 'none';
         document.getElementById('soundbar').style.display = 'none';
         document.getElementById('restart').classList.remove('d-none');
+        let newGameMenu = document.getElementById('newGameMenu');
+        newGameMenu.classList.remove('d-none');
+        newGameMenu.style.display = 'flex';
+        newGameMenu.style.justifyContent = 'center';
+        newGameMenu.style.alignItems = 'center';
     }
 }

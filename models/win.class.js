@@ -48,13 +48,18 @@ class WinScreen {
         document.getElementById('menu').classList.add('d-none');
         document.getElementById('touch').style.display = 'none';
         document.getElementById('soundbar').style.display = 'none';
-        let restart = document.getElementById('restart');
-        restart.classList.remove('d-none');
-        restart.style.top = '170px';
-        restart.style.color = '#4FFCFD';
-        restart.style.textShadow = '0 0 0 #0D3A75';
-        restart.style.position = 'absolute';
-        restart.style.fontSize = '50px';
-        restart.style.zIndex = '1';
+        document.getElementById('newGameMenu').classList.remove('d-none');
+        let newGameMenu = document.getElementById('newGameMenu');
+        newGameMenu.classList.remove('d-none');
+        newGameMenu.style.top = '-90px';
+        newGameMenu.style.color = '#4FFCFD';
+        newGameMenu.style.textShadow = '0 0 0 #0D3A75';
+        newGameMenu.style.position = 'absolute';
+        newGameMenu.style.fontSize = '50px';
+        newGameMenu.style.zIndex = '1';
+        newGameMenu.style.width = '100%';
+        newGameMenu.style.display = 'flex';
+        newGameMenu.style.justifyContent = 'center';
+        newGameMenu.style.alignItems = 'center';
     }
 }

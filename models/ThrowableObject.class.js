@@ -84,7 +84,7 @@ class ThrowableObject extends MovableObject {
                 world.showWinScreen = true;
                 world.winScreen.hideButton();
                 soundManager.toggleSounds(true);
-                world.clearAllIntervalls();
+                // world.clearAllIntervalls();
             }
         }
     }

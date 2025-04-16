@@ -115,7 +115,15 @@ p {
     z-index: 1;
 }
 
-#backToMenu img {
+#backToMenuButton{
+    font-size: 50px;
+    position: absolute;
+    text-shadow: 0 0 0 white;
+    top: 310px;
+    z-index: 1;
+}
+
+.backToMenuButton {
     width: 50px;
     height: 50px;
 }
