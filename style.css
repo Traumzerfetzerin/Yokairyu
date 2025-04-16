@@ -183,6 +183,7 @@ footer a {
     width: 100%;
     justify-content: space-around;
     align-items: center;
+    z-index: 1;
 }
 
 #touch img {
