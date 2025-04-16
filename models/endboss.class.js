@@ -104,7 +104,7 @@ class Endboss extends MovableObject {
             this.createCombinedImage();
 
             if (this.isCharacterInRange() && !hasPlayedDragonRoar) {
-                soundManager.playSound('dragonRoar', false);
+                soundManager.audioDragonRoar.play();
                 hasPlayedDragonRoar = true;
             }
         }, 500);

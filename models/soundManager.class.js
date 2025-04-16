@@ -34,6 +34,7 @@ class SoundManager {
         this.audioSpiderWalk.volume = 0.1;
 
         this.audioDragonRoar = new Audio('./audio/dragonRoar.mp3');
+        this.audioDragonRoar.volume = 0.1;
 
         this.audioSpiderDead = new Audio('./audio/spiderDead.mp3');
 
