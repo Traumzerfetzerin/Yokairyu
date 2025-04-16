@@ -22,6 +22,7 @@ class SoundManager {
         this.audioJump.volume = 0.2;
 
         this.audioShoot = new Audio('./audio/playerShoot.mp3');
+        this.audioShoot.volume = 0.2;
 
         this.audioHurt = new Audio('./audio/playerHurt.mp3');
         this.audioHurt.volume = 0.1;
