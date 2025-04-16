@@ -50,8 +50,11 @@ class WinScreen {
         document.getElementById('soundbar').style.display = 'none';
         let restart = document.getElementById('restart');
         restart.classList.remove('d-none');
-        restart.style.top = '340px';
+        restart.style.top = '170px';
         restart.style.color = '#4FFCFD';
         restart.style.textShadow = '0 0 0 #0D3A75';
+        restart.style.position = 'absolute';
+        restart.style.fontSize = '50px';
+        restart.style.zIndex = '1';
     }
 }
