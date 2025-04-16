@@ -21,7 +21,7 @@ class Bottles extends MovableObject {
         super().loadImage('./img/shoot/shadow/44.png');
         this.loadImages(this.IMAGES);
 
-        this.x = this.getNonOverlappingX(500, 1660, 90);
+        this.x = this.getNonOverlappingX(100, 1660, 90);
 
         this.type = 'bottle';
 
@@ -63,6 +63,6 @@ class Bottles extends MovableObject {
             let bottle = new Bottles();
             bottle.x = this.getNonOverlappingX(500, 1660, 90);
             world.level.bottles.push(bottle);
-        }, 10000)
+        }, 100000)
     }
 }

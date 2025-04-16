@@ -100,5 +100,8 @@ class ThrowableObject extends MovableObject {
         world.enemyIsDead(enemy);
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
         soundManager.audioSpiderDead.play();
+        setTimeout(() => {
+            world.makeEnemyFall(enemy);
+        }, 1000);
     }
 }
