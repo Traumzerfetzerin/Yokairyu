@@ -1,20 +1,37 @@
 class SoundManager {
+
     /**
      * Initializes a new instance of the SoundManager class.
-     * Sets up audio elements for various sounds used in the game.
-     * Each sound is associated with a key in the 'sounds' object for easy access.
-     * The sounds include background music, player actions, monster sounds, and collect item sounds.
-     * The background sound is set to loop continuously.
+     * Sets the initial mute state to false and initializes all sound effects.
      */
     constructor() {
         this.isMuted = false;
 
-        // Background-Sound
+        this.initBackgroundSound();
+        this.initPlayerSounds();
+        this.initMonsterSounds();
+        this.initCollectSounds();
+    }
+
+
+    /**
+     * Initializes the background sound for the game.
+     * Loads the audio file for background sound, sets it to loop continuously,
+     * and sets the initial volume to 0.1.
+     */
+    initBackgroundSound() {
         this.audioBackground = new Audio('./audio/backgroundSound.mp3');
         this.audioBackground.loop = true;
         this.audioBackground.volume = 0.1;
+    }
 
-        // Player-Sounds
+
+    /**
+     * Initializes sound effects for the player.
+     * Loads the audio files for walking, jumping, shooting, getting hurt, and dying.
+     * Sets the initial volume for each sound effect.
+     */
+    initPlayerSounds() {
         this.audioWalk = new Audio('./audio/playerWalk.mp3');
         this.audioWalk.volume = 0.2;
 
@@ -29,8 +46,16 @@ class SoundManager {
 
         this.audioDead = new Audio('./audio/playerDead.mp3');
         this.audioDead.volume = 0.05;
+    }
 
-        // Monster-Sounds
+
+    /**
+     * Initializes sound effects for monsters in the game.
+     * Loads the audio files for the spider's walk, the dragon's roar,
+     * and the death sounds for both the spider and dragon.
+     * Sets the initial volume for the spider's walk and dragon's roar.
+     */
+    initMonsterSounds() {
         this.audioSpiderWalk = new Audio('./audio/spiderWalk.mp3');
         this.audioSpiderWalk.volume = 0.1;
 
@@ -38,12 +63,16 @@ class SoundManager {
         this.audioDragonRoar.volume = 0.1;
 
         this.audioSpiderDead = new Audio('./audio/spiderDead.mp3');
-
         this.audioDragonDead = new Audio('./audio/dragonGrowl.mp3');
+    }
 
-        // Collect-Sounds
+
+    /**
+     * Initializes sound effects for collecting items in the game.
+     * Loads the audio files for collecting coins and bottles.
+     */
+    initCollectSounds() {
         this.audioCollectShoot = new Audio('./audio/collectShoot.mp3');
-
         this.audioCollectLoot = new Audio('./audio/collectLoot.mp3');
     }
 

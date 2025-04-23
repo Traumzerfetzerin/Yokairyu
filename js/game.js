@@ -107,69 +107,161 @@ function restartGame() {
 
 
 // Keyboard event listeners
-window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 39 || e.keyCode == 68) {
-        keyboard.RIGHT = true;
-    }
+window.addEventListener("keydown", handleKeyDown);
 
-    if (e.keyCode == 37 || e.keyCode == 65) {
-        keyboard.LEFT = true;
+/**
+ * Handles keydown events for the game controls.
+ * Maps specific key codes to their corresponding action handlers,
+ * such as moving right, left, up, down, jumping, throwing, and reloading.
+ * @param {KeyboardEvent} e - The event object representing the keydown event.
+ */
+function handleKeyDown(e) {
+    switch (e.keyCode) {
+        case 39: // right arrow
+        case 68: // D
+            handleRight();
+            break;
+        case 37: // left arrow
+        case 65: // A
+            handleLeft();
+            break;
+        case 32: // space
+            handleSpace();
+            break;
+        case 69: // E
+            handleThrow();
+            break;
+        case 82: // R
+            handleReload();
+            break;
     }
+}
 
-    if (e.keyCode == 38 || e.keyCode == 87) {
-        keyboard.UP = true;
-    }
 
-    if (e.keyCode == 40 || e.keyCode == 83) {
-        keyboard.DOWN = true;
-    }
+/**
+ * Activates the right movement control by setting the RIGHT key flag to true.
+ * This function is typically called in response to a keydown event for the right arrow key or 'D' key.
+ */
+function handleRight() {
+    keyboard.RIGHT = true;
+}
 
-    if (e.keyCode == 32) {
-        keyboard.SPACE = true;
-    }
 
-    if (e.keyCode == 69) {
-        keyboard.THROW = true;
-    }
+/**
+ * Activates the left movement control by setting the LEFT key flag to true.
+ * This function is typically called in response to a keydown event for the left arrow key or 'A' key.
+ */
+function handleLeft() {
+    keyboard.LEFT = true;
+}
 
-    if (e.keyCode == 82) {
-        keyboard.RELOAD = true;
-        restartGame();
-    }
-});
+
+/**
+ * Activates the jump control by setting the SPACE key flag to true.
+ * This function is typically called in response to a keydown event for the space key.
+ */
+function handleSpace() {
+    keyboard.SPACE = true;
+}
+
+
+/**
+ * Activates the throw control by setting the THROW key flag to true.
+ * This function is typically called in response to a keydown event for the 'E' key.
+ */
+function handleThrow() {
+    keyboard.THROW = true;
+}
+
+
+/**
+ * Handles the reload control by setting the RELOAD key flag to true.
+ * This function is typically called in response to a keydown event for the 'R' key.
+ * It also reloads the current webpage to restart the game.
+ */
+function handleReload() {
+    keyboard.RELOAD = true;
+    restartGame();
+}
 
 
 // Keyboard event listeners
-window.addEventListener("keyup", (e) => {
-    if (e.keyCode == 39 || e.keyCode == 68) {
-        keyboard.RIGHT = false;
-    }
+window.addEventListener("keyup", handleKeyUp);
 
-    if (e.keyCode == 37 || e.keyCode == 65) {
-        keyboard.LEFT = false;
+/**
+ * Handles keyup events for movement and action keys.
+ * This function is called in response to a keyup event and is used to release the
+ * corresponding key flag when a key is released.
+ * @param {event} e The keyup event object.
+ */
+function handleKeyUp(e) {
+    switch (e.keyCode) {
+        case 39: // arrow right
+        case 68: // D
+            releaseRight();
+            break;
+        case 37: // arrow left
+        case 65: // A
+            releaseLeft();
+            break;
+        case 32: // space
+            releaseSpace();
+            break;
+        case 69: // E
+            releaseThrow();
+            break;
+        case 82: // R
+            releaseReload();
+            break;
     }
+}
 
-    if (e.keyCode == 38 || e.keyCode == 87) {
-        keyboard.UP = false;
-    }
 
-    if (e.keyCode == 40 || e.keyCode == 83) {
-        keyboard.DOWN = false;
-    }
+/**
+ * Releases the right movement control by setting the RIGHT key flag to false.
+ * This function is typically called in response to a keyup event for the right arrow key or 'D' key.
+ */
+function releaseRight() {
+    keyboard.RIGHT = false;
+}
 
-    if (e.keyCode == 32) {
-        keyboard.SPACE = false;
-    }
 
-    if (e.keyCode == 69) {
-        keyboard.THROW = false;
-    }
+/**
+ * Releases the left movement control by setting the LEFT key flag to false.
+ * This function is typically called in response to a keyup event for the left arrow key or 'A' key.
+ */
+function releaseLeft() {
+    keyboard.LEFT = false;
+}
 
-    if (e.keyCode == 82) {
-        keyboard.RELOAD = false;
-        restartGame();
-    }
-});
+
+/**
+ * Releases the jump control by setting the SPACE key flag to false.
+ * This function is typically called in response to a keyup event for the space key.
+ */
+function releaseSpace() {
+    keyboard.SPACE = false;
+}
+
+
+/**
+ * Releases the throw control by setting the THROW key flag to false.
+ * This function is typically called in response to a keyup event for the 'E' key.
+ */
+function releaseThrow() {
+    keyboard.THROW = false;
+}
+
+
+/**
+ * Releases the reload control by setting the RELOAD key flag to false.
+ * This function is typically called in response to a keyup event for the 'R' key.
+ * It also restarts the game by calling the restartGame function.
+ */
+function releaseReload() {
+    keyboard.RELOAD = false;
+    restartGame();
+}
 
 
 // Mouse event listeners
@@ -188,11 +280,14 @@ window.addEventListener("keyup", (e) => {
 
 
 /**
- * Handles touch start events on the game canvas.
- * This function prevents the default touch event behavior and checks which
- * virtual button was touched. Depending on the touched button, the corresponding
- * keyboard event is triggered.
- * @param {event} e The touch event object.
+ * Handles the touchstart event for touch controls.
+ * 
+ * Prevents the default behavior of the event and determines the touch
+ * coordinates. Checks if the touch event occurred on any of the control
+ * buttons ('leftBtn', 'rightBtn', 'jumpBtn', 'shootBtn') and triggers the
+ * corresponding action handlers if a button is touched.
+ * 
+ * @param {TouchEvent} e - The event object representing the touchstart event.
  */
 function handleTouchStart(e) {
     e.preventDefault();
@@ -200,31 +295,81 @@ function handleTouchStart(e) {
     const touchX = e.touches[0].clientX;
     const touchY = e.touches[0].clientY;
 
-    const leftBtn = document.getElementById('leftBtn');
-    const rightBtn = document.getElementById('rightBtn');
-    const jumpBtn = document.getElementById('jumpBtn');
-    const shootBtn = document.getElementById('shootBtn');
-
-    const leftRect = leftBtn.getBoundingClientRect();
-    const rightRect = rightBtn.getBoundingClientRect();
-    const jumpRect = jumpBtn.getBoundingClientRect();
-    const shootRect = shootBtn.getBoundingClientRect();
-
-    if (touchX >= leftRect.left && touchX <= leftRect.right && touchY >= leftRect.top && touchY <= leftRect.bottom) {
-        keyboard.LEFT = true;
+    if (isTouchOnButton('leftBtn', touchX, touchY)) {
+        handleTouchLeft();
     }
 
-    if (touchX >= rightRect.left && touchX <= rightRect.right && touchY >= rightRect.top && touchY <= rightRect.bottom) {
-        keyboard.RIGHT = true;
+    if (isTouchOnButton('rightBtn', touchX, touchY)) {
+        handleTouchRight();
     }
 
-    if (touchX >= jumpRect.left && touchX <= jumpRect.right && touchY >= jumpRect.top && touchY <= jumpRect.bottom) {
-        keyboard.SPACE = true;
+    if (isTouchOnButton('jumpBtn', touchX, touchY)) {
+        handleTouchJump();
     }
 
-    if (touchX >= shootRect.left && touchX <= shootRect.right && touchY >= shootRect.top && touchY <= shootRect.bottom) {
-        keyboard.THROW = true;
+    if (isTouchOnButton('shootBtn', touchX, touchY)) {
+        handleTouchShoot();
     }
+}
+
+
+/**
+ * Checks if the given touch coordinates are within the bounds of the
+ * specified button element.
+ * 
+ * @param {string} buttonId - The id of the button element to check.
+ * @param {number} x - The x coordinate of the touch.
+ * @param {number} y - The y coordinate of the touch.
+ * @returns {boolean} True if the touch is within the button bounds, false
+ * otherwise.
+ */
+function isTouchOnButton(buttonId, x, y) {
+    const btn = document.getElementById(buttonId);
+    if (!btn) return false;
+
+    const rect = btn.getBoundingClientRect();
+    return (
+        x >= rect.left &&
+        x <= rect.right &&
+        y >= rect.top &&
+        y <= rect.bottom
+    );
+}
+
+
+/**
+ * Activates the left movement control by setting the LEFT key flag to true.
+ * This function is typically called in response to a touchstart event on the left control button.
+ */
+function handleTouchLeft() {
+    keyboard.LEFT = true;
+}
+
+
+/**
+ * Activates the right movement control by setting the RIGHT key flag to true.
+ * This function is typically called in response to a touchstart event on the right control button.
+ */
+function handleTouchRight() {
+    keyboard.RIGHT = true;
+}
+
+
+/**
+ * Activates the jump control by setting the SPACE key flag to true.
+ * This function is typically called in response to a touchstart event on the jump control button.
+ */
+function handleTouchJump() {
+    keyboard.SPACE = true;
+}
+
+
+/**
+ * Activates the throw control by setting the THROW key flag to true.
+ * This function is typically called in response to a touchstart event on the shoot control button.
+ */
+function handleTouchShoot() {
+    keyboard.THROW = true;
 }
 
 
@@ -239,6 +384,7 @@ function handleTouchEnd() {
 }
 
 
+// Touch event listeners
 const touchArea = document.getElementById('touch');
 touchArea.addEventListener('touchstart', handleTouchStart, { passive: false });
 touchArea.addEventListener('touchend', handleTouchEnd, { passive: false });

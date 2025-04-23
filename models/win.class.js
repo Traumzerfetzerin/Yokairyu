@@ -1,4 +1,5 @@
 class WinScreen {
+    
     /**
      * Initializes a new instance of the WinScreen class.
      * Loads the "win" image and sets a flag to track whether the image has finished loading.

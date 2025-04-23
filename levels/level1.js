@@ -1,5 +1,12 @@
 let level1;
 
+/**
+ * Initializes the first level of the game.
+ * Creates a new Level object with the given arrays of enemies, clouds, coins, bottles, and background objects.
+ * The level is then stored in the level1 variable.
+ * @function
+ * @return {void} - Does not return a value.
+ */
 function initLevel() {
 
     level1 = new Level(

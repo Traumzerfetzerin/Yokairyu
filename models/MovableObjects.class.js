@@ -8,6 +8,12 @@ class MovableObject extends DrawableObject {
     collect = 0;
     lastCollect = 100;
 
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+    }
 
     /**
      * Applies gravity to the movable object by continuously decreasing its vertical 
@@ -39,14 +45,6 @@ class MovableObject extends DrawableObject {
         } else {
             return this.y < 300;
         }
-    }
-
-
-    offset = {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0
     }
 
 

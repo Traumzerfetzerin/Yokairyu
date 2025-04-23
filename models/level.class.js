@@ -27,5 +27,4 @@ class Level {
         this.totalBottles = bottles.length;
         this.backgroundObjects = backgroundObjects;
     }
-
 }
