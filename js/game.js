@@ -1,5 +1,6 @@
 let canvas;
 let world;
+initLevel();
 let keyboard = new Keyboard();
 soundManager = new SoundManager();
 

@@ -43,7 +43,7 @@ class SoundManager {
 
         // Collect-Sounds
         this.audioCollectShoot = new Audio('./audio/collectShoot.mp3');
-        
+
         this.audioCollectLoot = new Audio('./audio/collectLoot.mp3');
     }
 
@@ -112,8 +112,6 @@ class SoundManager {
         if (this[name]) {
             this[name].loop = loop;
             this[name].play();
-        } else {
-            console.warn(`Sound ${name} not found!`);
         }
     }
 }

@@ -172,8 +172,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Increments the coins collected counter by 1 and logs the current
-     * number of coins collected to the console.
+     * Increments the coins collected counter by 1.
      */
     collectCoin() {
         this.coinsCollected++;
@@ -181,8 +180,7 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Increments the bottles collected counter by 1 and logs the current
-     * number of bottles collected to the console.
+     * Increments the bottles collected counter by 1.
      */
     collectBottle() {
         this.bottlesCollected++;
