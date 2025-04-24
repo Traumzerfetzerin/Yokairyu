@@ -192,7 +192,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 50px;
-    background-color: #CD7279;
+    background-color: #51FFD5;
     border-radius: 12px;
 }
 
@@ -258,52 +258,4 @@ footer {
 
 footer:hover a {
     font-size: 25px;
-}
-
-
-/* Media Queries */
-@media (max-width: 1024px) {
-    #title {
-        display: none;
-    }
-
-
-}
-
-@media (max-width: 935px) {
-    #startImage {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media only screen and (orientation: portrait) and (max-width: 720px) {
-    #turn {
-        display: inline;
-    }
-
-    #title {
-        display: none;
-    }
-
-}
-
-@media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
-
-    #turn {
-        display: inline;
-    }
-
-    #title {
-        display: none;
-    }
-}
-
-@media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
-    }
 }

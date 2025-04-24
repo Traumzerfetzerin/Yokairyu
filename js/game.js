@@ -9,10 +9,57 @@ soundManager = new SoundManager();
  * Initializes the game by getting the canvas element and creating a new
  * World object with the canvas and Keyboard object.
  */
-function init() {
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
+// function init() {
+//     canvas = document.getElementById('canvas');
+//     world = new World(canvas, keyboard);
+// }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const startButton = document.getElementById('startImage');
+
+    /**
+     * Initializes the game by creating a new World object
+     * and linking it to the keyboard and canvas.
+     */
+    function init() {
+        canvas = document.getElementById('canvas');
+        world = new World(canvas, keyboard);
+
+    }
+
+    startButton.addEventListener('click', function () {
+        init();
+    });
+});
+
+
+let gameStarted = false;
+
+const startBtn = document.getElementById('start');
+const touchBtn = document.getElementById('touch');
+const pointerQuery = window.matchMedia('(pointer: coarse)');
+
+
+/**
+ * Updates the visibility of the touch button controls based on the game state and pointer type.
+ *
+ * If the game has started and the device supports coarse pointer input (e.g., touch screen),
+ * the touch button controls are displayed. Otherwise, they are hidden.
+ */
+function updateTouchButtonVisibility() {
+    if (gameStarted && pointerQuery.matches) {
+        touchBtn.style.display = 'flex';
+    } else {
+        touchBtn.style.display = 'none';
+    }
 }
+
+
+// Add event listener to the start button to start the game
+startBtn.addEventListener('click', () => {
+    gameStarted = true;
+    updateTouchButtonVisibility();
+});
 
 
 /**
@@ -28,8 +75,11 @@ function startGame() {
     document.getElementById('soundbar').classList.add('flex');
     document.getElementById('footer').classList.add('d-none');
     document.body.style.backgroundImage = "url('./img/background.png')";
-    document.getElementById('touch').style.display = 'flex';
+    updateTouchButtonVisibility();
 }
+
+
+window.matchMedia('(pointer: coarse)').addEventListener('change', updateTouchButtonVisibility);
 
 
 /**
