@@ -83,7 +83,7 @@ class Endboss extends MovableObject {
         }
     }
 
-    
+
     animateEndboss;
 
 
@@ -113,10 +113,15 @@ class Endboss extends MovableObject {
 
     /**
      * Checks if the character is in range of the endboss.
-     * @return {boolean} true if the character is in range, false otherwise.
+     * If the character's x position is greater than 1660 and less than 2000, it returns true.
+     * Otherwise, it returns false.
+     * @return {boolean} True if the character is in range of the endboss, false otherwise.
      */
     isCharacterInRange() {
-        return world.character.x > 1660 && world.character.x < 2000;
+        if (this.character && this.character.x !== undefined) {
+            return this.character.x > 1660 && this.character.x < 2000;
+        }
+        return false;
     }
 
 

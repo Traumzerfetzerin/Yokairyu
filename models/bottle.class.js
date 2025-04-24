@@ -62,7 +62,7 @@ class Bottles extends MovableObject {
         setInterval(() => {
             let bottle = new Bottles();
             bottle.x = this.getNonOverlappingX(500, 1660, 90);
-            world.level.bottles.push(bottle);
+            world.level1.bottles.push(bottle);
         }, 100000)
     }
 }
