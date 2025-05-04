@@ -1,6 +1,6 @@
 let canvas;
 let world;
-initLevel();
+
 let keyboard = new Keyboard();
 soundManager = new SoundManager();
 
@@ -17,14 +17,21 @@ soundManager = new SoundManager();
 document.addEventListener("DOMContentLoaded", function () {
     const startButton = document.getElementById('startImage');
 
+
     /**
-     * Initializes the game by creating a new World object
-     * and linking it to the keyboard and canvas.
+     * Initializes the game by getting the canvas element and creating a new
+     * World object with the canvas and Keyboard object.
+     *
+     * The World object is created after a delay of 1000 ms to ensure that the
+     * game over screen and the winning screen are displayed before the game
+     * starts.
      */
     function init() {
         canvas = document.getElementById('canvas');
-        world = new World(canvas, keyboard);
-
+        initLevel();
+        setTimeout(() => {
+            world = new World(canvas, keyboard);
+        }, 1000);
     }
 
     startButton.addEventListener('click', function () {
