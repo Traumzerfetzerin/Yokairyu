@@ -77,15 +77,37 @@ function startGame() {
     document.getElementById('footer').classList.add('d-none');
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
+    updateTouchButtonVisibility();
+}
+
+
+function restartGame() {
+    document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('start').classList.add('d-none');
+    document.getElementById('menu').classList.add('d-none');
+    document.getElementById('backToMenu').classList.remove('d-none');
+    document.getElementById('footer').classList.add('d-none');
+    document.getElementById('title').querySelector('p').classList.add('d-none');
+    document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
+    document.getElementById('touch').style.display = 'flex';
     let newGameMenu = document.getElementById('newGameMenu');
     newGameMenu.classList.add('d-none');
     newGameMenu.style.display = 'none';
-    updateTouchButtonVisibility();
+    let soundbar = document.getElementById('soundbar');
+    soundbar.style.display = 'flex';
 
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    soundManager.initBackgroundSound();
+    soundManager.initPlayerSounds();
+    soundManager.initMonsterSounds();
+    soundManager.initCollectSounds();
+
+    soundManager.isMuted = false;
+    soundManager.updateSoundButton();
+ 
     init();
 }
 
@@ -104,11 +126,19 @@ function backToMenu() {
     document.getElementById('start').classList.remove('d-none');
     document.getElementById('menu').style.bottom = '50px';
     document.getElementById('backToMenu').classList.add('d-none');
-    document.getElementById('dropdownControl').classList.add('d-none');
     document.getElementById('soundbar').classList.remove('flex');
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
     document.getElementById('touch').style.display = 'none';
+
+
+    let newGameMenu = document.getElementById('newGameMenu');
+    newGameMenu.classList.add('d-none');
+    newGameMenu.style.display = 'none';
+
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 
