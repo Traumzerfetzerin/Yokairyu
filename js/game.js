@@ -3,40 +3,30 @@ let world;
 
 let keyboard = new Keyboard();
 soundManager = new SoundManager();
+let startButton = document.getElementById('startImage');
 
 
 /**
  * Initializes the game by getting the canvas element and creating a new
  * World object with the canvas and Keyboard object.
+ *
+ * The World object is created after a delay of 1000 ms to ensure that the
+ * game over screen and the winning screen are displayed before the game
+ * starts.
  */
-// function init() {
-//     canvas = document.getElementById('canvas');
-//     world = new World(canvas, keyboard);
-// }
+function init() {
+    canvas = document.getElementById('canvas');
+    initLevel();
 
-document.addEventListener("DOMContentLoaded", function () {
-    const startButton = document.getElementById('startImage');
+    setTimeout(() => {
+        world = new World(canvas, keyboard);
+    }, 1000);
+}
 
 
-    /**
-     * Initializes the game by getting the canvas element and creating a new
-     * World object with the canvas and Keyboard object.
-     *
-     * The World object is created after a delay of 1000 ms to ensure that the
-     * game over screen and the winning screen are displayed before the game
-     * starts.
-     */
-    function init() {
-        canvas = document.getElementById('canvas');
-        initLevel();
-        setTimeout(() => {
-            world = new World(canvas, keyboard);
-        }, 1000);
-    }
-
-    startButton.addEventListener('click', function () {
-        init();
-    });
+// Event-Listener, um das Spiel zu starten, wenn der Start-Button geklickt wird
+startButton.addEventListener('click', function () {
+    init();  // init wird hier global aufgerufen
 });
 
 
@@ -70,9 +60,13 @@ startBtn.addEventListener('click', () => {
 
 
 /**
- * Starts the game by hiding the start screen, showing the game canvas
- * and soundbar, hiding the footer, and setting the background image.
- * Also enables audio on user interaction.
+ * Initializes the game by setting up the necessary UI components and starting the game logic.
+ *
+ * This function makes the game canvas visible, hides the start screen and menu, and prepares
+ * the UI for gameplay. It also displays the "Back to menu" button, enables the soundbar, and
+ * updates the background image. The touch button visibility is adjusted based on the game state
+ * and the device's pointer type. Additionally, it clears the canvas and initializes the game logic
+ * by calling the `init` function.
  */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
@@ -83,7 +77,16 @@ function startGame() {
     document.getElementById('footer').classList.add('d-none');
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
+    let newGameMenu = document.getElementById('newGameMenu');
+    newGameMenu.classList.add('d-none');
+    newGameMenu.style.display = 'none';
     updateTouchButtonVisibility();
+
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    init();
 }
 
 
@@ -106,7 +109,6 @@ function backToMenu() {
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
     document.getElementById('touch').style.display = 'none';
-    restartGame();
 }
 
 
@@ -128,15 +130,4 @@ function toggleDropdown() {
         dropdownImg1.style.display = 'none';
         dropdownImg.style.display = 'block';
     }
-}
-
-
-/**
- * Reloads the current webpage to restart the game.
- * This function is triggered to refresh the game environment
- * by reloading the browser, effectively resetting all game
- * states and progress.
- */
-function restartGame() {
-    location.reload();
 }
