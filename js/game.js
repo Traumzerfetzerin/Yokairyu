@@ -59,11 +59,7 @@ startBtn.addEventListener('click', () => {
 });
 
 
-/**
- * Starts the game by hiding the start menu, showing the game canvas and the soundbar,
- * and updating the visibility of the touch button controls based on the game state and pointer type.
- * Also sets the background image of the game to the background.png image.
- */
+
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
@@ -74,20 +70,24 @@ function startGame() {
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
     updateTouchButtonVisibility();
+
+    soundManager.initBackgroundSound();
+    soundManager.initPlayerSounds();
+    soundManager.initMonsterSounds();
+    soundManager.initCollectSounds();
+
+    soundManager.isMuted = false;
+    soundManager.updateSoundButton();
 }
 
 
-/**
- * Restarts the game by setting up the initial UI and game state.
- * - Shows the game canvas and hides the start menu.
- * - Resets the background image to the default game background.
- * - Hides the footer and the start title description.
- * - Displays the 'Back to menu' button and touch controls.
- * - Hides the new game menu.
- * - Initializes and un-mutes the sound manager, and updates the sound button.
- * - Clears the canvas and initializes the game world.
- */
+
 function restartGame() {
+    if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
+        world.stopGameLoop();
+    } else {
+        return;
+    }
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
     document.getElementById('menu').classList.add('d-none');
@@ -122,11 +122,14 @@ pointerQuery.addEventListener('change', updateTouchButtonVisibility);
 
 
 /**
- * Goes back to the start menu, stopping the game loop, hiding the game canvas, and
- * showing the start menu and soundbar. Also clears the canvas and resets the
- * background image to the start screen image.
+ * Stops the game loop and performs cleanup tasks.
+ *
+ * This function checks if a 'world' object exists and if its method
+ * 'stopGameLoop' is available, it invokes the method to stop the game loop.
+ * It then hides the canvas and the 'Back to Menu' button by adding the
+ * 'd-none' class, effectively cleaning up the game view.
  */
-function backToMenu() {
+function stopGameLoopAndCleanup() {
     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
         world.stopGameLoop();
     } else {
@@ -134,10 +137,21 @@ function backToMenu() {
     }
 
     document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('backToMenu').classList.add('d-none');
+}
+
+
+/**
+ * Resets the game view to the main menu.
+ *
+ * This function makes the start button, menu, and footer visible while hiding
+ * the touch controls and new game menu. It also updates the background image
+ * to the start screen and ensures the soundbar is not displayed in a flex layout.
+ */
+function resetToMenuView() {
     document.getElementById('start').classList.remove('d-none');
     document.getElementById('menu').style.bottom = '50px';
     document.getElementById('menu').classList.remove('d-none');
-    document.getElementById('backToMenu').classList.add('d-none');
     document.getElementById('soundbar').classList.remove('flex');
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
@@ -146,14 +160,75 @@ function backToMenu() {
     let newGameMenu = document.getElementById('newGameMenu');
     newGameMenu.classList.add('d-none');
     newGameMenu.style.display = 'none';
+}
 
+
+/**
+ * Clears the canvas by filling it with a transparent color.
+ * This is necessary to remove any previously drawn objects from the canvas.
+ */
+function clearCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
+
+/**
+ * Stops all playing sounds in the game.
+ *
+ * This function is a wrapper for the SoundManager's stopAll method.
+ * It is used to stop all sounds in the game when the player navigates
+ * back to the main menu.
+ */
+function stopAllSounds() {
     soundManager.stopAll();
 }
 
+
+/**
+ * Navigates the game back to the main menu.
+ *
+ * This function stops the current game loop, resets the view to the menu,
+ * clears the canvas, and stops all playing sounds. It ensures that the game
+ * is properly cleaned up and ready for a new session when the player returns
+ * to the main menu.
+ */
+function backToMenu() {
+    stopGameLoopAndCleanup();
+    resetToMenuView();
+    clearCanvas();
+    stopAllSounds();
+}
+
+
+// function backToMenu() {
+//     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
+//         world.stopGameLoop();
+//     } else {
+//         return;
+//     }
+
+//     document.getElementById('canvas').classList.add('d-none');
+//     document.getElementById('start').classList.remove('d-none');
+//     document.getElementById('menu').style.bottom = '50px';
+//     document.getElementById('menu').classList.remove('d-none');
+//     document.getElementById('backToMenu').classList.add('d-none');
+//     document.getElementById('soundbar').classList.remove('flex');
+//     document.getElementById('footer').classList.remove('d-none');
+//     document.body.style.backgroundImage = "url('./img/startscreen.png')";
+//     document.getElementById('touch').style.display = 'none';
+
+//     let newGameMenu = document.getElementById('newGameMenu');
+//     newGameMenu.classList.add('d-none');
+//     newGameMenu.style.display = 'none';
+
+//     canvas = document.getElementById('canvas');
+//     ctx = canvas.getContext('2d');
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//     soundManager.stopAll();
+// }
 
 
 /**
