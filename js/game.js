@@ -81,13 +81,28 @@ function startGame() {
 }
 
 
-
-function restartGame() {
+/**
+ * Stops the game loop if the 'world' object and its 'stopGameLoop' method exist.
+ * This function is used to stop the game loop when the game is restarted or when
+ * the user navigates away from the game.
+ * @returns {void}
+ */
+function stopGameLoopIfExists() {
     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
         world.stopGameLoop();
     } else {
         return;
     }
+}
+
+
+/**
+ * Updates the UI to its game running state when the game is restarted.
+ * Hides the start button, menu, footer, and the 'Impressum' link at the bottom of the page.
+ * Shows the touch controls and the soundbar.
+ * Also hides the 'New Game' menu and makes sure the background image is visible.
+ */
+function updateUIForRestart() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
     document.getElementById('menu').classList.add('d-none');
@@ -96,16 +111,35 @@ function restartGame() {
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
     document.getElementById('touch').style.display = 'flex';
+
     let newGameMenu = document.getElementById('newGameMenu');
     newGameMenu.classList.add('d-none');
     newGameMenu.style.display = 'none';
     let soundbar = document.getElementById('soundbar');
     soundbar.style.display = 'flex';
+}
 
+
+/**
+ * Initializes the canvas by getting the canvas element and clearing it.
+ *
+ * This function is necessary to ensure that the canvas is cleared before
+ * a new game instance is started.
+ */
+function initializeCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
+
+/**
+ * Initializes sound settings for a new game instance.
+ *
+ * This function initializes the sound effects for the background, player, monsters, and collecting items.
+ * It then sets the mute state of the sound manager to false and updates the button to show the unmuted state.
+ */
+function initializeSounds() {
     soundManager.initBackgroundSound();
     soundManager.initPlayerSounds();
     soundManager.initMonsterSounds();
@@ -113,7 +147,20 @@ function restartGame() {
 
     soundManager.isMuted = false;
     soundManager.updateSoundButton();
+}
 
+
+/**
+ * Restarts the game by stopping the current game loop and reinitializing the game environment.
+ *
+ * This function stops the existing game loop, updates the user interface for a restart,
+ * initializes the canvas and sound settings, and then starts a new game instance.
+ */
+function restartGame() {
+    stopGameLoopIfExists();
+    updateUIForRestart();
+    initializeCanvas();
+    initializeSounds();
     init();
 }
 
@@ -200,35 +247,6 @@ function backToMenu() {
     clearCanvas();
     stopAllSounds();
 }
-
-
-// function backToMenu() {
-//     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
-//         world.stopGameLoop();
-//     } else {
-//         return;
-//     }
-
-//     document.getElementById('canvas').classList.add('d-none');
-//     document.getElementById('start').classList.remove('d-none');
-//     document.getElementById('menu').style.bottom = '50px';
-//     document.getElementById('menu').classList.remove('d-none');
-//     document.getElementById('backToMenu').classList.add('d-none');
-//     document.getElementById('soundbar').classList.remove('flex');
-//     document.getElementById('footer').classList.remove('d-none');
-//     document.body.style.backgroundImage = "url('./img/startscreen.png')";
-//     document.getElementById('touch').style.display = 'none';
-
-//     let newGameMenu = document.getElementById('newGameMenu');
-//     newGameMenu.classList.add('d-none');
-//     newGameMenu.style.display = 'none';
-
-//     canvas = document.getElementById('canvas');
-//     ctx = canvas.getContext('2d');
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-//     soundManager.stopAll();
-// }
 
 
 /**
