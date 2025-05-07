@@ -418,17 +418,38 @@ class World {
     }
 
 
+    // requestNextFrame() {
+    //     let self = this;
+    //     requestAnimationFrame(function () {
+    //         self.draw();
+    //     });
+    // }
+
+    animationId = null;
+
+
     /**
-     * Requests the next frame by scheduling the draw() method to be called as soon as
-     * possible. This is used to create an animation loop by continuously calling
-     * requestAnimationFrame() with the draw() method as the callback.
+     * Requests the next animation frame by calling requestAnimationFrame.
+     * This method is used to implement the game loop by continuously
+     * calling the draw() method to update and render the game world.
      * @private
      */
     requestNextFrame() {
-        let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
+        this.animationId = requestAnimationFrame(() => this.draw());
+    }
+
+
+    /**
+     * Stops the game loop by canceling the current animation frame request.
+     * This method is used to pause the game when the character is dead or
+     * the win screen should be displayed.
+     * @private
+     */
+    stopGameLoop() {
+        if (this.animationId) {
+            cancelAnimationFrame(this.animationId);
+            this.animationId = null;
+        }
     }
 
 

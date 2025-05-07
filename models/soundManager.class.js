@@ -112,6 +112,116 @@ class SoundManager {
 
 
     /**
+     * Stops all sound effects in the game.
+     * 
+     * Mutes and resets all audio elements for the background sound, player sounds,
+     * monster sounds, and collecting sounds.
+     */
+    stopAll() {
+        this.stopBackgroundSound();
+        this.stopPlayerSounds();
+        this.stopMonsterSounds();
+        this.stopCollectSounds();
+    }
+
+
+    /**
+     * Stops the background sound effect for the game.
+     * 
+     * Mutes the background audio and resets its playback time to the beginning.
+     */
+    stopBackgroundSound() {
+        if (this.audioBackground) {
+            this.muteMe(this.audioBackground, true);
+            this.audioBackground.currentTime = 0;
+        }
+    }
+
+
+    /**
+     * Stops the sound effects for the player in the game.
+     * 
+     * Mutes and resets the current time of the audio elements for walking, jumping,
+     * shooting, getting hurt, and dying.
+     */
+    stopPlayerSounds() {
+        if (this.audioWalk) {
+            this.muteMe(this.audioWalk, true);
+            this.audioWalk.currentTime = 0;
+        }
+
+        if (this.audioJump) {
+            this.muteMe(this.audioJump, true);
+            this.audioJump.currentTime = 0;
+        }
+
+        if (this.audioShoot) {
+            this.muteMe(this.audioShoot, true);
+            this.audioShoot.currentTime = 0;
+        }
+
+        if (this.audioHurt) {
+            this.muteMe(this.audioHurt, true);
+            this.audioHurt.currentTime = 0;
+        }
+
+        if (this.audioDead) {
+            this.muteMe(this.audioDead, true);
+            this.audioDead.currentTime = 0;
+        }
+    }
+
+
+    /**
+     * Stops the sound effects for monsters in the game.
+     * 
+     * Mutes and resets the current time of the audio elements for the
+     * spider's walk, the dragon's roar, and the death sounds for both
+     * the spider and dragon.
+     */
+    stopMonsterSounds() {
+        if (this.audioSpiderWalk) {
+            this.muteMe(this.audioSpiderWalk, true);
+            this.audioSpiderWalk.currentTime = 0;
+        }
+
+        if (this.audioDragonRoar) {
+            this.muteMe(this.audioDragonRoar, true);
+            this.audioDragonRoar.currentTime = 0;
+        }
+
+        if (this.audioSpiderDead) {
+            this.muteMe(this.audioSpiderDead, true);
+            this.audioSpiderDead.currentTime = 0;
+        }
+
+        if (this.audioDragonDead) {
+            this.muteMe(this.audioDragonDead, true);
+            this.audioDragonDead.currentTime = 0;
+        }
+    }
+
+
+    /**
+     * Stops the sound effects for collecting items in the game.
+     * 
+     * Mutes and resets the current time of the audio elements for collecting
+     * coins and bottles.
+     */
+    stopCollectSounds() {
+        if (this.audioCollectShoot) {
+            this.muteMe(this.audioCollectShoot, true);
+            this.audioCollectShoot.currentTime = 0;
+        }
+
+        if (this.audioCollectLoot) {
+            this.muteMe(this.audioCollectLoot, true);
+            this.audioCollectLoot.currentTime = 0;
+        }
+    }
+
+
+    /**
      * Updates the sound button icon based on the mute state.
      *
      * If the sound is muted, the button icon is changed to the muted icon.
