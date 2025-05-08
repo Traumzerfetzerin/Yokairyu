@@ -292,7 +292,7 @@ class Character extends MovableObject {
                 this.stopAnimation();
                 gameOverScreen.hideButton();
                 soundManager.toggleSounds(true);
-            }, 500);
+            }, 1000);
         } else if (this.isHurt()) {
             this.handleHurtState();
         } else if (this.isAboveGround()) {

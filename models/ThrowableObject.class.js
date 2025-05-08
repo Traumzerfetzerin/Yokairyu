@@ -81,10 +81,11 @@ class ThrowableObject extends MovableObject {
             soundManager.audioDragonDead.play();
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
-                world.showWinScreen = true;
-                world.winScreen.hideButton();
-                soundManager.toggleSounds(true);
-                // world.clearAllIntervalls();
+                setTimeout(() => {
+                    world.showWinScreen = true;
+                    world.winScreen.hideButton();
+                    soundManager.toggleSounds(true);
+                }, 1000);
             }
         }
     }
