@@ -1,5 +1,5 @@
 class ThrowableObject extends MovableObject {
-    
+
     width = 50;
     height = 50;
 
@@ -76,7 +76,7 @@ class ThrowableObject extends MovableObject {
         world.statusbarEndboss.setPercentage(enemy.energy);
 
         if (enemy.isDead()) {
-            world.enemyIsDead(enemy);
+            this.enemyIsDead(enemy);
             soundManager.audioDragonDead.play();
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
@@ -97,11 +97,43 @@ class ThrowableObject extends MovableObject {
      * @param {Enemy} enemy - The normal enemy to hit.
      */
     handleNormalEnemyHit(enemy) {
-        world.enemyIsDead(enemy);
+        this.enemyIsDead(enemy);
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
         soundManager.audioSpiderDead.play();
         setTimeout(() => {
-            world.makeEnemyFall(enemy);
+            this.makeEnemyFall(enemy);
         }, 1000);
+    }
+
+
+    /**
+     * Sets the energy of the given enemy to 0, effectively killing it.
+     * @param {Enemy} enemy - The enemy to kill.
+     */
+    enemyIsDead(enemy) {
+        enemy.energy = 0;
+    };
+
+
+    /**
+     * Makes an enemy fall to the ground after being killed.
+     * This function sets the enemy's dead flag to true and its gravity to 2.
+     * It then starts an interval that increases the enemy's y position by its gravity
+     * at a rate of 60 times per second. If the enemy's y position exceeds the canvas
+     * height, the interval is cleared and the enemy is removed from the level.
+     * @param {Enemy} enemy - The enemy to make fall.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
+    makeEnemyFall(enemy, index) {
+        enemy.dead = true;
+        enemy.gravity = 2;
+
+        let fallInterval = setInterval(() => {
+            enemy.y += enemy.gravity;
+            if (enemy.y > canvas.height) {
+                clearInterval(fallInterval);
+                this.removeEnemyFromLevel(index);
+            }
+        }, 1000 / 60);
     }
 }

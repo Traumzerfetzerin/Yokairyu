@@ -1,6 +1,6 @@
 let canvas;
 let world;
-
+let collissions;
 let keyboard = new Keyboard();
 soundManager = new SoundManager();
 let startButton = document.getElementById('startImage');
