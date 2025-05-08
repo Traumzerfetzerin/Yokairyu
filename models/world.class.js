@@ -1,4 +1,5 @@
 class World {
+
     character = new Character();
     level = level1;
     canvas;
@@ -13,6 +14,9 @@ class World {
     gameOverScreen = new GameOverScreen();
     winScreen = new WinScreen();
 
+    isUsed = false;
+
+    animationId = null;
 
     /**
      * Initializes a new instance of the World class.
@@ -66,8 +70,6 @@ class World {
         }, 200);
     }
 
-
-    isUsed = false;
 
     /**
      * Checks if the character is colliding with an enemy and if the character is above only one enemy.
@@ -334,13 +336,6 @@ class World {
     }
 
 
-    // clearAllIntervalls() {
-    //     for (let i = 1; i < 9999; i++) {
-    //         window.clearInterval(i);
-    //     }
-    // }
-
-
     /**
      * Clears the canvas by filling it with a transparent color.
      * This is necessary to remove any previously drawn objects from the canvas.
@@ -423,26 +418,12 @@ class World {
     //     });
     // }
 
-    animationId = null;
 
-
-    /**
-     * Requests the next animation frame by calling requestAnimationFrame.
-     * This method is used to implement the game loop by continuously
-     * calling the draw() method to update and render the game world.
-     * @private
-     */
     requestNextFrame() {
         this.animationId = requestAnimationFrame(() => this.draw());
     }
 
 
-    /**
-     * Stops the game loop by canceling the current animation frame request.
-     * This method is used to pause the game when the character is dead or
-     * the win screen should be displayed.
-     * @private
-     */
     stopGameLoop() {
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);

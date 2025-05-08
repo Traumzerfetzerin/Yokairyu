@@ -1,8 +1,14 @@
 class Endboss extends MovableObject {
+    
     width = 500;
     height = 500;
     y = -20;
     energy = 1;
+
+    animateEndboss;
+
+    tempCanvas = document.createElement('canvas');
+    tempCtx = this.tempCanvas.getContext('2d');
 
     IMAGES_WALK = [
         // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
@@ -84,9 +90,6 @@ class Endboss extends MovableObject {
     }
 
 
-    animateEndboss;
-
-
     /**
      * Starts the animation for the endboss.
      * This function is called in the constructor of the Endboss class.
@@ -130,10 +133,6 @@ class Endboss extends MovableObject {
     toggleHead() {
         this.currentHead = this.currentHead === 1 ? 2 : 1;
     }
-
-
-    tempCanvas = document.createElement('canvas');
-    tempCtx = this.tempCanvas.getContext('2d');
 
 
     /**

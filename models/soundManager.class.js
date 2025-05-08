@@ -1,5 +1,5 @@
 class SoundManager {
-
+    
     /**
      * Initializes a new instance of the SoundManager class.
      * Sets the initial mute state to false and initializes all sound effects.
@@ -219,7 +219,7 @@ class SoundManager {
             this.audioCollectLoot.currentTime = 0;
         }
     }
-
+    
 
     /**
      * Updates the sound button icon based on the mute state.

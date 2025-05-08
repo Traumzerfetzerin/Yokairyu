@@ -80,6 +80,7 @@ function handleReload() {
 // Keyboard event listeners
 window.addEventListener("keyup", handleKeyUp);
 
+
 /**
  * Handles keyup events for movement and action keys.
  * This function is called in response to a keyup event and is used to release the

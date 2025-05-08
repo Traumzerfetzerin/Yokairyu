@@ -1,4 +1,7 @@
 class StatusbarHealth extends DrawableObject {
+    
+    percentage = 100;
+
     IMAGES = [
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png', // 0
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
@@ -7,8 +10,6 @@ class StatusbarHealth extends DrawableObject {
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png' // 5
     ];
-
-    percentage = 100;
 
 
     /**

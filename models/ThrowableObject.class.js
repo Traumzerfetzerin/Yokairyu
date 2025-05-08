@@ -1,7 +1,11 @@
 class ThrowableObject extends MovableObject {
+    
     width = 50;
     height = 50;
 
+    isBottleUsed = false;
+
+    showWinScreen = false;
 
     /**
      * Initializes a new instance of the ThrowableObject class.
@@ -37,11 +41,6 @@ class ThrowableObject extends MovableObject {
             }
         }, 25);
     }
-
-
-    isBottleUsed = false;
-
-    showWinScreen = false;
 
 
     /**

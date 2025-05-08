@@ -5,6 +5,34 @@ let keyboard = new Keyboard();
 soundManager = new SoundManager();
 let startButton = document.getElementById('startImage');
 
+let gameStarted = false;
+
+const startBtn = document.getElementById('start');
+const touchBtn = document.getElementById('touch');
+const pointerQuery = window.matchMedia('(pointer: coarse)');
+
+let intervalId = [];
+
+
+function checkOrientation() {
+    if (window.matchMedia("(orientation: landscape)").matches) {
+        if (window.innerHeight < 480) {
+            newHeight = window.innerHeight;
+            document.getElementById('canvas').style.height = `${newHeight}px`;
+        }
+    }
+    else {
+        document.getElementById('canvas').style.height = `100%`;
+    }
+}
+
+
+function clearAllInterval() {
+    for (let i = 1; i < 9999; i++) {
+        window.clearInterval(i);
+    }
+}
+
 
 /**
  * Initializes the game by getting the canvas element and creating a new
@@ -30,13 +58,6 @@ startButton.addEventListener('click', function () {
 });
 
 
-let gameStarted = false;
-
-const startBtn = document.getElementById('start');
-const touchBtn = document.getElementById('touch');
-const pointerQuery = window.matchMedia('(pointer: coarse)');
-
-
 /**
  * Updates the visibility of the touch button controls based on the game state and pointer type.
  *
@@ -51,6 +72,8 @@ function updateTouchButtonVisibility() {
     }
 }
 
+pointerQuery.addEventListener('change', updateTouchButtonVisibility);
+
 
 // Add event listener to the start button to start the game
 startBtn.addEventListener('click', () => {
@@ -60,9 +83,12 @@ startBtn.addEventListener('click', () => {
 
 
 /**
- * Starts the game by hiding the start button, menu, and footer, and showing the game canvas, soundbar, and touch button controls.
- * Updates the background image and sets the sound manager to be unmuted.
- * @function
+ * Starts the game by updating the visibility of the UI elements and toggling the background sound.
+ *
+ * This function is called when the start button is clicked. It hides the start button, menu, footer,
+ * and title text, and shows the back to menu button, soundbar, and game canvas. It also sets the
+ * background image to the game background and updates the visibility of the touch button controls
+ * based on the game state and pointer type.
  */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
@@ -75,17 +101,11 @@ function startGame() {
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
     updateTouchButtonVisibility();
 
-    soundManager.isMuted = false;
+    soundManager.toggleSounds(false);
     soundManager.updateSoundButton();
 }
 
 
-/**
- * Stops the game loop if the 'world' object and its 'stopGameLoop' method exist.
- * This function is used to stop the game loop when the game is restarted or when
- * the user navigates away from the game.
- * @returns {void}
- */
 function stopGameLoopIfExists() {
     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
         world.stopGameLoop();
@@ -119,12 +139,6 @@ function updateUIForRestart() {
 }
 
 
-/**
- * Initializes the canvas by getting the canvas element and clearing it.
- *
- * This function is necessary to ensure that the canvas is cleared before
- * a new game instance is started.
- */
 function initializeCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
@@ -132,12 +146,6 @@ function initializeCanvas() {
 }
 
 
-/**
- * Initializes sound settings for a new game instance.
- *
- * This function initializes the sound effects for the background, player, monsters, and collecting items.
- * It then sets the mute state of the sound manager to false and updates the button to show the unmuted state.
- */
 function initializeSounds() {
     soundManager.initBackgroundSound();
     soundManager.initPlayerSounds();
@@ -150,33 +158,18 @@ function initializeSounds() {
 
 
 /**
- * Restarts the game by stopping the current game loop and reinitializing the game environment.
+ * Restarts the game by updating the UI, starting the game, and initializing the game state.
  *
- * This function stops the existing game loop, updates the user interface for a restart,
- * initializes the canvas and sound settings, and then starts a new game instance.
+ * This function updates the UI to reflect the game running state, starts the game loop
+ * by calling startGame(), and reinitializes the game world and level by invoking init().
  */
 function restartGame() {
-    // stopGameLoopIfExists();
     updateUIForRestart();
-    // initializeCanvas();
-    // initializeSounds();
-    startGame()
+    startGame();
     init();
-    soundManager.playSound();
 }
 
 
-pointerQuery.addEventListener('change', updateTouchButtonVisibility);
-
-
-/**
- * Stops the game loop and performs cleanup tasks.
- *
- * This function checks if a 'world' object exists and if its method
- * 'stopGameLoop' is available, it invokes the method to stop the game loop.
- * It then hides the canvas and the 'Back to Menu' button by adding the
- * 'd-none' class, effectively cleaning up the game view.
- */
 function stopGameLoopAndCleanup() {
     if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
         world.stopGameLoop();
@@ -189,13 +182,6 @@ function stopGameLoopAndCleanup() {
 }
 
 
-/**
- * Resets the game view to the main menu.
- *
- * This function makes the start button, menu, and footer visible while hiding
- * the touch controls and new game menu. It also updates the background image
- * to the start screen and ensures the soundbar is not displayed in a flex layout.
- */
 function resetToMenuView() {
     document.getElementById('start').classList.remove('d-none');
     document.getElementById('menu').style.bottom = '50px';
@@ -211,10 +197,6 @@ function resetToMenuView() {
 }
 
 
-/**
- * Clears the canvas by filling it with a transparent color.
- * This is necessary to remove any previously drawn objects from the canvas.
- */
 function clearCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
@@ -234,14 +216,6 @@ function stopAllSounds() {
 }
 
 
-/**
- * Navigates the game back to the main menu.
- *
- * This function stops the current game loop, resets the view to the menu,
- * clears the canvas, and stops all playing sounds. It ensures that the game
- * is properly cleaned up and ready for a new session when the player returns
- * to the main menu.
- */
 function backToMenu() {
     stopGameLoopAndCleanup();
     resetToMenuView();
