@@ -35,15 +35,13 @@ class World {
 
 
     /**
-     * Starts the background sound effect when the game is started.
-     * This is achieved by adding an event listener to the start button
-     * that plays the background sound and sets its volume to 0.2.
+     * Starts the background sound effect for the game.
+     * 
+     * Plays the background audio and sets its volume to 0.2.
      */
     startBackgroundSound() {
-        document.getElementById('startImage').addEventListener('click', () => {
-            soundManager.audioBackground.play();
-            soundManager.audioBackground.volume = 0.2;
-        });
+        soundManager.audioBackground.play();
+        soundManager.audioBackground.volume = 0.2;
     }
 
 

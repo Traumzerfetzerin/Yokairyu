@@ -278,24 +278,21 @@ class Character extends MovableObject {
 
 
     /**
-     * Handles the character's state animation based on its current status.
-     * 
-     * This function checks the character's state and triggers the appropriate
-     * animation and sound effects. It also manages the game over state by drawing
-     * the game over screen and stopping animations when the character is dead.
-     * 
-     * @param {GameOverScreen} gameOverScreen - The game over screen instance used to
-     *                                          manage the display and sound when the
-     *                                          character is dead.
+     * Handles the character's state animation.
+     * This function checks the character's current state and handles it accordingly.
+     * It plays the appropriate animation and sound effect for the character's state
+     * and updates the game over screen if the character is dead.
+     * @param {GameOverScreen} gameOverScreen - The game over screen to be updated.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.handleDeadState();
-            gameOverScreen.drawGameOverScreen(this.world.ctx);
-            this.stopAnimation();
-            // this.world.clearAllIntervalls();
-            gameOverScreen.hideButton();
-            soundManager.toggleSounds(true);
+            setTimeout(() => {
+                gameOverScreen.drawGameOverScreen(this.world.ctx);
+                this.stopAnimation();
+                gameOverScreen.hideButton();
+                soundManager.toggleSounds(true);
+            }, 500);
         } else if (this.isHurt()) {
             this.handleHurtState();
         } else if (this.isAboveGround()) {

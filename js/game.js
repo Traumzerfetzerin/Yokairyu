@@ -24,9 +24,9 @@ function init() {
 }
 
 
-// Event-Listener, um das Spiel zu starten, wenn der Start-Button geklickt wird
+// Add event listener to the start button to start the game
 startButton.addEventListener('click', function () {
-    init();  // init wird hier global aufgerufen
+    init();
 });
 
 
@@ -59,7 +59,11 @@ startBtn.addEventListener('click', () => {
 });
 
 
-
+/**
+ * Starts the game by hiding the start button, menu, and footer, and showing the game canvas, soundbar, and touch button controls.
+ * Updates the background image and sets the sound manager to be unmuted.
+ * @function
+ */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('start').classList.add('d-none');
@@ -70,11 +74,6 @@ function startGame() {
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
     updateTouchButtonVisibility();
-
-    soundManager.initBackgroundSound();
-    soundManager.initPlayerSounds();
-    soundManager.initMonsterSounds();
-    soundManager.initCollectSounds();
 
     soundManager.isMuted = false;
     soundManager.updateSoundButton();
@@ -157,11 +156,13 @@ function initializeSounds() {
  * initializes the canvas and sound settings, and then starts a new game instance.
  */
 function restartGame() {
-    stopGameLoopIfExists();
+    // stopGameLoopIfExists();
     updateUIForRestart();
-    initializeCanvas();
-    initializeSounds();
+    // initializeCanvas();
+    // initializeSounds();
+    startGame()
     init();
+    soundManager.playSound();
 }
 
 
