@@ -91,7 +91,7 @@ p {
     height: 50px;
 }
 
-#restart img:hover {
+#restart img:hover, #backToMenuButton img:hover {
     transform: scale(1.2);
     transition: transform 4s ease-out;
     transition-behavior: normal;
