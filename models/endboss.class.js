@@ -3,7 +3,14 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     y = -20;
-    energy = 1;
+    energy = 100;
+
+    offset = {
+        top: 100,
+        left: 100,
+        right: 100,
+        bottom: 100
+    }
 
     animateEndboss;
     hasPlayedDragonRoar = false;
