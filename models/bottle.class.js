@@ -4,6 +4,7 @@ class Bottles extends MovableObject {
     height = 80;
     y = 380;
     x = 0;
+    
     static positions = [];
 
     IMAGES = [

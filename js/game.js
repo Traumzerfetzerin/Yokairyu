@@ -14,6 +14,13 @@ const pointerQuery = window.matchMedia('(pointer: coarse)');
 let intervalId = [];
 
 
+/**
+ * Adjusts the canvas height based on the current orientation and window height.
+ * 
+ * If the orientation is landscape and the window height is less than 480 pixels,
+ * the canvas height is set to match the window height. Otherwise, the canvas height
+ * is set to 100%.
+ */
 function checkOrientation() {
     if (window.matchMedia("(orientation: landscape)").matches) {
         if (window.innerHeight < 480) {
@@ -25,7 +32,6 @@ function checkOrientation() {
         document.getElementById('canvas').style.height = `100%`;
     }
 }
-
 
 
 /**
@@ -66,6 +72,8 @@ function updateTouchButtonVisibility() {
     }
 }
 
+
+// Add event listener to the pointer query to update touch button visibility
 pointerQuery.addEventListener('change', updateTouchButtonVisibility);
 
 
@@ -100,15 +108,6 @@ function startGame() {
 }
 
 
-function stopGameLoopIfExists() {
-    if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
-        world.stopGameLoop();
-    } else {
-        return;
-    }
-}
-
-
 /**
  * Updates the UI to its game running state when the game is restarted.
  * Hides the start button, menu, footer, and the 'Impressum' link at the bottom of the page.
@@ -133,24 +132,6 @@ function updateUIForRestart() {
 }
 
 
-function initializeCanvas() {
-    canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-
-function initializeSounds() {
-    soundManager.initBackgroundSound();
-    soundManager.initPlayerSounds();
-    soundManager.initMonsterSounds();
-    soundManager.initCollectSounds();
-
-    soundManager.isMuted = false;
-    soundManager.updateSoundButton();
-}
-
-
 /**
  * Restarts the game by updating the UI, starting the game, and initializing the game state.
  *
@@ -161,21 +142,15 @@ function restartGame() {
     updateUIForRestart();
     startGame();
     init();
+    stopAllSounds();
+    soundManager.toggleSounds(false);
 }
 
 
-function stopGameLoopAndCleanup() {
-    if (typeof world !== 'undefined' && world && typeof world.stopGameLoop === 'function') {
-        world.stopGameLoop();
-    } else {
-        return;
-    }
-
-    document.getElementById('canvas').classList.add('d-none');
-    document.getElementById('backToMenu').classList.add('d-none');
-}
-
-
+/**
+ * Resets the UI to the menu state by hiding the game canvas, soundbar, and touch controls
+ * and showing the start button, menu, and footer. Also resets the background image.
+ */
 function resetToMenuView() {
     document.getElementById('start').classList.remove('d-none');
     document.getElementById('menu').style.bottom = '50px';
@@ -191,6 +166,10 @@ function resetToMenuView() {
 }
 
 
+/**
+ * Clears the canvas by filling it with a transparent color.
+ * This is necessary to remove any previously drawn objects from the canvas.
+ */
 function clearCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
@@ -210,8 +189,16 @@ function stopAllSounds() {
 }
 
 
+/**
+ * Navigates back to the main menu by stopping the game loop, resetting the UI,
+ * clearing the canvas, and stopping all sounds.
+ *
+ * This function hides the game canvas and 'Back to menu' button, stops the
+ * game loop by calling `world.stopGameLoop()`, resets the UI to the menu state
+ * using `resetToMenuView()`, clears the canvas with `clearCanvas()`, and stops
+ * all sounds by invoking `stopAllSounds()`.
+ */
 function backToMenu() {
-    // stopGameLoopAndCleanup();
     world.stopGameLoop();
     resetToMenuView();
     clearCanvas();

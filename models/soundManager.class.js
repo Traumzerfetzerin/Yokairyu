@@ -1,5 +1,4 @@
 class SoundManager {
-    
     /**
      * Initializes a new instance of the SoundManager class.
      * Sets the initial mute state to false and initializes all sound effects.

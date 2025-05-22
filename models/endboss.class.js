@@ -1,11 +1,12 @@
 class Endboss extends MovableObject {
-    
+
     width = 500;
     height = 500;
     y = -20;
     energy = 1;
 
     animateEndboss;
+    hasPlayedDragonRoar = false;
 
     tempCanvas = document.createElement('canvas');
     tempCtx = this.tempCanvas.getContext('2d');
@@ -100,15 +101,13 @@ class Endboss extends MovableObject {
      * @private
      */
     startAnimationEndboss() {
-        let hasPlayedDragonRoar = false;
-
         this.animateEndboss = setInterval(() => {
             this.toggleHead();
             this.createCombinedImage();
 
-            if (this.isCharacterInRange() && !hasPlayedDragonRoar) {
+            if (this.isCharacterInRange() && !this.hasPlayedDragonRoar) {
                 soundManager.audioDragonRoar.play();
-                hasPlayedDragonRoar = true;
+                this.hasPlayedDragonRoar = true;
             }
         }, 500);
     }

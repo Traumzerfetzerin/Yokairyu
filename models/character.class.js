@@ -276,20 +276,21 @@ class Character extends MovableObject {
         }, 100);
     }
 
-
+    
     /**
      * Handles the character's state animation.
-     * This function checks the character's current state and handles it accordingly.
-     * It plays the appropriate animation and sound effect for the character's state
-     * and updates the game over screen if the character is dead.
-     * @param {GameOverScreen} gameOverScreen - The game over screen to be updated.
+     * This function checks if the character is dead, hurt, jumping, walking, or idle
+     * and calls the corresponding state animation handling function.
+     * If the character is dead, the game over screen is drawn after a delay of 1 second
+     * and the game loop is stopped.
+     * @param {GameOverScreen} gameOverScreen - The game over screen to draw if the character is dead.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.handleDeadState();
+            this.x = 0;	// Reset character position
             setTimeout(() => {
                 gameOverScreen.drawGameOverScreen(this.world.ctx);
-                // this.stopAnimation();
                 world.stopGameLoop();
                 gameOverScreen.hideButton();
                 soundManager.toggleSounds(true);
@@ -302,18 +303,6 @@ class Character extends MovableObject {
             this.handleWalkState();
         } else {
             this.handleIdleState();
-        }
-    }
-
-
-    /**
-     * Stops the character's animation by clearing the animation interval.
-     * If the animation interval is not null, it clears the interval and sets it to null.
-     */
-    stopAnimation() {
-        if (this.animationInterval) {
-            clearInterval(this.animationInterval); // Stop the animation interval
-            this.animationInterval = null; // Reset the animation interval
         }
     }
 

@@ -65,11 +65,12 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Handles the collision between a throwable object and the endboss.
-     * Decreases the endboss's energy and updates the endboss status bar.
-     * If the endboss is dead, it plays the dragon death sound, clears its temporary canvas,
-     * shows the win screen, and stops sound effects.
-     * @param {Endboss} enemy - The endboss to hit.
+     * Handles the collision between a throwable object and the Endboss.
+     * Hits the Endboss, updates the Endboss's status bar, and checks if the Endboss is dead.
+     * If the Endboss is dead, it plays the sound effect for the Endboss's death, sets the
+     * character's position back to the start, and clears the Endboss's temporary canvas.
+     * It also shows the WinScreen and stops the game loop after a delay of 1000 milliseconds.
+     * @param {Endboss} enemy - The Endboss to hit.
      */
     handleEndbossHit(enemy) {
         enemy.hit();
@@ -78,12 +79,12 @@ class ThrowableObject extends MovableObject {
         if (enemy.isDead()) {
             this.enemyIsDead(enemy);
             soundManager.audioDragonDead.play();
+            world.character.x = 0;
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
                 world.showWinScreen = true;
                 setTimeout(() => {
                     world.winScreen.hideButton();
-                    soundManager.toggleSounds(true);
                     world.stopGameLoop();
                 }, 1000);
             }

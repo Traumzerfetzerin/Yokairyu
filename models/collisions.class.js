@@ -1,5 +1,4 @@
 class Collissions {
-    
     /**
      * Creates a new Collissions object.
      * 

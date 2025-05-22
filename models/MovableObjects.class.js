@@ -16,6 +16,7 @@ class MovableObject extends DrawableObject {
         bottom: 0
     }
 
+    
     /**
      * Applies gravity to the movable object by continuously decreasing its vertical 
      * speed and position. This function is called at a regular interval, simulating 

@@ -2,6 +2,7 @@ class Coins extends MovableObject {
     
     width = 80;
     height = 80;
+    
     static positions = [];
 
     offset = {
