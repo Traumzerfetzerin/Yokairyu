@@ -1,8 +1,10 @@
 class Cloud extends MovableObject {
-    
+
     y = 10;
     width = 500;
     height = 300;
+
+    static positions = [];
 
     IMAGES_WALK = [
         './img/background/4_clouds/1.png',
@@ -46,13 +48,13 @@ class Cloud extends MovableObject {
         do {
             x = min + Math.random() * (max - min);
             attempts--;
-        } while (Coins.positions.some(pos => Math.abs(pos - x) < spacing) && attempts > 0);
+        } while (Cloud.positions.some(pos => Math.abs(pos - x) < spacing) && attempts > 0);
 
         if (attempts > 0) {
-            Coins.positions.push(x);
+            Cloud.positions.push(x);
             return x;
         } else {
-            return null;
+            return x;
         }
     }
 }

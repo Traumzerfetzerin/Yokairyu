@@ -50,7 +50,7 @@ class Bottles extends MovableObject {
             Bottles.positions.push(x);
             return x;
         } else {
-            return null;
+            return x;
         }
     }
 

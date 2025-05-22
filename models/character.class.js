@@ -289,7 +289,8 @@ class Character extends MovableObject {
             this.handleDeadState();
             setTimeout(() => {
                 gameOverScreen.drawGameOverScreen(this.world.ctx);
-                this.stopAnimation();
+                // this.stopAnimation();
+                world.stopGameLoop();
                 gameOverScreen.hideButton();
                 soundManager.toggleSounds(true);
             }, 1000);

@@ -27,12 +27,6 @@ function checkOrientation() {
 }
 
 
-function clearAllInterval() {
-    for (let i = 1; i < 9999; i++) {
-        window.clearInterval(i);
-    }
-}
-
 
 /**
  * Initializes the game by getting the canvas element and creating a new
@@ -217,10 +211,14 @@ function stopAllSounds() {
 
 
 function backToMenu() {
-    stopGameLoopAndCleanup();
+    // stopGameLoopAndCleanup();
+    world.stopGameLoop();
     resetToMenuView();
     clearCanvas();
     stopAllSounds();
+
+    document.getElementById('canvas').classList.add('d-none');
+    document.getElementById('backToMenu').classList.add('d-none');
 }
 
 

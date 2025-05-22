@@ -17,6 +17,7 @@ class World {
     isUsed = false;
 
     animationId = null;
+    gameRunning = false;
 
     collissions = new Collissions();
 
@@ -91,6 +92,19 @@ class World {
         this.translateCamera();
         this.resetCameraTranslation();
         this.requestNextFrame();
+    }
+
+
+    startGameLoop() {
+        this.gameRunning = true;
+        this.requestNextFrame();
+    }
+
+
+    clearAllInterval() {
+        for (let i = 1; i < 9999; i++) {
+            window.clearInterval(i);
+        }
     }
 
 
@@ -187,6 +201,8 @@ class World {
             cancelAnimationFrame(this.animationId);
             this.animationId = null;
         }
+        this.gameRunning = false;
+        this.clearAllInterval();
     }
 
 

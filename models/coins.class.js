@@ -43,7 +43,7 @@ class Coins extends MovableObject {
      */
     getNonOverlappingX(min, max, spacing) {
         let x;
-        let attempts = 100;
+        let attempts = 1000;
         do {
             x = min + Math.random() * (max - min);
             attempts--;
@@ -53,7 +53,7 @@ class Coins extends MovableObject {
             Coins.positions.push(x);
             return x;
         } else {
-            return null;
+            return x;
         }
     }
 }

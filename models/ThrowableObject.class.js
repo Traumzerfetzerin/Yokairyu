@@ -80,10 +80,11 @@ class ThrowableObject extends MovableObject {
             soundManager.audioDragonDead.play();
             if (enemy.clearTempCanvas) {
                 enemy.clearTempCanvas();
+                world.showWinScreen = true;
                 setTimeout(() => {
-                    world.showWinScreen = true;
                     world.winScreen.hideButton();
                     soundManager.toggleSounds(true);
+                    world.stopGameLoop();
                 }, 1000);
             }
         }
@@ -135,5 +136,14 @@ class ThrowableObject extends MovableObject {
                 this.removeEnemyFromLevel(index);
             }
         }, 1000 / 60);
+    }
+
+
+    /**
+ * Removes the enemy at the given index from the level.
+ * @param {number} index - The index of the enemy in the enemies array.
+ */
+    removeEnemyFromLevel(index) {
+        world.level.enemies.splice(index, 1);
     }
 }
