@@ -97,7 +97,7 @@ function startGame() {
     document.getElementById('start').classList.add('d-none');
     document.getElementById('menu').classList.add('d-none');
     document.getElementById('backToMenu').classList.remove('d-none');
-    document.getElementById('soundbar').classList.add('flex');
+    document.getElementById('soundbar').style.display = 'flex';
     document.getElementById('footer').classList.add('d-none');
     document.getElementById('title').querySelector('p').classList.add('d-none');
     document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
@@ -155,7 +155,7 @@ function resetToMenuView() {
     document.getElementById('start').classList.remove('d-none');
     document.getElementById('menu').style.bottom = '50px';
     document.getElementById('menu').classList.remove('d-none');
-    document.getElementById('soundbar').classList.remove('flex');
+    document.getElementById('soundbar').style.display = 'none';
     document.getElementById('footer').classList.remove('d-none');
     document.body.style.backgroundImage = "url('./img/startscreen.png')";
     document.getElementById('touch').style.display = 'none';
