@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html translate="no">
 
 <head>
     <meta charset="UTF-8">
@@ -12,21 +12,59 @@
     <title>Yokairyu</title>
 </head>
 
-<body>
-
-
-
+<body class="startscreen">
     <div id="start" class="cursorPointer">
-        <div id="title">
-            <img class="logo" width="100" src="./img/logo.png" alt="">
-            <h1>Yokairyu</h1>
-            <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
-        </div>
+        <div>
+            <div id="title">
+                <img class="logo" width="100" src="./img/logo.png" alt="">
+                <h1>Yokairyu</h1>
+                <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
+            </div>
 
+            <div id="menu" class="menu">
+                <div class="dropdownControl cursorPointer" onclick="toggleDropdown()">
+                    How to control it
+                    <div>
+                        <img src="./img/icons/Property 1=Variant4.svg" id="dropdown"
+                            class="cursorPointer margin-right dropdownimg">
+                        <img src="./img/icons/arrow_drop_downaa.svg" id="dropdown1"
+                            class="cursorPointer margin-right dropdownimg d-none">
+                    </div>
+
+                    <div id="dropdownControl" class="dropdown d-none">
+                        <div class="space-between">
+                            <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                            <img src="./img/icons/buchstabe-a.png" alt="">
+                            <span>Left</span>
+                        </div>
+                        <div class="space-between">
+                            <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                            <img src="./img/icons/buchstabe-d.png" alt="">
+                            <span>Right</span>
+                        </div>
+                        <div class="space-between">
+                            <img src="./img/icons/raum.png" alt="">
+                            <span>Jump</span>
+                        </div>
+                        <div class="space-between">
+                            <img src="./img/icons/links-klick-schwarz.png" alt="">
+                            <img src="./img/icons/buchstabe-e.png" alt="">
+                            <span>Shoot</span>
+                        </div>
+                        <div class="space-between">
+                            <img src="./img/icons/buchstabe-r.png" alt="">
+                            <span>Restart</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <img id="startImage" onclick="startGame()" src="./img/icons/start-knopf.png" alt="">
     </div>
 
     <div id="game">
+
         <canvas id="canvas" width="720" height="480" class="d-none"></canvas>
 
         <div id="controlButton">
@@ -44,44 +82,6 @@
             <div id="control">
                 <div id="backToMenu" class="cursorPointer d-none" onclick="backToMenu()"><img class="backToMenuButton"
                         src="./img/icons/zuruck-pfeil.png" alt="">
-                </div>
-
-                <div id="menu" class="menu">
-                    <div class="dropdownControl cursorPointer" onclick="toggleDropdown()">
-                        How to control it
-                        <div>
-                            <img src="./img/icons/Property 1=Variant4.svg" id="dropdown"
-                                class="cursorPointer margin-right dropdownimg">
-                            <img src="./img/icons/arrow_drop_downaa.svg" id="dropdown1"
-                                class="cursorPointer margin-right dropdownimg d-none">
-                        </div>
-
-                        <div id="dropdownControl" class="dropdown d-none">
-                            <div class="space-between">
-                                <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
-                                <img src="./img/icons/buchstabe-a.png" alt="">
-                                <span>Left</span>
-                            </div>
-                            <div class="space-between">
-                                <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
-                                <img src="./img/icons/buchstabe-d.png" alt="">
-                                <span>Right</span>
-                            </div>
-                            <div class="space-between">
-                                <img src="./img/icons/raum.png" alt="">
-                                <span>Jump</span>
-                            </div>
-                            <div class="space-between">
-                                <img src="./img/icons/links-klick-schwarz.png" alt="">
-                                <img src="./img/icons/buchstabe-e.png" alt="">
-                                <span>Shoot</span>
-                            </div>
-                            <div class="space-between">
-                                <img src="./img/icons/buchstabe-r.png" alt="">
-                                <span>Restart</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 

@@ -4,19 +4,30 @@
     box-sizing: border-box;
 }
 
-body {
+body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url('./img/startscreen.png') !important;
-    /* background-image: url('./img/background.png'); */
     color: #FF6046;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    /* max-width: 1920px; */
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+body.startscreen {
+  background-image: url('./img/startscreen.png');
+}
+
+body.game {
+  background-image: url('./img/background.png');
+}
+
 
 canvas {
     width: 100%;
@@ -114,13 +125,7 @@ p {
     position: absolute;
     width: 200px;
     height: 50px;
-    /* bottom: 430px; */
     z-index: 1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    position: fixed;
 }
 
 #backToMenu {

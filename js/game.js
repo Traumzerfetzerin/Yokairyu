@@ -80,7 +80,8 @@ function startGame() {
     document.getElementById('soundbar').style.display = 'flex';
     document.getElementById('footer').classList.add('d-none');
     document.getElementById('title').querySelector('p').classList.add('d-none');
-    document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
+    document.body.classList.remove('startscreen');
+    document.body.classList.add('game');
     updateTouchButtonVisibility();
 
     soundManager.toggleSounds(false);
@@ -101,7 +102,8 @@ function updateUIForRestart() {
     document.getElementById('backToMenu').classList.remove('d-none');
     document.getElementById('footer').classList.add('d-none');
     document.getElementById('title').querySelector('p').classList.add('d-none');
-    document.body.style.setProperty('background-image', 'url("./img/background.png")', 'important');
+    document.body.classList.remove('game');
+    document.body.classList.add('startscreen');
     document.getElementById('touch').style.display = 'flex';
 
     let newGameMenu = document.getElementById('newGameMenu');
@@ -133,11 +135,11 @@ function restartGame() {
  */
 function resetToMenuView() {
     document.getElementById('start').style.display = 'flex';
-    document.getElementById('menu').style.bottom = '50px';
     document.getElementById('menu').classList.remove('d-none');
     document.getElementById('soundbar').style.display = 'none';
     document.getElementById('footer').classList.remove('d-none');
-    document.body.style.backgroundImage = "url('./img/startscreen.png')";
+    document.body.classList.remove('game');
+    document.body.classList.add('startscreen');
     document.getElementById('touch').style.display = 'none';
 
     let newGameMenu = document.getElementById('newGameMenu');
