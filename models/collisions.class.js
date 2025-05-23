@@ -55,7 +55,7 @@ class Collissions {
                 window.clearInterval(collidingInterval);
 
                 setTimeout(() => {
-                    this.makeEnemyFall(enemy, index);
+                    this.makeEnemyFall(enemy, enemy.enemyName);
                 }, 1000);
             }
         }, 1000 / 60);
@@ -101,15 +101,19 @@ class Collissions {
      * @param {Enemy} enemy - The enemy to make fall.
      * @param {number} index - The index of the enemy in the enemies array.
      */
-    makeEnemyFall(enemy, index) {
+    makeEnemyFall(enemy, enemyName) {
         enemy.dead = true;
         enemy.gravity = 2;
 
         let fallInterval = setInterval(() => {
             enemy.y += enemy.gravity;
             if (enemy.y > canvas.height) {
+
+                const user = world.level.enemies.findIndex(u => u.enemyName === enemyName);
+                console.log(user); // { id: 2, name: "Ben" }
+
                 clearInterval(fallInterval);
-                this.removeEnemyFromLevel(index);
+                this.removeEnemyFromLevel(user);
             }
         }, 1000 / 60);
     }
