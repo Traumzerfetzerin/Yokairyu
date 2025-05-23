@@ -94,7 +94,7 @@ startBtn.addEventListener('click', () => {
  */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
-    document.getElementById('start').classList.add('d-none');
+    document.getElementById('start').style.display = 'none';
     document.getElementById('menu').classList.add('d-none');
     document.getElementById('backToMenu').classList.remove('d-none');
     document.getElementById('soundbar').style.display = 'flex';
@@ -116,7 +116,7 @@ function startGame() {
  */
 function updateUIForRestart() {
     document.getElementById('canvas').classList.remove('d-none');
-    document.getElementById('start').classList.add('d-none');
+    document.getElementById('start').style.display = 'flex';
     document.getElementById('menu').classList.add('d-none');
     document.getElementById('backToMenu').classList.remove('d-none');
     document.getElementById('footer').classList.add('d-none');
@@ -152,7 +152,7 @@ function restartGame() {
  * and showing the start button, menu, and footer. Also resets the background image.
  */
 function resetToMenuView() {
-    document.getElementById('start').classList.remove('d-none');
+    document.getElementById('start').style.display = 'flex';
     document.getElementById('menu').style.bottom = '50px';
     document.getElementById('menu').classList.remove('d-none');
     document.getElementById('soundbar').style.display = 'none';
