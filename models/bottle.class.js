@@ -66,6 +66,6 @@ class Bottles extends MovableObject {
             if (world !== undefined) {
                 world.level.bottles.push(bottle);
             }
-        }, 30000);
+        }, 3000);
     }
 }
