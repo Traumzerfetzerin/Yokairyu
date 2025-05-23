@@ -17,7 +17,6 @@ class Character extends MovableObject {
     bottlesCollected = 0;
     lastCollect = 0;
 
-    // img
     IMAGES_WALK = [
         './img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_2-removebg-preview.png',
@@ -27,15 +26,6 @@ class Character extends MovableObject {
         './img/player/Kitsune/walk/remove/Walk_6-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_7-removebg-preview.png',
         './img/player/Kitsune/walk/remove/Walk_8-removebg-preview.png'
-
-        // './img/player/Kitsune/run/remove/Run_1-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_2-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_3-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_4-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_5-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_6-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_7-removebg-preview.png',
-        // './img/player/Kitsune/run/remove/Run_8-removebg-preview.png'
     ];
 
     IMAGES_JUMP = [
@@ -70,18 +60,6 @@ class Character extends MovableObject {
     ];
 
     IMAGES_THROW = [
-        // './img/player/Kitsune/attack_2/remove/Attack_2_1-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_2-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_3-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_4-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_5-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_6-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_7-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_8-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_9-removebg-preview.png',
-        // './img/player/Kitsune/attack_2/remove/Attack_2_10-removebg-preview.png'
-
-
         './img/player/Kitsune/attack_1/remove/Attack_1_1-removebg-preview.png',
         './img/player/Kitsune/attack_1/remove/Attack_1_2-removebg-preview.png',
         './img/player/Kitsune/attack_1/remove/Attack_1_3-removebg-preview.png',

@@ -99,25 +99,77 @@ class Collissions {
      * at a rate of 60 times per second. If the enemy's y position exceeds the canvas
      * height, the interval is cleared and the enemy is removed from the level.
      * @param {Enemy} enemy - The enemy to make fall.
-     * @param {number} index - The index of the enemy in the enemies array.
+     * @param {string} enemyName - The name of the enemy to remove from the level when it has fallen off screen.
      */
     makeEnemyFall(enemy, enemyName) {
+        this.markEnemyAsDead(enemy);
+        this.startEnemyFall(enemy, enemyName);
+    }
+
+
+    /**
+     * Marks an enemy as dead by setting its dead flag to true and its gravity to 2.
+     * This function is used to prepare an enemy for falling off the screen after being killed.
+     * @param {Enemy} enemy - The enemy to mark as dead.
+     */
+    markEnemyAsDead(enemy) {
         enemy.dead = true;
         enemy.gravity = 2;
+    }
 
-        let fallInterval = setInterval(() => {
-            enemy.y += enemy.gravity;
-            if (enemy.y > canvas.height) {
 
-                const user = world.level.enemies.findIndex(u => u.enemyName === enemyName);
-
+    /**
+     * Starts an interval that moves an enemy down by its gravity every 1/60th of a second.
+     * If the enemy's y position exceeds the canvas height, the interval is cleared and the enemy is removed from the level.
+     * This function is used in combination with the makeEnemyFall() method to make an enemy fall off screen after it has been killed.
+     * @param {Enemy} enemy - The enemy to start falling.
+     * @param {string} enemyName - The name of the enemy to remove from the level when it has fallen off screen.
+     */
+    startEnemyFall(enemy, enemyName) {
+        const fallInterval = setInterval(() => {
+            this.applyGravity(enemy);
+            if (this.hasFallenOffScreen(enemy)) {
                 clearInterval(fallInterval);
-                this.removeEnemyFromLevel(user);
+                this.removeEnemyByName(enemyName);
             }
         }, 1000 / 60);
     }
 
 
+    /**
+     * Applies gravity to an enemy by increasing its y position by its gravity value.
+     * This function is called at a regular interval to simulate the effect of gravity on the enemy.
+     * @param {Enemy} enemy - The enemy to apply gravity to.
+     */
+    applyGravity(enemy) {
+        enemy.y += enemy.gravity;
+    }
+
+
+    /**
+     * Checks if an enemy has fallen off the screen.
+     * @param {Enemy} enemy - The enemy to check.
+     * @returns {boolean} true if the enemy has fallen off the screen, false otherwise.
+     */
+    hasFallenOffScreen(enemy) {
+        return enemy.y > canvas.height;
+    }
+
+
+    /**
+     * Removes an enemy from the level by its name.
+     * This function searches for an enemy with the specified name in the enemies array.
+     * If an enemy with the given name is found, it is removed from the level.
+     * @param {string} enemyName - The name of the enemy to remove.
+     */
+    removeEnemyByName(enemyName) {
+        const index = world.level.enemies.findIndex(u => u.enemyName === enemyName);
+        if (index !== -1) {
+            this.removeEnemyFromLevel(index);
+        }
+    }
+
+    
     /**
      * Removes the enemy at the given index from the level.
      * @param {number} index - The index of the enemy in the enemies array.

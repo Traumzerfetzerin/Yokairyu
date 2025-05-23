@@ -15,26 +15,6 @@ let intervalId = [];
 
 
 /**
- * Adjusts the canvas height based on the current orientation and window height.
- * 
- * If the orientation is landscape and the window height is less than 480 pixels,
- * the canvas height is set to match the window height. Otherwise, the canvas height
- * is set to 100%.
- */
-function checkOrientation() {
-    if (window.matchMedia("(orientation: landscape)").matches) {
-        if (window.innerHeight < 480) {
-            newHeight = window.innerHeight;
-            document.getElementById('canvas').style.height = `${newHeight}px`;
-        }
-    }
-    else {
-        document.getElementById('canvas').style.height = `100%`;
-    }
-}
-
-
-/**
  * Initializes the game by getting the canvas element and creating a new
  * World object with the canvas and Keyboard object.
  *

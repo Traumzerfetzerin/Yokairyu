@@ -1,5 +1,4 @@
 class DrawableObject {
-    
     img;
     imageCache = {};
     currentImage = 0;
@@ -8,8 +7,6 @@ class DrawableObject {
     height = 100;
     width = 100;
 
-
-    // loadImage('img/test.png');
 
     /**
      * Loads a single image for the object.
@@ -32,8 +29,11 @@ class DrawableObject {
 
 
     /**
-     * Draws a pink frame around the object if it is an instance of Character, Chicken, Coins, Bottles, or Endboss.
-     * @param {CanvasRenderingContext2D} ctx - The context to draw onto.
+     * Draws a pink outline around the object if it is an instance of Character, 
+     * Chicken, Coins, Bottles, or Endboss. This is used to visually highlight 
+     * specific objects on the canvas for debugging or display purposes.
+     *
+     * @param {CanvasRenderingContext2D} ctx - The canvas context to draw the outline on.
      */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Coins || this instanceof Bottles || this instanceof Endboss) {

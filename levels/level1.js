@@ -1,5 +1,4 @@
 let level1;
-
 /**
  * Initializes the first level of the game.
  * Creates a new Level object with the given arrays of enemies, clouds, coins, bottles, and background objects.
@@ -8,7 +7,6 @@ let level1;
  * @return {void} - Does not return a value.
  */
 function initLevel() {
-
     level1 = new Level(
         [
             new Chicken(50),
@@ -16,13 +14,11 @@ function initLevel() {
             new Chicken(52),
             new Endboss(53),
         ],
-
         [
             new Cloud(),
             new Cloud(),
             new Cloud()
         ],
-
         [
             new Coins(),
             new Coins(),
@@ -31,16 +27,11 @@ function initLevel() {
             new Coins(),
             new Coins()
         ],
-
         [
-            // new Bottles(),
-            // new Bottles(),
-            // new Bottles(),
             new Bottles(),
             new Bottles(),
             new Bottles()
         ],
-
         [
             new BackgroundObject('./img/background/Plan-5.png', -720),
             new BackgroundObject('./img/background/Plan-3.png', -720),
@@ -48,7 +39,6 @@ function initLevel() {
             new BackgroundObject('./img/background/Plan-1.png', -720),
 
             new BackgroundObject('./img/background/Plan-5.png', 0),
-            // new BackgroundObject('./img/background/Plan-4.png', 0),
             new BackgroundObject('./img/background/Plan-3.png', 0),
             new BackgroundObject('./img/background/Plan-2.png', 0),
             new BackgroundObject('./img/background/Plan-1.png', 0),

@@ -34,7 +34,6 @@ class GameOverScreen {
             ctx.fillStyle = "white";
             ctx.font = "bold 30px Arial";
             ctx.textAlign = "center";
-            // ctx.fillText("Press 'R' to restart", canvas.width / 2, canvas.height - 50);
         } return;
     }
 

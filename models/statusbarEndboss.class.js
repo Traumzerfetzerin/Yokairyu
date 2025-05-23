@@ -1,5 +1,4 @@
 class StatusbarEndboss extends DrawableObject {
-    
     percentage = 100;
 
     IMAGES = [
@@ -34,8 +33,6 @@ class StatusbarEndboss extends DrawableObject {
         this.setPercentage(100);
     }
 
-
-    // setPercentage(50);
 
     /**
      * Sets the percentage of the endboss's status bar and updates the image to the corresponding frame in the IMAGES array.

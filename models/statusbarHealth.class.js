@@ -1,5 +1,4 @@
 class StatusbarHealth extends DrawableObject {
-    
     percentage = 100;
 
     IMAGES = [
@@ -27,8 +26,6 @@ class StatusbarHealth extends DrawableObject {
         this.setPercentage(100);
     }
 
-
-    // setPercentage(50);
 
     /**
      * Sets the percentage of the health bar and updates the image to the corresponding frame in the IMAGES array.

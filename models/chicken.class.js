@@ -1,5 +1,4 @@
 class Chicken extends MovableObject {
-
     width = 80;
     height = 80;
     y = 380;
@@ -7,10 +6,6 @@ class Chicken extends MovableObject {
     enemyName;
 
     IMAGES_WALK = [
-        // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        // './img/enemy/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
-
         './img/enemy/Spider/Spider_1.png',
         './img/enemy/Spider/Spider_2.png',
         './img/enemy/Spider/Spider_3.png',
@@ -28,10 +23,10 @@ class Chicken extends MovableObject {
 
     /**
      * Initializes a new instance of the Chicken class.
-     * Loads the first image for the chicken and all images for the chicken's walk animation.
-     * Sets the chicken's x position to a random value between 200 and 700.
-     * Sets the chicken's speed to a random value between 0.15 and 0.40.
-     * Starts the chicken's animation and loads the walk sound.
+     * Loads the initial image and all images for the chicken's walk animation.
+     * Sets a random x position and speed, and starts the animation.
+     * 
+     * @param {string} name - The name of the enemy chicken.
      */
     constructor(name) {
         super().loadImage('./img/enemy/Spider/Spider_1.png');
@@ -41,7 +36,7 @@ class Chicken extends MovableObject {
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
 
-        this.enemyName = name;       
+        this.enemyName = name;
     }
 
 

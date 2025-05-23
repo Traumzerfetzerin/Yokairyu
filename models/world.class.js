@@ -1,5 +1,4 @@
 class World {
-
     character = new Character();
     level = level1;
     canvas;
@@ -13,13 +12,11 @@ class World {
     throwableObjects = [];
     gameOverScreen = new GameOverScreen();
     winScreen = new WinScreen();
+    collissions = new Collissions();
 
     isUsed = false;
-
     animationId = null;
     gameRunning = false;
-
-    collissions = new Collissions();
 
 
     /**
@@ -65,12 +62,13 @@ class World {
 
 
     /**
-     * Draws the game world on the canvas by first checking if the character
-     * is dead or if the win screen should be displayed. If neither condition
-     * is met, it clears the canvas, sets the camera translation, and draws
-     * background objects, the character, dynamic objects, and fixed objects
-     * in the correct order. Finally, it requests the next animation frame
-     * to continue the game loop.
+     * Draws the game world onto the canvas.
+     * 
+     * Draws the background objects, character, dynamic objects, and fixed objects onto the canvas.
+     * If the character is dead, it returns without drawing anything.
+     * If the win screen should be shown, it draws the win screen and returns.
+     * It translates the camera to the correct position, resets the camera translation, and
+     * requests the next frame.
      */
     draw() {
         if (this.character.isDead()) {
@@ -95,12 +93,12 @@ class World {
     }
 
 
-    startGameLoop() {
-        this.gameRunning = true;
-        this.requestNextFrame();
-    }
-
-
+    /**
+     * Clears all intervals in the range of 1 to 9998, which are 
+     * all the intervals set by the game. This is necessary to 
+     * stop the game from running when the game is over.
+     * @todo This is a temporary solution until we figure out how to keep track of the intervals.
+     */
     clearAllInterval() {
         for (let i = 1; i < 9999; i++) {
             window.clearInterval(i);
@@ -183,19 +181,25 @@ class World {
     }
 
 
-    // requestNextFrame() {
-    //     let self = this;
-    //     requestAnimationFrame(function () {
-    //         self.draw();
-    //     });
-    // }
-
-
+    /**
+     * Requests the next frame of the game loop using the requestAnimationFrame method.
+     * This method is used to ensure smooth animations and to save resources by only drawing
+     * the game world when necessary.
+     * @private
+     */
     requestNextFrame() {
         this.animationId = requestAnimationFrame(() => this.draw());
     }
 
 
+    /**
+     * Stops the game loop and clears all intervals set by the game.
+     * This is called when the game is over and we want to stop the game from running.
+     * It cancels the current animation frame and sets the gameRunning flag to false.
+     * It also clears all intervals in the range of 1 to 9998, which are all the intervals
+     * set by the game. This is necessary to stop the game from running when the game is over.
+     * @todo This is a temporary solution until we figure out how to keep track of the intervals.
+     */
     stopGameLoop() {
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
@@ -233,7 +237,7 @@ class World {
 
         mo.draw(this.ctx);
 
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);

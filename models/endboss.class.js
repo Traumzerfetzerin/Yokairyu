@@ -1,5 +1,4 @@
 class Endboss extends MovableObject {
-
     width = 500;
     height = 500;
     y = -20;
@@ -19,15 +18,6 @@ class Endboss extends MovableObject {
     tempCtx = this.tempCanvas.getContext('2d');
 
     IMAGES_WALK = [
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G5.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G6.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G7.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G8.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G9.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G10.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G11.png',
-        // './img/endboss/4_enemie_boss_chicken/2_alert/G12.png'
-
         './img/endboss/Dragon/Body.png',
         './img/endboss/Dragon/Head_1.png',
         './img/endboss/Dragon/Head_2.png',
@@ -169,14 +159,6 @@ class Endboss extends MovableObject {
 
         this.img = this.tempCanvas;
     }
-
-
-    // hitEndboss() {
-    //     this.tempCtx.beginPath();
-    //     this.tempCtx.fillStyle = "rgba(255, 0, 0, 0.5)";
-    //     this.tempCtx.fillRect(2000, 100, 500, 500);
-    //     this.tempCtx.stroke();
-    // }
 
 
     /**

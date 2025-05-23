@@ -1,5 +1,4 @@
 class WinScreen {
-    
     /**
      * Initializes a new instance of the WinScreen class.
      * Loads the "win" image and sets a flag to track whether the image has finished loading.
@@ -35,7 +34,6 @@ class WinScreen {
             ctx.fillStyle = "white";
             ctx.font = "bold 30px Arial";
             ctx.textAlign = "center";
-            // ctx.fillText("Press 'R' to restart", canvas.width / 2, canvas.height - 50);
         }
     }
 
