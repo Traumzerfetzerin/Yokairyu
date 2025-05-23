@@ -110,7 +110,6 @@ class Collissions {
             if (enemy.y > canvas.height) {
 
                 const user = world.level.enemies.findIndex(u => u.enemyName === enemyName);
-                console.log(user); // { id: 2, name: "Ben" }
 
                 clearInterval(fallInterval);
                 this.removeEnemyFromLevel(user);

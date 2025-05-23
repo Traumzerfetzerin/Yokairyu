@@ -15,22 +15,7 @@
     }
 }
 
-@media only screen and (orientation: portrait) and (max-width: 720px) {
-    #turn {
-        display: inline;
-    }
-
-    #title {
-        display: none;
-    }
-}
-
-@media only screen and (max-width: 720px) {
-    canvas {
-        margin-top: 0px;
-        width: 100%;
-    }
-
+@media only screen and (orientation: portrait) {
     #turn {
         display: inline;
     }
