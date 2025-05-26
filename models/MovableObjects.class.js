@@ -87,10 +87,10 @@ class MovableObject extends DrawableObject {
      * is recorded. Logs messages indicating the new energy level and death status.
      */
     hit() {
-        this.energy -= 5;
+        this.energy -= 10;
 
-        if (this.energy <= 15) {
-            this.energy = 15;
+        if (this.energy <= 20) {
+            this.energy = 20;
             this.dead = true;
         } else {
             this.lastHit = new Date().getTime();

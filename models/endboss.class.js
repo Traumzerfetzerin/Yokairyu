@@ -132,32 +132,125 @@ class Endboss extends MovableObject {
 
 
     /**
-     * Creates a combined image with the current head and the body of the endboss.
-     * This function is called in the animateEndboss function every 500 milliseconds.
-     * It creates a temporary canvas with the width and height of 2000.
-     * It then draws the body of the endboss at the position (500, 400) and the wings at the position (600, 1100).
-     * If the current head is 1, it draws the first head at the position (750, 50), otherwise it draws the second head at the same position.
-     * It then draws the tail at the position (1350, 1110) and the legs at the position (1410, 265).
-     * Finally, it sets the combined image as the img property of the endboss.
+     * Creates a combined image for the endboss by drawing all its parts (body, head, left and right paws and wings) onto a temporary canvas.
+     * The temporary canvas is then assigned to the `img` property of the Endboss object.
+     * This function is called every 500 milliseconds by the `startAnimationEndboss` method.
+     * @private
      */
     createCombinedImage() {
+        this.prepareCanvas();
+        this.drawAllParts();
+        this.img = this.tempCanvas;
+    }
+
+
+    /**
+     * Prepares the temporary canvas by setting its width and height to 2000.
+     * This is necessary to ensure that the endboss's parts are drawn at the correct size.
+     * @private
+     */
+    prepareCanvas() {
         this.tempCanvas.width = 2000;
         this.tempCanvas.height = 2000;
+    }
 
-        this.tempCtx.drawImage(this.loadedImages[0], 500, 400);
 
-        if (this.currentHead === 1) {
-            this.tempCtx.drawImage(this.loadedImages[1], 750, 50);
-        } else {
-            this.tempCtx.drawImage(this.loadedImages[2], 750, 50);
+    /**
+     * Draws all the parts of the endboss onto the temporary canvas.
+     * This method is called by the `createCombinedImage` method and is responsible for drawing
+     * all the parts of the endboss (body, head, left and right paws and wings) onto the temporary
+     * canvas. The order in which the parts are drawn is important, since the parts drawn later
+     * will be drawn on top of the parts drawn earlier. The parts are drawn in the following order:
+     * body, head, left paw, left wing, right paw, right wing.
+     * @private
+     */
+    drawAllParts() {
+        this.drawBody();
+        this.drawHead();
+        this.drawLeftPaw();
+        this.drawLeftWing();
+        this.drawRightPaw();
+        this.drawRightWing();
+    }
+
+
+    /**
+     * Draws an image onto the temporary canvas if it is a complete image.
+     * @param {HTMLImageElement} img - The image to draw.
+     * @param {number} x - The x position to draw the image at.
+     * @param {number} y - The y position to draw the image at.
+     * @private
+     */
+    drawSafe(img, x, y) {
+        if (img instanceof HTMLImageElement && img.complete) {
+            this.tempCtx.drawImage(img, x, y);
         }
+    }
 
-        this.tempCtx.drawImage(this.loadedImages[3], 600, 1100);
-        this.tempCtx.drawImage(this.loadedImages[4], 300, 250);
-        this.tempCtx.drawImage(this.loadedImages[5], 1350, 1110);
-        this.tempCtx.drawImage(this.loadedImages[6], 1410, 265);
 
-        this.img = this.tempCanvas;
+    /**
+     * Draws the body of the endboss onto the temporary canvas at the position (500,400).
+     * The body is drawn at index 0 of the `loadedImages` array.
+     * @private
+     */
+    drawBody() {
+        this.drawSafe(this.loadedImages[0], 500, 400);
+    }
+
+
+    /**
+     * Draws the head of the endboss onto the temporary canvas at the position (750,50).
+     * The head is drawn at either index 1 or 2 of the `loadedImages` array, depending on the
+     * value of `this.currentHead`, which is toggled between 1 and 2 by the `toggleHead` method.
+     * @private
+     */
+    drawHead() {
+        const headIndex = this.currentHead === 1 ? 1 : 2;
+        this.drawSafe(this.loadedImages[headIndex], 750, 50);
+    }
+
+
+    /**
+     * Draws the left paw of the endboss onto the temporary canvas
+     * at the position (600, 1100). The left paw is drawn using the
+     * image at index 3 of the `loadedImages` array.
+     * @private
+     */
+    drawLeftPaw() {
+        this.drawSafe(this.loadedImages[3], 600, 1100);
+    }
+
+
+    /**
+     * Draws the left wing of the endboss onto the temporary canvas
+     * at the position (300, 250). The left wing is drawn using the
+     * image at index 4 of the `loadedImages` array.
+     * @private
+     */
+    drawLeftWing() {
+        this.drawSafe(this.loadedImages[4], 300, 250);
+    }
+
+
+    /**
+     * Draws the right paw of the endboss onto the temporary canvas
+     * at the position (1350, 1110). The right paw is drawn using the
+     * image at index 5 of the `loadedImages` array.
+     * @private
+     */
+    drawRightPaw() {
+        this.drawSafe(this.loadedImages[5], 1350, 1110);
+    }
+
+
+    /**
+     * Draws the right wing of the endboss onto the temporary canvas
+     * at the position (1410, 265). The right wing is drawn using the
+     * image at index 6 of the `loadedImages` array.
+     * @private
+     */
+    drawRightWing() {
+        this.drawSafe(this.loadedImages[6], 1410, 265);
     }
 
 

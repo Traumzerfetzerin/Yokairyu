@@ -65,12 +65,13 @@ startBtn.addEventListener('click', () => {
 
 
 /**
- * Starts the game by updating the visibility of the UI elements and toggling the background sound.
+ * Starts the game by updating the UI and starting the game loop.
  *
- * This function is called when the start button is clicked. It hides the start button, menu, footer,
- * and title text, and shows the back to menu button, soundbar, and game canvas. It also sets the
- * background image to the game background and updates the visibility of the touch button controls
- * based on the game state and pointer type.
+ * This function hides the menu, footer, and title, and shows the back to menu button, soundbar, and game canvas.
+ * It also updates the visibility of the touch button controls based on the pointer type.
+ * The game loop is started by calling world.startGameLoop().
+ * The start button is hidden, and the sound button is toggled to off.
+ * The sound button is updated to reflect the current sound state.
  */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
@@ -90,10 +91,10 @@ function startGame() {
 
 
 /**
- * Updates the UI to its game running state when the game is restarted.
- * Hides the start button, menu, footer, and the 'Impressum' link at the bottom of the page.
- * Shows the touch controls and the soundbar.
- * Also hides the 'New Game' menu and makes sure the background image is visible.
+ * Updates the UI for a game restart by hiding the menu, footer, and title, and showing
+ * the back to menu button, soundbar, and game canvas. The touch button controls are also
+ * shown if the device supports coarse pointer input (e.g., touch screen). The 'New Game'
+ * menu is also hidden.
  */
 function updateUIForRestart() {
     document.getElementById('canvas').classList.remove('d-none');
@@ -130,8 +131,10 @@ function restartGame() {
 
 
 /**
- * Resets the UI to the menu state by hiding the game canvas, soundbar, and touch controls
- * and showing the start button, menu, and footer. Also resets the background image.
+ * Resets the UI to its main menu state by hiding the game canvas and controls and showing the main menu.
+ * 
+ * This function is called when the player navigates back to the main menu from the game over screen or the winning screen.
+ * It hides the game canvas and controls, shows the main menu, and resets the background image to the main menu background.
  */
 function resetToMenuView() {
     document.getElementById('start').style.display = 'flex';
