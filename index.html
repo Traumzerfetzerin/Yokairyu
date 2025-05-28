@@ -20,48 +20,51 @@
                 <h1>Yokairyu</h1>
                 <p>„Yokai“ + „Ryū“ (japanese for dragon)</p>
             </div>
+        </div>
 
-            <div id="menu" class="menu">
-                <div class="dropdownControl cursorPointer" onclick="toggleDropdown()">
-                    How to control it
-                    <div>
-                        <img src="./img/icons/Property 1=Variant4.svg" id="dropdown"
-                            class="cursorPointer margin-right dropdownimg">
-                        <img src="./img/icons/arrow_drop_downaa.svg" id="dropdown1"
-                            class="cursorPointer margin-right dropdownimg d-none">
+        <div id="menu" class="menu">
+            <div class="dropdownControl cursorPointer" onclick="toggleDropdown() ; event.stopPropagation();">
+                How to control it
+                <div>
+                    <img src="./img/icons/Property 1=Variant4.svg" id="dropdown"
+                        class="cursorPointer margin-right dropdownimg">
+                    <img src="./img/icons/arrow_drop_downaa.svg" id="dropdown1"
+                        class="cursorPointer margin-right dropdownimg d-none">
+                </div>
+
+                <div id="dropdownControl" class="dropdown d-none">
+                    <div class="space-between">
+                        <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                        <img src="./img/icons/buchstabe-a.png" alt="">
+                        <span>Left</span>
                     </div>
-
-                    <div id="dropdownControl" class="dropdown d-none">
-                        <div class="space-between">
-                            <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
-                            <img src="./img/icons/buchstabe-a.png" alt="">
-                            <span>Left</span>
-                        </div>
-                        <div class="space-between">
-                            <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
-                            <img src="./img/icons/buchstabe-d.png" alt="">
-                            <span>Right</span>
-                        </div>
-                        <div class="space-between">
-                            <img src="./img/icons/raum.png" alt="">
-                            <span>Jump</span>
-                        </div>
-                        <div class="space-between">
-                            <img src="./img/icons/links-klick-schwarz.png" alt="">
-                            <img src="./img/icons/buchstabe-e.png" alt="">
-                            <span>Shoot</span>
-                        </div>
-                        <div class="space-between">
-                            <img src="./img/icons/buchstabe-r.png" alt="">
-                            <span>Restart</span>
-                        </div>
+                    <div class="space-between">
+                        <img src="./img/icons/pfeiltasten_schwarz.png" alt="">
+                        <img src="./img/icons/buchstabe-d.png" alt="">
+                        <span>Right</span>
+                    </div>
+                    <div class="space-between">
+                        <img src="./img/icons/raum.png" alt="">
+                        <span>Jump</span>
+                    </div>
+                    <div class="space-between">
+                        <img src="./img/icons/buchstabe-e.png" alt="">
+                        <span>Shoot</span>
+                    </div>
+                    <div class="space-between">
+                        <img src="./img/icons/buchstabe-r.png" alt="">
+                        <span>Restart</span>
                     </div>
                 </div>
             </div>
-
         </div>
+
         <img id="startImage" onclick="startGame()" src="./img/icons/start-knopf.png" alt="">
     </div>
+
+    <footer id="footer">
+        <a href="./impressum.html">Impressum</a>
+    </footer>
 
     <div id="game">
 
@@ -102,7 +105,7 @@
                 <img id="rightBtn" src="./img/icons/pfeiltaste_dick_rechts.png" alt="">
             </div>
             <div>
-                <img id="shootBtn" src="./img/icons/links-klick.png" alt="">
+                <img id="shootBtn" src="./img/icons/buchstabe-e.png" alt="">
             </div>
         </div>
 
@@ -145,7 +148,3 @@
 <script src="js/fullscreen.js" defer></script>
 
 </html>
-
-<footer id="footer">
-    <a href="./impressum.html">Impressum</a>
-</footer>
