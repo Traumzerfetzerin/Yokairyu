@@ -12,7 +12,10 @@ function initLevel() {
             new Chicken(50),
             new Chicken(51),
             new Chicken(52),
-            new Endboss(53),
+            new Chicken(53),
+            new Chicken(54),
+            new Chicken(55),
+            new Endboss(56),
         ],
         [
             new Cloud(),
@@ -57,6 +60,16 @@ function initLevel() {
             new BackgroundObject('./img/background/Plan-3.png', 720 * 3),
             new BackgroundObject('./img/background/Plan-2.png', 720 * 3),
             new BackgroundObject('./img/background/Plan-1.png', 720 * 3),
+
+            new BackgroundObject('./img/background/Plan-5.png', 720 * 4),
+            new BackgroundObject('./img/background/Plan-3.png', 720 * 4),
+            new BackgroundObject('./img/background/Plan-2.png', 720 * 4),
+            new BackgroundObject('./img/background/Plan-1.png', 720 * 4),
+
+            new BackgroundObject('./img/background/Plan-5.png', 720 * 5),
+            new BackgroundObject('./img/background/Plan-3.png', 720 * 5),
+            new BackgroundObject('./img/background/Plan-2.png', 720 * 5),
+            new BackgroundObject('./img/background/Plan-1.png', 720 * 5),
         ],
     );
 }

@@ -39,7 +39,7 @@ class Endboss extends MovableObject {
         this.loadedImages = [];
         this.imagesLoaded = 0;
         this.currentHead = 1;
-        this.x = 2000;
+        this.x = 3000;
         this.y = 100;
 
         this.loadImages();
@@ -116,7 +116,7 @@ class Endboss extends MovableObject {
      * @returns {boolean} True if the character is in range, false otherwise.
      */
     isCharacterInRange() {
-        if (world?.character && world.character.x > 1660 && world.character.x < 2000) {
+        if (world?.character && world.character.x > 1660 && world.character.x < 3000) {
             return true;
         }
         return false;

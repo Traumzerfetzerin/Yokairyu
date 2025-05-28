@@ -5,6 +5,8 @@ class Chicken extends MovableObject {
     energy = 1;
     enemyName;
 
+    static positions = [];
+
     IMAGES_WALK = [
         './img/enemy/Spider/Spider_1.png',
         './img/enemy/Spider/Spider_2.png',
@@ -29,14 +31,34 @@ class Chicken extends MovableObject {
      * @param {string} name - The name of the enemy chicken.
      */
     constructor(name) {
-        super().loadImage('./img/enemy/Spider/Spider_1.png');
+        super();
+        this.loadImage('./img/enemy/Spider/Spider_1.png');
+
         this.loadImages(this.IMAGES_WALK);
 
-        this.x = 500 + Math.random() * 500; // random x position between 200 and 700
+        this.x = this.getNonOverlappingX(100, 1660, 90);
+
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
 
         this.enemyName = name;
+    }
+
+
+    getNonOverlappingX(min, max, spacing) {
+        let x;
+        let attempts = 1000;
+        do {
+            x = min + Math.random() * (max - min);
+            attempts--;
+        } while (Coins.positions.some(pos => Math.abs(pos - x) < spacing) && attempts > 0);
+
+        if (attempts > 0) {
+            Coins.positions.push(x);
+            return x;
+        } else {
+            return x;
+        }
     }
 
 
