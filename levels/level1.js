@@ -9,13 +9,13 @@ let level1;
 function initLevel() {
     level1 = new Level(
         [
-            // new Chicken(50),
-            // new Chicken(51),
-            // new Chicken(52),
-            // new Chicken(53),
-            // new Chicken(54),
-            // new Chicken(55),
-            // new Endboss(56),
+            new Chicken(50),
+            new Chicken(51),
+            new Chicken(52),
+            new Chicken(53),
+            new Chicken(54),
+            new Chicken(55),
+            new Endboss(56),
         ],
         [
             new Cloud(),
@@ -31,9 +31,9 @@ function initLevel() {
             new Coins()
         ],
         [
-            // new Bottles(),
-            // new Bottles(),
-            // new Bottles()
+            new Bottles(),
+            new Bottles(),
+            new Bottles()
         ],
         [
             new BackgroundObject('./img/background/Plan-5.png', -720),

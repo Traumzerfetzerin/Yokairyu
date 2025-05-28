@@ -2,13 +2,6 @@ class StatusbarEndboss extends DrawableObject {
     percentage = 100;
 
     IMAGES = [
-        // './img/7_statusbars/2_statusbar_endboss/0.png',
-        // './img/7_statusbars/2_statusbar_endboss/20.png',
-        // './img/7_statusbars/2_statusbar_endboss/40.png',
-        // './img/7_statusbars/2_statusbar_endboss/60.png',
-        // './img/7_statusbars/2_statusbar_endboss/80.png',
-        // './img/7_statusbars/2_statusbar_endboss/blue.png',
-
         './img/7_statusbars/2_statusbar_endboss/statusBarEndbooss_0.png',
         './img/7_statusbars/2_statusbar_endboss/statusBarEndbooss_20.png',
         './img/7_statusbars/2_statusbar_endboss/statusBarEndbooss_40.png',
@@ -42,7 +35,7 @@ class StatusbarEndboss extends DrawableObject {
      * @param {number} percentage - The percentage to set, ranging from 0 to 5.
      */
     setPercentage(percentage) {
-        this.percentage = percentage; // => 0 ... 5
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }

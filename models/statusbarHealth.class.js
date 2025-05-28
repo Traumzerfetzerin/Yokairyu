@@ -2,12 +2,12 @@ class StatusbarHealth extends DrawableObject {
     percentage = 100;
 
     IMAGES = [
-        './img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png', // 0
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
         './img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png' // 5
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
     ];
 
 
@@ -35,7 +35,7 @@ class StatusbarHealth extends DrawableObject {
      * @param {number} percentage - The percentage to set, ranging from 0 to 5.
      */
     setPercentage(percentage) {
-        this.percentage = percentage; // => 0 ... 5
+        this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }

@@ -1,4 +1,7 @@
-// Keyboard event listeners
+/**
+ * Adds a keydown event listener to the window object.
+ * When a key is pressed, the `handleKeyDown` function is called to handle the keyboard input.
+ */
 window.addEventListener("keydown", handleKeyDown);
 
 /**
@@ -9,21 +12,21 @@ window.addEventListener("keydown", handleKeyDown);
  */
 function handleKeyDown(e) {
     switch (e.keyCode) {
-        case 39: // right arrow
-        case 68: // D
+        case 39:
+        case 68:
             handleRight();
             break;
-        case 37: // left arrow
-        case 65: // A
+        case 37:
+        case 65:
             handleLeft();
             break;
-        case 32: // space
+        case 32:
             handleSpace();
             break;
-        case 69: // E
+        case 69:
             handleThrow();
             break;
-        case 82: // R
+        case 82:
             handleReload();
             break;
     }
@@ -77,7 +80,10 @@ function handleReload() {
 }
 
 
-// Keyboard event listeners
+/**
+ * Adds a keyup event listener to the window object.
+ * When a key is released, the `handleKeyUp` function is invoked to handle the event.
+ */
 window.addEventListener("keyup", handleKeyUp);
 
 
@@ -89,21 +95,21 @@ window.addEventListener("keyup", handleKeyUp);
  */
 function handleKeyUp(e) {
     switch (e.keyCode) {
-        case 39: // arrow right
-        case 68: // D
+        case 39:
+        case 68:
             releaseRight();
             break;
-        case 37: // arrow left
-        case 65: // A
+        case 37:
+        case 65:
             releaseLeft();
             break;
-        case 32: // space
+        case 32:
             releaseSpace();
             break;
-        case 69: // E
+        case 69:
             releaseThrow();
             break;
-        case 82: // R
+        case 82:
             releaseReload();
             break;
     }
@@ -155,21 +161,6 @@ function releaseReload() {
     keyboard.RELOAD = false;
     restartGame();
 }
-
-
-// Mouse event listeners
-window.addEventListener("mousedown", (e) => {
-    if (e.button == 0 && e.target === canvas) {
-        keyboard.THROW = true;
-    }
-});
-
-
-window.addEventListener("mouseup", (e) => {
-    if (e.button == 0 && e.target === canvas) {
-        keyboard.THROW = false;
-    }
-});
 
 
 /**
@@ -277,7 +268,15 @@ function handleTouchEnd() {
 }
 
 
-// Touch event listeners
+/**
+ * Selects the element with the ID 'touch' and assigns it to `touchArea`.
+ * Adds touch event listeners to handle user interactions:
+ * - 'touchstart': calls `handleTouchStart` when a touch starts.
+ * - 'touchend': calls `handleTouchEnd` when a touch ends.
+ * - 'touchmove': prevents the default behavior to disable scrolling or other default actions during touch movement.
+ * 
+ * All listeners are added with `{ passive: false }` to allow calling `preventDefault()` within the event handlers.
+ */
 const touchArea = document.getElementById('touch');
 touchArea.addEventListener('touchstart', handleTouchStart, { passive: false });
 touchArea.addEventListener('touchend', handleTouchEnd, { passive: false });

@@ -41,15 +41,13 @@ class MovableObject extends DrawableObject {
      * @return {boolean} True if the object is above the ground, false otherwise.
      */
     isAboveGround() {
-        if (this instanceof ThrowableObject) { // throwable object should always fall
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
             return this.y < 300;
         }
     }
 
-
-    // character.isColliding(chicken);
 
     /**
      * Checks if the object is colliding with another object.
@@ -108,8 +106,8 @@ class MovableObject extends DrawableObject {
      * @returns {boolean} True if the object is hurt, false otherwise.
      */
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; // difference in ms
-        timepassed = timepassed / 1000; // difference in s
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000;
         return timepassed < 1;
     }
 
@@ -133,8 +131,7 @@ class MovableObject extends DrawableObject {
      * @param {string[]} images - An array of image paths to cycle through for the animation.
      */
     playAnimation(images) {
-        let i = this.currentImage % images.length; // let i = 7 % 6; => 1, Rest 1
-        // i = 0, 1, 2, 3, 4, 5, 6, 0
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -157,7 +154,7 @@ class MovableObject extends DrawableObject {
     moveLeft() {
         this.x -= this.speed;
         if (this.x < -this.width) {
-            this.x = window.innerWidth; // Setzt es rechts neu an
+            this.x = window.innerWidth;
         }
     }
 

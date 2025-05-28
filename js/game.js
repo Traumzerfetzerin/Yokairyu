@@ -32,7 +32,10 @@ function init() {
 }
 
 
-// Add event listener to the start button to start the game
+/**
+ * Adds a click event listener to the start button.
+ * When the button is clicked, the `init` function is called to initialize the application.
+ */
 startButton.addEventListener('click', function () {
     init();
 });
@@ -53,11 +56,19 @@ function updateTouchButtonVisibility() {
 }
 
 
-// Add event listener to the pointer query to update touch button visibility
+/**
+ * Adds a change event listener to the pointerQuery object.
+ * When the pointer media query state changes, the `updateTouchButtonVisibility` function is called
+ * to update the visibility of the touch-related button(s).
+ */
 pointerQuery.addEventListener('change', updateTouchButtonVisibility);
 
 
-// Add event listener to the start button to start the game
+/**
+ * Adds a click event listener to the startBtn element.
+ * When clicked, sets `gameStarted` to true and calls `updateTouchButtonVisibility`
+ * to update the UI accordingly.
+ */
 startBtn.addEventListener('click', () => {
     gameStarted = true;
     updateTouchButtonVisibility();

@@ -94,7 +94,6 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage('./img/player/Kitsune/walk/remove/Walk_1-removebg-preview.png');
 
-        // Load all images for the character
         this.loadImages(this.IMAGES_WALK);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_DEAD);
@@ -210,13 +209,11 @@ class Character extends MovableObject {
         if (this.world.keyboard.SPACE && !this.isAboveGround()) {
             this.jump();
 
-            // Check if the sound exists and is not already playing
             if (soundManager.audioJump && soundManager.audioJump.paused) {
                 soundManager.audioJump.play();
                 soundManager.audioJump.currentTime = 0;
             }
 
-            // Pause the sound after 2 seconds
             setTimeout(() => {
                 if (soundManager.audioJump && !soundManager.audioJump.paused) {
                     soundManager.audioJump.pause();
@@ -248,7 +245,6 @@ class Character extends MovableObject {
     startStateAnimation() {
         let gameOverScreen = new GameOverScreen();
 
-        // Set up an interval to handle the character's state animation
         this.animationInterval = setInterval(() => {
             this.handleStateAnimation(gameOverScreen);
         }, 100);
@@ -266,7 +262,7 @@ class Character extends MovableObject {
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {
             this.handleDeadState();
-            this.x = 0;	// Reset character position
+            this.x = 0;
             setTimeout(() => {
                 gameOverScreen.drawGameOverScreen(this.world.ctx);
                 world.stopGameLoop();
@@ -319,7 +315,7 @@ class Character extends MovableObject {
      * Plays the walk animation for the character.
      */
     handleWalkState() {
-        this.playAnimation(this.IMAGES_WALK); // Walk animation
+        this.playAnimation(this.IMAGES_WALK);
     }
 
 
