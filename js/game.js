@@ -213,3 +213,19 @@ function toggleDropdown() {
         dropdownImg.style.display = 'block';
     }
 }
+
+function openImpressum() {
+    document.getElementById('impressum').classList.remove('d-none');
+    document.getElementById('start').style.display = 'none';
+    document.getElementById('footer').classList.add('d-none');
+    document.body.classList.remove('startscreen');
+    document.body.classList.add('game');
+}
+
+function closeImpressum() {
+    document.getElementById('impressum').classList.add('d-none');
+    document.getElementById('start').style.display = 'flex';
+    document.getElementById('footer').classList.remove('d-none');
+    document.body.classList.add('startscreen');
+    document.body.classList.remove('game');
+}

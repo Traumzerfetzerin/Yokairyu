@@ -89,7 +89,7 @@ html {
 }
 
 h1 {
-    font-size: 100px;
+    font-size: 50px;
     margin: 0;
     text-shadow: 4px 4px 8px #312132;
 }
@@ -128,6 +128,7 @@ p {
     width: 200px;
     height: 50px;
     z-index: 1;
+    margin-bottom: 50px;
 }
 
 #backToMenu {
@@ -280,4 +281,26 @@ footer {
 
 footer:hover a {
     font-size: 25px;
+}
+
+#impressum {
+    height: 100vh;
+    position: absolute;
+}
+
+h2 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: #FF6046;
+    font-size: 30px;
+}
+
+h2:hover {
+    font-size: 35px;
+}
+
+a {
+    text-decoration: none;
+    color: #312132;
 }
