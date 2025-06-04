@@ -46,7 +46,6 @@ class Chicken extends MovableObject {
     }
 
 
-
     /**
      * Checks if the chicken is dead.
      * A chicken is considered dead if the `_isDead` flag is set to true.
@@ -58,6 +57,15 @@ class Chicken extends MovableObject {
     }
 
 
+    /**
+     * Generates a random x position within the given range that does not overlap with existing positions.
+     * Attempts to find a non-overlapping position up to 1000 times.
+     * 
+     * @param {number} min - The minimum x position.
+     * @param {number} max - The maximum x position.
+     * @param {number} spacing - The minimum required spacing between positions.
+     * @returns {number|null} The generated x position or null if no non-overlapping position could be found.
+     */
     getNonOverlappingX(min, max, spacing) {
         let x;
         let attempts = 1000;
@@ -129,11 +137,13 @@ class Chicken extends MovableObject {
      * If the chicken is not above the ground, the `jump` method is called to make the chicken jump.
      */
     autoJump() {
-        const interval = 2000 + Math.random() * 2000;
-        setInterval(() => {
+        let intervalTime = 2000 + Math.random() * 2000;
+        let jumpInterval = setInterval(() => {
             if (!this.isAboveGround()) {
                 this.jump();
+            } else {
+                window.clearInterval(jumpInterval);
             }
-        }, interval);
+        }, intervalTime);
     }
 }

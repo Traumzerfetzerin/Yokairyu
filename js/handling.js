@@ -4,6 +4,7 @@
  */
 window.addEventListener("keydown", handleKeyDown);
 
+
 /**
  * Handles keydown events for the game controls.
  * Maps specific key codes to their corresponding action handlers,

@@ -38,32 +38,47 @@ class Collissions {
 
 
     /**
-     * Handles the collision between the character and an enemy.
-     * Sets the enemy's isDead flag to true, plays the enemy's death animation, makes the character jump, and
-     * starts a timeout to make the enemy fall after a delay of 1000ms.
-     * The timeout is cleared after 2000ms.
-     * @param {Enemy} enemy - The enemy to handle the collision with.
+     * Handles the collision of the character with an enemy.
+     * This function sets up an interval to repeatedly check for ongoing collisions
+     * between the character and the specified enemy.
+     * If a collision is detected, the enemy is marked as dead, the death animation
+     * and sound are triggered, and the character performs a jump.
+     * The interval is cleared after 2000 milliseconds.
+     * @param {Enemy} enemy - The enemy involved in the collision.
      * @param {number} index - The index of the enemy in the enemies array.
      */
     handleEnemyCollision(enemy, index) {
         let collidingInterval = setInterval(() => {
-            if (world.character.isColliding(enemy)) {
-                enemy._isDead = true;
-
-                this.enemyIsDead(enemy);
-                this.playEnemyDeathAnimation(enemy);
-                world.character.jump();
-                window.clearInterval(collidingInterval);
-
-                setTimeout(() => {
-                    this.makeEnemyFall(enemy, enemy.enemyName);
-                }, 1000);
-            }
+            this.detectAndHandleCollision(enemy, collidingInterval);
         }, 1000 / 60);
 
         setTimeout(() => {
             window.clearInterval(collidingInterval);
         }, 2000);
+    }
+
+
+    /**
+     * Checks if the character is colliding with the specified enemy and handles the collision if it is.
+     * If a collision is detected, the enemy is marked as dead, the death animation and sound are triggered, and the character performs a jump.
+     * The interval is cleared and the enemy is made to fall to the ground with the makeEnemyFall() method after a delay of 1000 milliseconds.
+     * @param {Enemy} enemy - The enemy involved in the collision.
+     * @param {number} collidingInterval - The interval to clear when the collision is detected.
+     */
+    detectAndHandleCollision(enemy, collidingInterval) {
+        if (world.character.isColliding(enemy)) {
+            enemy._isDead = true;
+
+            this.enemyIsDead(enemy);
+            this.playEnemyDeathAnimation(enemy);
+            world.character.jump();
+
+            window.clearInterval(collidingInterval);
+
+            setTimeout(() => {
+                this.makeEnemyFall(enemy, enemy.enemyName);
+            }, 1000);
+        }
     }
 
 
@@ -128,7 +143,7 @@ class Collissions {
      */
     startEnemyFall(enemy, enemyName) {
         const fallInterval = setInterval(() => {
-            this.applyGravity(enemy);
+            this.applyFall(enemy);
             if (this.hasFallenOffScreen(enemy)) {
                 clearInterval(fallInterval);
                 this.removeEnemyByName(enemyName);
@@ -142,7 +157,7 @@ class Collissions {
      * This function is called at a regular interval to simulate the effect of gravity on the enemy.
      * @param {Enemy} enemy - The enemy to apply gravity to.
      */
-    applyGravity(enemy) {
+    applyFall(enemy) {
         enemy.y += enemy.gravity;
     }
 

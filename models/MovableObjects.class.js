@@ -17,18 +17,21 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Applies gravity to the object by decreasing its y position by its speedY and then decreasing its speedY by its acceleration every 25 milliseconds.
-     * If the object is above the ground or if its speedY is greater than 0, the object is moved down by its speedY and its speedY is decreased by its acceleration.
-     * If the object is not above the ground, its y position is set to its groundY and its speedY is set to 0.
+     * Applies gravity to the object by accelerating it downward.
+     * The object's vertical speed is increased by the acceleration value,
+     * and the object's position is updated accordingly.
+     * If the object is not above the ground, its vertical speed is reset to 0 and its position is set to the ground level.
+     * The interval is set to 25 times per second.
      */
     applyGravity() {
         setInterval(() => {
+            if (this._isDead) return;
+
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
 
-            // Bodenhöhe prüfen und korrigieren
             if (!this.isAboveGround()) {
                 this.y = this.groundY;
                 this.speedY = 0;

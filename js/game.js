@@ -226,6 +226,12 @@ function toggleDropdown() {
     }
 }
 
+
+/**
+ * Opens the Impressum page by removing the 'd-none' class from the Impressum element
+ * and hiding the start button and footer. The body class is changed from 'startscreen' to 'game'.
+ * This function is called when the 'Impressum' link is clicked in the footer.
+ */
 function openImpressum() {
     document.getElementById('impressum').classList.remove('d-none');
     document.getElementById('start').style.display = 'none';
@@ -234,6 +240,12 @@ function openImpressum() {
     document.body.classList.add('game');
 }
 
+
+/**
+ * Closes the Impressum page by re-adding the 'd-none' class to the Impressum element
+ * and showing the start button and footer. The body class is changed from 'game' to 'startscreen'.
+ * This function is called when the 'Back to Yokairyu' link is clicked in the Impressum page.
+ */
 function closeImpressum() {
     document.getElementById('impressum').classList.add('d-none');
     document.getElementById('start').style.display = 'flex';
