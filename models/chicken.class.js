@@ -42,6 +42,19 @@ class Chicken extends MovableObject {
         this.animate();
 
         this.enemyName = name;
+
+        this._isDead = false;
+    }
+
+
+    /**
+     * Checks if the chicken is dead.
+     * A chicken is considered dead if the `_isDead` flag is set to true.
+     * 
+     * @returns {boolean} True if the chicken is dead, false otherwise.
+     */
+    isDead() {
+        return this._isDead;
     }
 
 

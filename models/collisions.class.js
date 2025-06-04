@@ -38,17 +38,18 @@ class Collissions {
 
 
     /**
-    * Handles the collision between the character and an enemy.
-    * This function checks if the character is colliding with the enemy at a fixed interval
-    * of 200 milliseconds. If a collision is detected, the enemy is killed and the character
-    * jumps. The enemy is then made to fall to the ground with the makeEnemyFall() method.
-    * The interval is cleared after 2000 milliseconds.
-    * @param {Enemy} enemy - The enemy to handle the collision for.
-    * @param {number} index - The index of the enemy in the enemies array.
-    */
+     * Handles the collision between the character and an enemy.
+     * Sets the enemy's isDead flag to true, plays the enemy's death animation, makes the character jump, and
+     * starts a timeout to make the enemy fall after a delay of 1000ms.
+     * The timeout is cleared after 2000ms.
+     * @param {Enemy} enemy - The enemy to handle the collision with.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
     handleEnemyCollision(enemy, index) {
         let collidingInterval = setInterval(() => {
             if (world.character.isColliding(enemy)) {
+                enemy._isDead = true;
+
                 this.enemyIsDead(enemy);
                 this.playEnemyDeathAnimation(enemy);
                 world.character.jump();
@@ -169,7 +170,7 @@ class Collissions {
         }
     }
 
-    
+
     /**
      * Removes the enemy at the given index from the level.
      * @param {number} index - The index of the enemy in the enemies array.
@@ -227,8 +228,7 @@ class Collissions {
     /**
      * Checks for collisions between the character and all enemies in the level.
      * If a collision is detected with an enemy and the character is not above the enemy,
-     * the character's health is affected. The character's health status bar is updated
-     * to reflect the new health value.
+     * the character's health is affected and the health status bar is updated.
      */
     checkEnemyCollisions() {
         world.level.enemies.forEach((enemy) => {
