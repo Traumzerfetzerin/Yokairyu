@@ -1,4 +1,5 @@
 let level1;
+let bottleSpawner = new BottleSpawner();
 /**
  * Initializes the first level of the game.
  * Creates a new Level object with the given arrays of enemies, clouds, coins, bottles, and background objects.
@@ -9,13 +10,13 @@ let level1;
 function initLevel() {
     level1 = new Level(
         [
-            new Chicken(50),
-            new Chicken(51),
-            new Chicken(52),
-            new Chicken(53),
-            new Chicken(54),
-            new Chicken(55),
-            new Endboss(56),
+            // new Chicken(50),
+            // new Chicken(51),
+            // new Chicken(52),
+            // new Chicken(53),
+            // new Chicken(54),
+            // new Chicken(55),
+            // new Endboss(56),
         ],
         [
             new Cloud(),

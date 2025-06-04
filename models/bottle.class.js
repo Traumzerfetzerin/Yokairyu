@@ -3,7 +3,7 @@ class Bottles extends MovableObject {
     height = 80;
     y = 380;
     x = 0;
-    
+
     static positions = [];
 
     IMAGES = [
@@ -13,26 +13,22 @@ class Bottles extends MovableObject {
 
     /**
      * Initializes a new instance of the Bottles class.
-     * Loads the initial bottle image and all images for the bottles.
+     * Loads the initial image and all images for the bottle.
      * Sets a non-overlapping random x position within a specified range.
-     * Sets the type of the bottle to 'bottle'.
-     * Spawns the bottle.
+     * Initializes the bottle type.
      */
     constructor() {
         super().loadImage('./img/shoot/shadow/44.png');
         this.loadImages(this.IMAGES);
 
         this.x = this.getNonOverlappingX(100, 1660, 90);
-
         this.type = 'bottle';
-
-        this.spawnBottle();
     }
 
 
     /**
-     * Generates a random x position within the given range that does not overlap with already existing bottle positions.
-     * Tries up to 100 times to find a non-overlapping position, and if it fails, returns null.
+     * Generates a random x position within the given range that does not overlap with existing bottle positions.
+     * Attempts to find a non-overlapping position up to 100 times.
      * @param {number} min - The minimum x position.
      * @param {number} max - The maximum x position.
      * @param {number} spacing - The minimum required spacing between bottles.
@@ -52,20 +48,5 @@ class Bottles extends MovableObject {
         } else {
             return x;
         }
-    }
-
-
-    /**
-     * Spawns a new bottle every 10 seconds at a random x position that does not overlap with already existing bottle positions.
-     * The new bottle is added to the level's bottles array.
-     */
-    spawnBottle() {
-        setInterval(() => {
-            let bottle = new Bottles();
-            bottle.x = this.getNonOverlappingX(500, 1660, 90);
-            if (world !== undefined) {
-                world.level.bottles.push(bottle);
-            }
-        }, 10000);
     }
 }

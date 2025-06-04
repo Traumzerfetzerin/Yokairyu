@@ -25,6 +25,7 @@ let intervalId = [];
 function init() {
     canvas = document.getElementById('canvas');
     initLevel();
+    bottleSpawner.startSpawning();
 
     setTimeout(() => {
         world = new World(canvas, keyboard);
