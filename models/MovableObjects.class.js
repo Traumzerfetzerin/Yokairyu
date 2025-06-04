@@ -15,14 +15,11 @@ class MovableObject extends DrawableObject {
         bottom: 0
     }
 
-    
+
     /**
-     * Applies gravity to the movable object by continuously decreasing its vertical 
-     * speed and position. This function is called at a regular interval, simulating 
-     * the effect of gravity on the object. If the object is above the ground or has 
-     * upward speed, its vertical position (y) is updated by subtracting the current 
-     * vertical speed (speedY). The vertical speed is then decreased by the acceleration 
-     * value to simulate the effect of gravity.
+     * Applies gravity to the object by decreasing its y position by its speedY and then decreasing its speedY by its acceleration every 25 milliseconds.
+     * If the object is above the ground or if its speedY is greater than 0, the object is moved down by its speedY and its speedY is decreased by its acceleration.
+     * If the object is not above the ground, its y position is set to its groundY and its speedY is set to 0.
      */
     applyGravity() {
         setInterval(() => {
@@ -30,21 +27,27 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
+
+            // Bodenhöhe prüfen und korrigieren
+            if (!this.isAboveGround()) {
+                this.y = this.groundY;
+                this.speedY = 0;
+            }
         }, 1000 / 25);
     }
 
 
     /**
      * Checks if the object is above the ground.
-     * If the object is an instance of ThrowableObject, it will always return true.
-     * Otherwise, it will return true if the object's y position is less than 300.
-     * @return {boolean} True if the object is above the ground, false otherwise.
+     * If the object is an instance of ThrowableObject, this function will always return true.
+     * Otherwise, it will return true if the object's y position is less than its groundY property.
+     * @returns {boolean} - True if the object is above the ground, false if not.
      */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.y < 300;
+            return this.y < this.groundY;
         }
     }
 

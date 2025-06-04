@@ -25,26 +25,26 @@ class Chicken extends MovableObject {
 
     /**
      * Initializes a new instance of the Chicken class.
-     * Loads the initial image and all images for the chicken's walk animation.
-     * Sets a random x position and speed, and starts the animation.
-     * 
-     * @param {string} name - The name of the enemy chicken.
+     * Loads the first image of the spider and starts its animation.
+     * Sets a non-overlapping random x position within a specified range.
+     * The speed of the spider is set to a random value between 0.15 and 0.4.
+     * The enemyName parameter is saved to the enemyName property.
+     * @param {string} name - The name of the enemy to save to the enemyName property.
      */
     constructor(name) {
         super();
         this.loadImage('./img/enemy/Spider/Spider_1.png');
-
         this.loadImages(this.IMAGES_WALK);
-
         this.x = this.getNonOverlappingX(100, 1660, 90);
-
         this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
-
         this.enemyName = name;
-
         this._isDead = false;
+
+        this.groundY = 380;
+        this.y = this.groundY;
     }
+
 
 
     /**
@@ -122,7 +122,12 @@ class Chicken extends MovableObject {
     }
 
 
-
+    /**
+     * Sets an interval to jump the chicken at a random interval between 2 and 4 seconds.
+     * The interval is set using the `setInterval` function and the time is determined by
+     * adding a random number between 0 and 2000 to 2000.
+     * If the chicken is not above the ground, the `jump` method is called to make the chicken jump.
+     */
     autoJump() {
         const interval = 2000 + Math.random() * 2000;
         setInterval(() => {

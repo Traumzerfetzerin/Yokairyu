@@ -104,6 +104,8 @@ class Character extends MovableObject {
         this.applyGravity();
 
         this.initAnimations();
+
+        this.groundY = 300;
     }
 
 
@@ -250,7 +252,7 @@ class Character extends MovableObject {
         }, 100);
     }
 
-    
+
     /**
      * Handles the character's state animation.
      * This function checks if the character is dead, hurt, jumping, walking, or idle
