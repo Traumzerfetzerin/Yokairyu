@@ -76,11 +76,17 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Animates the chicken by continuously moving it to the left and playing the walk animation.
+     * Animates the chicken by starting the following animations:
+     * - `startMovingLeft`: moves the chicken to the left every 1/60th of a second as long as its energy is greater than 0.
+     * - `startWalkingAnimation`: starts the walking animation of the chicken.
+     * - `applyGravity`: applies gravity to the chicken by continuously decreasing its vertical speed and position.
+     * - `autoJump`: makes the chicken jump every 1-2 seconds if it is above the ground.
      */
     animate() {
         this.startMovingLeft();
         this.startWalkingAnimation();
+        this.applyGravity();
+        this.autoJump();
     }
 
 
@@ -113,5 +119,16 @@ class Chicken extends MovableObject {
                 window.clearInterval(walkAnimation);
             }
         }, 100);
+    }
+
+
+
+    autoJump() {
+        const interval = 2000 + Math.random() * 2000;
+        setInterval(() => {
+            if (!this.isAboveGround()) {
+                this.jump();
+            }
+        }, interval);
     }
 }
