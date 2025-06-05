@@ -140,9 +140,9 @@ class ThrowableObject extends MovableObject {
 
 
     /**
- * Removes the enemy at the given index from the level.
- * @param {number} index - The index of the enemy in the enemies array.
- */
+     * Removes the enemy at the given index from the level.
+     * @param {number} index - The index of the enemy in the enemies array.
+     */
     removeEnemyFromLevel(index) {
         world.level.enemies.splice(index, 1);
     }

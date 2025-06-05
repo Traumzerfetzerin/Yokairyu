@@ -97,7 +97,6 @@ function startGame() {
     document.body.classList.add('game');
     updateTouchButtonVisibility();
 
-    soundManager.toggleSounds(false);
     soundManager.updateSoundButton();
 }
 
@@ -138,7 +137,6 @@ function restartGame() {
     startGame();
     init();
     stopAllSounds();
-    soundManager.toggleSounds(false);
 }
 
 

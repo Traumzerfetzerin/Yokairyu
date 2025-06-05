@@ -131,10 +131,8 @@ class Chicken extends MovableObject {
 
 
     /**
-     * Sets an interval to jump the chicken at a random interval between 2 and 4 seconds.
-     * The interval is set using the `setInterval` function and the time is determined by
-     * adding a random number between 0 and 2000 to 2000.
-     * If the chicken is not above the ground, the `jump` method is called to make the chicken jump.
+     * Starts an interval that randomly jumps the chicken after a random amount of time between 2 and 4 seconds.
+     * The interval is cleared if the chicken is not above the ground.
      */
     autoJump() {
         let intervalTime = 2000 + Math.random() * 2000;

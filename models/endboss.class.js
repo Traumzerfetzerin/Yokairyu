@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     width = 500;
     height = 500;
     y = -20;
-    energy = 100;
+    energy = 1;
 
     offset = {
         top: 100,
@@ -89,13 +89,10 @@ class Endboss extends MovableObject {
 
 
     /**
-     * Starts the animation for the endboss.
-     * This function is called in the constructor of the Endboss class.
-     * It toggles the current head of the endboss between 1 and 2 every 500 milliseconds and
-     * creates a combined image with the current head and the body of the endboss.
-     * If the character is in range of the endboss (i.e. x > 1660 and x < 2000) and the
-     * dragon roar sound has not been played yet, it plays the sound and sets the volume to 0.5.
-     * @private
+     * Starts the animation of the endboss by creating an interval that calls `toggleHead`
+     * and `createCombinedImage` every 500 milliseconds. If the character is within
+     * range of the endboss and the dragon roar sound hasn't been played yet, it plays
+     * the sound and sets a flag to not play it again.
      */
     startAnimationEndboss() {
         this.animateEndboss = setInterval(() => {
@@ -111,12 +108,12 @@ class Endboss extends MovableObject {
 
 
     /**
-     * Checks if the character is within the range of the endboss.
-     * The range is defined by the character's x position being between 1660 and 2000.
-     * @returns {boolean} True if the character is in range, false otherwise.
+     * Checks if the character is within a specified range of the Endboss.
+     * The range is defined by the character's x position being greater than 2000 and less than 3000.
+     * @return {boolean} True if the character is within range, false otherwise.
      */
     isCharacterInRange() {
-        if (world?.character && world.character.x > 1660 && world.character.x < 3000) {
+        if (world?.character && world.character.x > 2000 && world.character.x < 3000) {
             return true;
         }
         return false;

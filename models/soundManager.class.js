@@ -4,7 +4,7 @@ class SoundManager {
      * Sets the initial mute state to false and initializes all sound effects.
      */
     constructor() {
-        this.isMuted = false;
+        this.isMuted = JSON.parse(localStorage.getItem('isMuted')) || false;
 
         this.initBackgroundSound();
         this.initPlayerSounds();
@@ -88,6 +88,8 @@ class SoundManager {
      */
     toggleSounds(state = !this.isMuted) {
         this.isMuted = state;
+
+        localStorage.setItem('isMuted', JSON.stringify(this.isMuted));
 
         Object.values(this).forEach((elem) => {
             if (elem instanceof HTMLAudioElement) {
@@ -219,7 +221,7 @@ class SoundManager {
             this.audioCollectLoot.currentTime = 0;
         }
     }
-    
+
 
     /**
      * Updates the sound button icon based on the mute state.
