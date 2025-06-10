@@ -1,7 +1,9 @@
 class SoundManager {
     /**
      * Initializes a new instance of the SoundManager class.
-     * Sets the initial mute state to false and initializes all sound effects.
+     * 
+     * Retrieves the mute state from local storage and initializes various sound categories,
+     * including background, player, monster, and collect sounds.
      */
     constructor() {
         this.isMuted = JSON.parse(localStorage.getItem('isMuted')) || false;
@@ -78,13 +80,14 @@ class SoundManager {
 
 
     /**
-     * Toggles the mute state of all sounds in the game.
+     * Toggles the mute state of all sound effects and updates the UI.
      * 
-     * If the mute state is true, all sounds are muted. If the mute state is false,
-     * all sounds are unmuted.
+     * This function updates the mute state based on the provided parameter or the 
+     * current state, stores it in local storage, and applies the mute state to all 
+     * audio elements. It also updates the sound button to reflect the current state.
      * 
-     * If no value is provided, the mute state is toggled.
-     * @param {boolean} [state] - The mute state. If not provided, the mute state is toggled.
+     * @param {boolean} [state=!this.isMuted] - The desired mute state. If not provided, 
+     * toggles the current state.
      */
     toggleSounds(state = !this.isMuted) {
         this.isMuted = state;
@@ -251,6 +254,7 @@ class SoundManager {
      */
     playSound(name, loop = false) {
         if (this[name]) {
+            if (this.isMuted) return;
             this[name].loop = loop;
             this[name].play();
         }

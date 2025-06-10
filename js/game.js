@@ -77,13 +77,10 @@ startBtn.addEventListener('click', () => {
 
 
 /**
- * Starts the game by updating the UI and starting the game loop.
- *
- * This function hides the menu, footer, and title, and shows the back to menu button, soundbar, and game canvas.
- * It also updates the visibility of the touch button controls based on the pointer type.
- * The game loop is started by calling world.startGameLoop().
- * The start button is hidden, and the sound button is toggled to off.
- * The sound button is updated to reflect the current sound state.
+ * Starts the game by hiding the menu, footer, and title, and showing the
+ * back to menu button, soundbar, and game canvas. The touch button controls
+ * are also shown if the device supports coarse pointer input (e.g., touch
+ * screen).
  */
 function startGame() {
     document.getElementById('canvas').classList.remove('d-none');
@@ -127,16 +124,15 @@ function updateUIForRestart() {
 
 
 /**
- * Restarts the game by updating the UI, starting the game, and initializing the game state.
- *
- * This function updates the UI to reflect the game running state, starts the game loop
- * by calling startGame(), and reinitializes the game world and level by invoking init().
+ * Restarts the game by updating the UI to the main menu state, starting the game,
+ * initializing the game state, stopping all sounds, and toggling the sounds based on the current mute state.
  */
 function restartGame() {
     updateUIForRestart();
     startGame();
     init();
     stopAllSounds();
+    soundManager.toggleSounds(soundManager.isMuted);
 }
 
 
@@ -185,13 +181,8 @@ function stopAllSounds() {
 
 
 /**
- * Navigates back to the main menu by stopping the game loop, resetting the UI,
- * clearing the canvas, and stopping all sounds.
- *
- * This function hides the game canvas and 'Back to menu' button, stops the
- * game loop by calling `world.stopGameLoop()`, resets the UI to the menu state
- * using `resetToMenuView()`, clears the canvas with `clearCanvas()`, and stops
- * all sounds by invoking `stopAllSounds()`.
+ * Stops the game loop, resets the UI to the main menu state, clears the canvas, stops all sounds, and hides the game canvas and controls.
+ * This function is called when the player presses the 'Back to menu' button on the game over screen or the winning screen.
  */
 function backToMenu() {
     world.stopGameLoop();
@@ -201,6 +192,7 @@ function backToMenu() {
 
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('backToMenu').classList.add('d-none');
+    soundManager.toggleSounds(soundManager.isMuted);
 }
 
 
