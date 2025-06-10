@@ -1,9 +1,8 @@
 class SoundManager {
     /**
-     * Initializes a new instance of the SoundManager class.
-     * 
-     * Retrieves the mute state from local storage and initializes various sound categories,
-     * including background, player, monster, and collect sounds.
+     * Initializes the SoundManager class.
+     * Retrieves the current mute state from local storage, and if no value is found, sets it to false.
+     * Initializes all sound effects and background music.
      */
     constructor() {
         this.isMuted = JSON.parse(localStorage.getItem('isMuted')) || false;
@@ -80,14 +79,10 @@ class SoundManager {
 
 
     /**
-     * Toggles the mute state of all sound effects and updates the UI.
-     * 
-     * This function updates the mute state based on the provided parameter or the 
-     * current state, stores it in local storage, and applies the mute state to all 
-     * audio elements. It also updates the sound button to reflect the current state.
-     * 
-     * @param {boolean} [state=!this.isMuted] - The desired mute state. If not provided, 
-     * toggles the current state.
+     * Toggles the sound state of the game. If the sound is currently enabled, it
+     * disables it. If the sound is currently disabled, it enables it.
+     * @param {boolean} [state] - The state of the sound. If not provided, it will
+     * toggle the current state.
      */
     toggleSounds(state = !this.isMuted) {
         this.isMuted = state;
@@ -227,10 +222,10 @@ class SoundManager {
 
 
     /**
-     * Updates the sound button icon based on the mute state.
-     *
-     * If the sound is muted, the button icon is changed to the muted icon.
-     * Otherwise, the button icon is set to the volume icon.
+     * Updates the sound button in the UI to reflect the current state of the sound.
+     * 
+     * If the sound is currently muted, the button's image is set to the "no sound"
+     * icon. Otherwise, the icon is set to the "sound" icon.
      */
     updateSoundButton() {
         const soundButton = document.getElementById('sound');
