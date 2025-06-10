@@ -169,10 +169,15 @@ class World {
 
     /**
      * Draws all the dynamic objects in the game, which are the enemies, clouds, coins, bottles, and throwable objects.
-     * These objects are drawn at their current positions on the game world.
+     * The enemies are updated before being drawn, and the endboss is updated in addition to the other enemies.
      * @private
      */
     drawDynamicObjects() {
+        this.level.enemies.forEach(enemy => {
+            if (enemy instanceof Endboss) {
+                enemy.update(this.character);
+            }
+        });
         this.addObjectToMap(this.level.enemies);
         this.addObjectToMap(this.level.clouds);
         this.addObjectToMap(this.level.coins);

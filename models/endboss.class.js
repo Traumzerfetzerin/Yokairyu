@@ -4,6 +4,12 @@ class Endboss extends MovableObject {
     y = -20;
     energy = 100;
 
+    minX = 2000;
+    maxX = 3000;
+    speed = 1;
+    direction = 1;
+    otherDirection = false;
+
     offset = {
         top: 100,
         left: 100,
@@ -258,5 +264,69 @@ class Endboss extends MovableObject {
     clearTempCanvas() {
         clearInterval(this.animateEndboss);
         this.tempCtx.clearRect(0, 0, this.tempCanvas.width, this.tempCanvas.height);
+    }
+
+
+    /**
+     * Updates the endboss's position relative to the character's position.
+     * If the endboss is not returning to its start position, it moves towards the character
+     * until it is at the given stop distance from the character. Otherwise, it returns to its
+     * start position.
+     * @param {Character} character - The character to move towards.
+     * @param {number} [stopDistance=100] - The distance at which the endboss should stop moving
+     * towards the character.
+     */
+    update(character, stopDistance = 100) {
+        const distance = this.x - character.x;
+
+        if (!this.isReturning) {
+            this.moveTowardsCharacter(distance, stopDistance);
+        } else {
+            this.returnToStart();
+        }
+    }
+
+
+    /**
+     * Moves the endboss towards the character, but stops when the endboss is a certain
+     * distance away from the character. The endboss is moved by decreasing or increasing
+     * its x position by its speed, depending on whether the character is to the left or
+     * right of the endboss. If the endboss is moving towards the character, the
+     * `otherDirection` flag is set to true if the character is to the left of the endboss,
+     * and false if the character is to the right. If the endboss is not moving towards
+     * the character, the `isReturning` flag is set to true.
+     * @param {number} distance - The distance between the endboss and the character.
+     * @param {number} stopDistance - The distance at which the endboss should stop moving
+     * towards the character.
+     */
+    moveTowardsCharacter(distance, stopDistance) {
+        if (Math.abs(distance) > stopDistance) {
+            if (distance > 0) {
+                this.x -= this.speed;
+                this.otherDirection = true;
+            } else {
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+        } else {
+            this.isReturning = true;
+        }
+    }
+
+
+    /**
+     * Moves the endboss back to its starting position.
+     * Continues to move the endboss to the right until it reaches its starting position
+     * (defined by `this.maxX`), at which point the `isReturning` flag is set to false.
+     * The `otherDirection` flag is set to false during this time, indicating that the endboss
+     * is moving to the right.
+     */
+    returnToStart() {
+        if (this.x < this.maxX) {
+            this.x += this.speed;
+            this.otherDirection = false;
+        } else {
+            this.isReturning = false;
+        }
     }
 }
