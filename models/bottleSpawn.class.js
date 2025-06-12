@@ -26,7 +26,7 @@ class BottleSpawner {
             if (world !== undefined && world.level && world.level.bottles) {
                 world.level.bottles.push(bottle);
             }
-        }, 10000);
+        }, 2000);
     }
 
 
