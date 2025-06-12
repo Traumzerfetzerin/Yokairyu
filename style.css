@@ -288,6 +288,11 @@ footer:hover a {
     position: absolute;
 }
 
+#impressum p {
+    background-color: #51FFD5;
+    border-radius: 12px;
+}
+
 h2 {
     display: flex;
     text-align: center;
