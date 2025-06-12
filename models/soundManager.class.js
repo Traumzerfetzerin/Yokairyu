@@ -78,20 +78,20 @@ class SoundManager {
     }
 
 
-    /**
-     * Toggles the sound state of the game. If the sound is currently enabled, it
-     * disables it. If the sound is currently disabled, it enables it.
-     * @param {boolean} [state] - The state of the sound. If not provided, it will
-     * toggle the current state.
-     */
-    toggleSounds(state = !this.isMuted) {
-        this.isMuted = state;
+
+    toggleSounds() {
+        this.isMuted = !this.isMuted;
 
         localStorage.setItem('isMuted', JSON.stringify(this.isMuted));
 
         Object.values(this).forEach((elem) => {
             if (elem instanceof HTMLAudioElement) {
-                this.muteMe(elem, state);
+                if (this.isMuted) {
+                    elem.muted = true;
+                }
+                else {
+                    elem.muted = false;
+                }
             }
         });
 

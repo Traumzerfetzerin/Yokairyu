@@ -131,7 +131,7 @@ function restartGame() {
     updateUIForRestart();
     startGame();
     init();
-    stopAllSounds();
+'    stopAllSounds();'
     soundManager.toggleSounds(soundManager.isMuted);
 }
 
