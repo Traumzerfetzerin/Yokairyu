@@ -30,6 +30,7 @@ function init() {
 
     setTimeout(() => {
         world = new World(canvas, keyboard);
+        soundManager.setCurrentMutedState();
     }, 1000);
 }
 
