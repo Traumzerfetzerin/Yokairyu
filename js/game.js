@@ -16,12 +16,9 @@ let intervalId = [];
 
 
 /**
- * Initializes the game by getting the canvas element and creating a new
- * World object with the canvas and Keyboard object.
- *
- * The World object is created after a delay of 1000 ms to ensure that the
- * game over screen and the winning screen are displayed before the game
- * starts.
+ * Initializes the game by getting the canvas element, initializing the level, and
+ * starting the bottle spawning mechanism. After a delay of 1000 milliseconds, it
+ * creates a new World object and sets the current muted state of the sound manager.
  */
 function init() {
     canvas = document.getElementById('canvas');
@@ -126,15 +123,13 @@ function updateUIForRestart() {
 
 
 /**
- * Restarts the game by updating the UI to the main menu state, starting the game,
- * initializing the game state, stopping all sounds, and toggling the sounds based on the current mute state.
+ * Restarts the game by calling `updateUIForRestart` to update the UI for a game restart,
+ * `startGame` to start the game, and `init` to initialize the game.
  */
 function restartGame() {
     updateUIForRestart();
     startGame();
     init();
-    // stopAllSounds();
-    // soundManager.toggleSounds(soundManager.isMuted);
 }
 
 
@@ -183,8 +178,11 @@ function stopAllSounds() {
 
 
 /**
- * Stops the game loop, resets the UI to the main menu state, clears the canvas, stops all sounds, and hides the game canvas and controls.
- * This function is called when the player presses the 'Back to menu' button on the game over screen or the winning screen.
+ * Navigates the game back to the main menu.
+ *
+ * This function stops the game loop, resets the UI to the main menu view,
+ * clears the game canvas, and stops all sounds. It also hides the game 
+ * canvas and 'Back to menu' button to ensure the UI reflects the main menu state.
  */
 function backToMenu() {
     world.stopGameLoop();
@@ -194,7 +192,6 @@ function backToMenu() {
 
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('backToMenu').classList.add('d-none');
-    // soundManager.toggleSounds(soundManager.isMuted);
 }
 
 

@@ -41,12 +41,11 @@ class ThrowableObject extends MovableObject {
         }, 25);
     }
 
-
+    
     /**
-     * Checks if the throwable object is colliding with any enemies in the level.
-     * If a collision is detected and the object has not been used, the collision is handled.
-     * If the enemy is an instance of Endboss, it calls the handleEndbossHit function.
-     * Otherwise, it calls the handleNormalEnemyHit function.
+     * Checks for collisions between the throwable object and all enemies in the level.
+     * If a collision is detected and the bottle is not already used, the collision is handled.
+     * Marks the bottle as used and handles the hit differently based on whether the enemy is an Endboss or a normal enemy.
      */
     checkBottleHitEnemy() {
         world.level.enemies.forEach((enemy) => {
@@ -64,30 +63,18 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Handles the collision between a throwable object and the Endboss.
-     * Hits the Endboss, updates the Endboss's status bar, and checks if the Endboss is dead.
-     * If the Endboss is dead, it plays the sound effect for the Endboss's death, sets the
-     * character's position back to the start, and clears the Endboss's temporary canvas.
-     * It also shows the WinScreen and stops the game loop after a delay of 1000 milliseconds.
-     * @param {Endboss} enemy - The Endboss to hit.
+     * Handles the collision between a throwable object and a normal enemy.
+     * Sets the enemy's energy to 0, plays the enemy's death animation, and
+     * plays the spider death sound effect.
+     * @param {Enemy} enemy - The normal enemy to hit.
      */
-    handleEndbossHit(enemy) {
-        enemy.hit();
-        world.statusbarEndboss.setPercentage(enemy.energy);
-
-        if (enemy.isDead()) {
-            this.enemyIsDead(enemy);
-            soundManager.audioDragonDead.play();
-            world.character.x = 0;
-            if (enemy.clearTempCanvas) {
-                enemy.clearTempCanvas();
-                world.showWinScreen = true;
-                setTimeout(() => {
-                    world.winScreen.hideButton();
-                    world.stopGameLoop();
-                }, 1000);
-            }
-        }
+    handleNormalEnemyHit(enemy) {
+        this.enemyIsDead(enemy);
+        enemy.loadImage('./img/enemy/Spider/Spider_6.png');
+        soundManager.audioSpiderDead.play();
+        setTimeout(() => {
+            this.makeEnemyFall(enemy);
+        }, 1000);
     }
 
 
@@ -123,27 +110,32 @@ class ThrowableObject extends MovableObject {
      * at a rate of 60 times per second. If the enemy's y position exceeds the canvas
      * height, the interval is cleared and the enemy is removed from the level.
      * @param {Enemy} enemy - The enemy to make fall.
-     * @param {number} index - The index of the enemy in the enemies array.
      */
-    makeEnemyFall(enemy, index) {
+    makeEnemyFall(enemy) {
         enemy.dead = true;
         enemy.gravity = 2;
 
         let fallInterval = setInterval(() => {
             enemy.y += enemy.gravity;
-            if (enemy.y > canvas.height) {
+
+            if (enemy.y > 380) {
                 clearInterval(fallInterval);
-                this.removeEnemyFromLevel(index);
+                this.removeEnemyFromLevel(enemy);
             }
         }, 1000 / 60);
     }
 
 
     /**
-     * Removes the enemy at the given index from the level.
-     * @param {number} index - The index of the enemy in the enemies array.
+     * Removes the given enemy from the level.
+     * Finds the index of the given enemy in the enemies array and
+     * removes it from the array if it exists.
+     * @param {Enemy} enemy - The enemy to remove from the level.
      */
-    removeEnemyFromLevel(index) {
-        world.level.enemies.splice(index, 1);
+    removeEnemyFromLevel(enemy) {
+        const index = world.level.enemies.indexOf(enemy);
+        if (index !== -1) {
+            world.level.enemies.splice(index, 1);
+        }
     }
 }
