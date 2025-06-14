@@ -41,7 +41,7 @@ class ThrowableObject extends MovableObject {
         }, 25);
     }
 
-    
+
     /**
      * Checks for collisions between the throwable object and all enemies in the level.
      * If a collision is detected and the bottle is not already used, the collision is handled.
@@ -64,14 +64,16 @@ class ThrowableObject extends MovableObject {
 
     /**
      * Handles the collision between a throwable object and a normal enemy.
-     * Sets the enemy's energy to 0, plays the enemy's death animation, and
-     * plays the spider death sound effect.
-     * @param {Enemy} enemy - The normal enemy to hit.
+     * Marks the enemy as dead, sets its energy to 0, plays the enemy's death animation,
+     * and plays the spider death sound effect. After a delay, the enemy is made to fall.
+     * @param {Enemy} enemy - The enemy to handle the hit for.
      */
     handleNormalEnemyHit(enemy) {
-        this.enemyIsDead(enemy);
+        enemy._isDead = true;   // hier setzen!
+        enemy.energy = 0;
         enemy.loadImage('./img/enemy/Spider/Spider_6.png');
         soundManager.audioSpiderDead.play();
+
         setTimeout(() => {
             this.makeEnemyFall(enemy);
         }, 1000);
@@ -104,21 +106,32 @@ class ThrowableObject extends MovableObject {
 
 
     /**
-     * Makes an enemy fall to the ground after being killed.
-     * This function sets the enemy's dead flag to true and its gravity to 2.
-     * It then starts an interval that increases the enemy's y position by its gravity
-     * at a rate of 60 times per second. If the enemy's y position exceeds the canvas
-     * height, the interval is cleared and the enemy is removed from the level.
+     * Makes an enemy fall to the ground by setting its dead flag and gravity. 
+     * The enemy's y position is checked and incremented by its gravity value 
+     * at a rate of 60 times per second. Once the enemy has fallen a specified 
+     * distance, it is removed from the level. If the enemy's y position is 
+     * not a valid number, the interval is cleared.
      * @param {Enemy} enemy - The enemy to make fall.
      */
     makeEnemyFall(enemy) {
-        enemy.dead = true;
-        enemy.gravity = 2;
+        enemy._isDead = true;
+        enemy.gravity = 4;
+
+        if (typeof enemy.y !== 'number' || isNaN(enemy.y)) {
+            enemy.y = 0;
+        }
+
+        const startY = enemy.y;
 
         let fallInterval = setInterval(() => {
+            if (typeof enemy.y !== 'number' || isNaN(enemy.y)) {
+                clearInterval(fallInterval);
+                return;
+            }
+
             enemy.y += enemy.gravity;
 
-            if (enemy.y > 380) {
+            if (enemy.y > startY + 200) {
                 clearInterval(fallInterval);
                 this.removeEnemyFromLevel(enemy);
             }
