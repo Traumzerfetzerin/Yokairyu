@@ -2,8 +2,9 @@ let canvas;
 let world;
 let collissions;
 let keyboard = new Keyboard();
-soundManager = new SoundManager();
+let soundManager = new SoundManager();
 let startButton = document.getElementById('startImage');
+soundManager.setCurrentMutedState();
 
 let gameStarted = false;
 
@@ -131,8 +132,8 @@ function restartGame() {
     updateUIForRestart();
     startGame();
     init();
-'    stopAllSounds();'
-    soundManager.toggleSounds(soundManager.isMuted);
+    // stopAllSounds();
+    // soundManager.toggleSounds(soundManager.isMuted);
 }
 
 
@@ -192,7 +193,7 @@ function backToMenu() {
 
     document.getElementById('canvas').classList.add('d-none');
     document.getElementById('backToMenu').classList.add('d-none');
-    soundManager.toggleSounds(soundManager.isMuted);
+    // soundManager.toggleSounds(soundManager.isMuted);
 }
 
 

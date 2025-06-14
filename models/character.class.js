@@ -269,7 +269,7 @@ class Character extends MovableObject {
                 gameOverScreen.drawGameOverScreen(this.world.ctx);
                 world.stopGameLoop();
                 gameOverScreen.hideButton();
-                soundManager.toggleSounds(true);
+                // soundManager.toggleSounds(true);
             }, 1000);
         } else if (this.isHurt()) {
             this.handleHurtState();

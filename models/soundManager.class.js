@@ -78,12 +78,14 @@ class SoundManager {
     }
 
 
-
-    toggleSounds() {
-        this.isMuted = !this.isMuted;
-
-        localStorage.setItem('isMuted', JSON.stringify(this.isMuted));
-
+    /**
+     * Sets the muted state for all HTMLAudioElement instances in the SoundManager.
+     * 
+     * Iterates through all properties of the SoundManager instance and checks if
+     * they are HTMLAudioElement objects. If so, sets their muted property based on
+     * the SoundManager's current mute state.
+     */
+    setCurrentMutedState() {
         Object.values(this).forEach((elem) => {
             if (elem instanceof HTMLAudioElement) {
                 if (this.isMuted) {
@@ -94,7 +96,18 @@ class SoundManager {
                 }
             }
         });
+    }
 
+
+    /**
+     * Toggles the muted state of all sounds in the game.
+     * Sets the opposite value of the current muted state, stores the new value in local storage,
+     * and updates the audio elements and sound button accordingly.
+     */
+    toggleSounds() {
+        this.isMuted = !this.isMuted;
+        localStorage.setItem('isMuted', JSON.stringify(this.isMuted));
+        this.setCurrentMutedState();
         this.updateSoundButton();
     }
 
