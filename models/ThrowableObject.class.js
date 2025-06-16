@@ -63,6 +63,33 @@ class ThrowableObject extends MovableObject {
 
 
     /**
+     * Handles the collision between a throwable object and the endboss.
+     * Calls the hit method on the endboss and updates the endboss's status bar.
+     * If the endboss is dead, it calls the enemyIsDead method to mark the endboss as dead and plays the sound effect for the endboss dying.
+     * It also moves the character back to the start and shows the win screen after a delay of 1000 milliseconds.
+     * If the endboss has a clearTempCanvas method, it calls it to clear any temporary canvas elements.
+     * @param {Enemy} enemy - The endboss to handle the collision with.
+     */
+    handleEndbossHit(enemy) {
+        enemy.hit();
+        world.statusbarEndboss.setPercentage(enemy.energy);
+
+        if (enemy.isDead()) {
+            this.enemyIsDead(enemy);
+            soundManager.audioDragonDead.play();
+            world.character.x = 0;
+            if (enemy.clearTempCanvas) {
+                enemy.clearTempCanvas();
+                world.showWinScreen = true;
+                setTimeout(() => {
+                    world.winScreen.hideButton();
+                    world.stopGameLoop();
+                }, 1000);
+            }
+        }
+    }
+
+    /**
      * Handles the collision between a throwable object and a normal enemy.
      * Marks the enemy as dead, sets its energy to 0, plays the enemy's death animation,
      * and plays the spider death sound effect. After a delay, the enemy is made to fall.
