@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5;
-    energy = 200;
+    energy = 100;
     lastHit = 0;
     collect = 0;
     lastCollect = 100;
@@ -86,33 +86,34 @@ class MovableObject extends DrawableObject {
 
 
     /**
-     * Reduces the energy of the object by 5 and checks if the energy has dropped to 0 or below.
-     * If the energy is 0 or less, the object is marked as dead. Otherwise, the time of the last hit 
-     * is recorded. Logs messages indicating the new energy level and death status.
+     * Reduces the energy of the object by 20 points.
+     * If the object's energy reaches 0 or below, it is marked as dead.
+     * The time of the last hit is stored in the lastHit property for use in the isHurt() method.
+     * If the object is already hurt or dead, this method does nothing.
      */
     hit() {
-        this.energy -= 10;
+        if (this.isHurt() || this.isDead()) return;
 
+        this.energy -= 10;
         if (this.energy <= 0) {
             this.energy = 0;
             this.dead = true;
-        } else {
-            this.lastHit = new Date().getTime();
         }
+        this.lastHit = new Date().getTime();
     }
 
 
-
     /**
-     * Determines if the object is currently in a hurt state.
-     * The object is considered hurt if less than 1 second has passed 
-     * since the last hit was recorded. This function calculates the 
-     * time elapsed since the last hit and checks if it is less than 
-     * the specified threshold.
-     * 
-     * @returns {boolean} True if the object is hurt, false otherwise.
+     * Checks if the object is hurt.
+     * This method is called when the character should take damage from an enemy.
+     * If the character is already hurt or dead, the method does nothing.
+     * If the character is not hurt or dead, the method sets the lastHit property to the current time
+     * and the character is marked as hurt until the lastHit time is more than 1 second in the past.
+     * @return {boolean} True if the character is hurt, false otherwise.
      */
     isHurt() {
+        if (!this.lastHit) return false;
+
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
         return timepassed < 1;
