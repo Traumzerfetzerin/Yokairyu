@@ -65,41 +65,66 @@ class World {
 
 
     /**
-     * The main game loop function.
+     * Validates if the draw loop should continue.
      * 
-     * This function is called recursively using the requestAnimationFrame method.
-     * It is responsible for clearing the canvas, drawing the background objects, translating the camera to the character's position,
-     * drawing the character, drawing the dynamic objects, resetting the camera translation, drawing the fixed objects, and requesting the next frame.
-     * If the character is dead or the worldId does not match the activeWorldId, the game loop is cancelled.
-     * @private
+     * Checks if the World object's id matches the currently active World object's id.
+     * If not, it cancels the current animation frame and returns false.
+     * It also checks if the character is dead or if the character attribute is null.
+     * If either condition is true, it cancels the current animation frame and returns false.
+     * If the conditions are not met, it returns true, indicating that the draw loop should continue.
+     * @return {boolean} - True if the draw loop should continue, false otherwise.
      */
-    draw() {
-
+    validateDraw() {
         if (this.worldId !== window.activeWorldId) {
             cancelAnimationFrame(this.animationId);
-            return;
+            return false;
         }
 
-        if (!this.character) {
+        if (!this.character || this.character.isDead()) {
             cancelAnimationFrame(this.animationId);
-            return;
+            return false;
         }
 
-        if (this.character.isDead()) {
-            cancelAnimationFrame(this.animationId);
-            return;
-        }
+        return true;
+    }
+
+
+    /**
+     * Renders the game scene by drawing the background objects, character, dynamic objects, and fixed objects.
+     * The canvas is cleared first, then the camera is translated to the character's position.
+     * The background objects are drawn, followed by the character and dynamic objects.
+     * The camera translation is then reset, and the fixed objects are drawn.
+     * Finally, the camera translation is reset again to its original position.
+     */
+    renderScene() {
         this.clearCanvas();
         this.translateCamera();
         this.drawBackgroundObjects();
         this.resetCameraTranslation();
+
         this.translateCamera();
         this.drawCharacter();
         this.drawDynamicObjects();
         this.resetCameraTranslation();
+
         this.drawFixedObjects();
+
         this.translateCamera();
         this.resetCameraTranslation();
+    }
+
+
+    /**
+     * Draws the game scene by calling the renderScene() method and then
+     * requesting the next frame by calling the requestNextFrame() method.
+     * If the draw loop should not continue (i.e. the game is over or the active
+     * World object has changed), the draw() method simply returns and does not
+     * draw the scene or request the next frame.
+     */
+    draw() {
+        if (!this.validateDraw()) return;
+
+        this.renderScene();
         this.requestNextFrame();
     }
 
@@ -190,9 +215,12 @@ class World {
 
 
     /**
-     * Draws all the dynamic objects in the game, which are the enemies, clouds, coins, bottles, and throwable objects.
-     * The enemies are updated before being drawn, and the endboss is updated in addition to the other enemies.
-     * @private
+     * Draws all dynamic objects in the game world.
+     * 
+     * This includes enemies, clouds, coins, bottles, and throwable objects.
+     * Each enemy is checked to see if it is an instance of Endboss; if so,
+     * the enemy is updated based on the character's position.
+     * The objects are added to the map for rendering by calling addObjectToMap().
      */
     drawDynamicObjects() {
         this.level.enemies.forEach(enemy => {
@@ -209,10 +237,9 @@ class World {
 
 
     /**
-     * Requests the next frame of the game loop using the requestAnimationFrame method.
-     * This method is used to ensure smooth animations and to save resources by only drawing
-     * the game world when necessary.
-     * @private
+     * Requests the next frame of the game by calling requestAnimationFrame.
+     * The requestAnimationFrame function calls the draw() method of the World
+     * object, which in turn calls the renderScene() method to render the game.
      */
     requestNextFrame() {
         this.animationId = requestAnimationFrame(() => this.draw());
@@ -220,12 +247,9 @@ class World {
 
 
     /**
-     * Stops the game loop and clears all intervals set by the game.
-     * This is called when the game is over and we want to stop the game from running.
-     * It cancels the current animation frame and sets the gameRunning flag to false.
-     * It also clears all intervals in the range of 1 to 9998, which are all the intervals
-     * set by the game. This is necessary to stop the game from running when the game is over.
-     * @todo This is a temporary solution until we figure out how to keep track of the intervals.
+     * Stops the game loop by canceling the current animation frame and clearing all intervals.
+     * This method is called when the character is dead, or when the game is paused or stopped.
+     * @private
      */
     stopGameLoop() {
         if (this.animationId) {

@@ -1,5 +1,6 @@
 let level1;
 let bottleSpawner = new BottleSpawner();
+
 /**
  * Initializes the first level of the game.
  * Creates a new Level object with the given arrays of enemies, clouds, coins, bottles, and background objects.

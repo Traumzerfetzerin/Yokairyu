@@ -89,6 +89,7 @@ class ThrowableObject extends MovableObject {
         }
     }
 
+    
     /**
      * Handles the collision between a throwable object and a normal enemy.
      * Marks the enemy as dead, sets its energy to 0, plays the enemy's death animation,

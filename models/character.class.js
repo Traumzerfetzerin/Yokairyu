@@ -256,14 +256,13 @@ class Character extends MovableObject {
     /**
      * Handles the character's state animation.
      * This function is called in the interval started in the startStateAnimation() function.
-     * It checks the character's state and calls the respective state animation function
-     * to handle the animation.
-     * If the character is dead, the game loop is stopped and the game over screen is drawn.
-     * If the character is hurt, the hurt animation and sound effect are played.
-     * If the character is above the ground, the jump animation is played.
-     * If the character is moving, the walk animation is played.
-     * If the character is not moving, the idle animation is played.
-     * @param {GameOverScreen} gameOverScreen - The game over screen to use when the character is dead.
+     * It checks the character's state and calls the respective state animation function:
+     * - If the character is dead, the dead animation and sound effect are played, and the game loop is stopped.
+     * - If the character is hurt, the hurt animation and sound effect are played.
+     * - If the character is above the ground, the jump animation is played.
+     * - If the character is walking (i.e., the RIGHT or LEFT key is pressed), the walk animation is played.
+     * - Otherwise, the idle animation is played.
+     * @param {GameOverScreen} gameOverScreen - The GameOverScreen instance used to manage the game's end state.
      */
     handleStateAnimation(gameOverScreen) {
         if (this.isDead()) {

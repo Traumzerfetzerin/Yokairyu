@@ -251,14 +251,11 @@ class SoundManager {
 
 
     /**
-     * Plays a sound by its name.
-     *
-     * This function plays the specified sound from the sound manager's collection.
-     * Optionally, the sound can be set to loop continuously.
-     *
-     * @param {string} name - The name of the sound to play.
-     * @param {boolean} [loop=false] - Indicates whether the sound should loop.
-     *                                 Defaults to false.
+     * Plays a sound effect specified by its name if it exists.
+     * If the sound is currently muted, this function does nothing.
+     * The sound effect is looped if the `loop` parameter is set to `true`.
+     * @param {string} name - The name of the sound effect to play.
+     * @param {boolean} [loop=false] - Whether to loop the sound effect.
      */
     playSound(name, loop = false) {
         if (this[name]) {
