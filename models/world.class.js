@@ -23,18 +23,21 @@ class World {
      * Creates a new World object.
      * 
      * @param {HTMLCanvasElement} canvas - The canvas element to draw the game on.
-     * @param {Keyboard} keyboard - The keyboard object that handles keyboard input.
+     * @param {Keyboard} keyboard - The Keyboard object to handle user input.
      * 
-     * This constructor initializes the World object by setting the canvas context, 
-     * canvas, keyboard, and starting the animation loop, collision detection, and 
-     * background sound effect.
+     * Sets the World object's id to the current timestamp and assigns it to the window.activeWorldId attribute.
+     * Sets the canvas and keyboard attributes to the passed in values.
+     * Calls the setWorld(), collissions.run(), and startBackgroundSound() methods to initialize the game.
      */
     constructor(canvas, keyboard) {
+
+        this.worldId = Date.now();
+        window.activeWorldId = this.worldId;
+
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
 
-        this.draw();
         this.setWorld();
         this.collissions.run();
         this.startBackgroundSound();
@@ -62,20 +65,28 @@ class World {
 
 
     /**
-     * Draws the game world onto the canvas.
+     * The main game loop function.
      * 
-     * Draws the background objects, character, dynamic objects, and fixed objects onto the canvas.
-     * If the character is dead, it returns without drawing anything.
-     * If the win screen should be shown, it draws the win screen and returns.
-     * It translates the camera to the correct position, resets the camera translation, and
-     * requests the next frame.
+     * This function is called recursively using the requestAnimationFrame method.
+     * It is responsible for clearing the canvas, drawing the background objects, translating the camera to the character's position,
+     * drawing the character, drawing the dynamic objects, resetting the camera translation, drawing the fixed objects, and requesting the next frame.
+     * If the character is dead or the worldId does not match the activeWorldId, the game loop is cancelled.
+     * @private
      */
     draw() {
-        if (this.character.isDead()) {
+
+        if (this.worldId !== window.activeWorldId) {
+            cancelAnimationFrame(this.animationId);
             return;
         }
-        if (this.showWinScreen) {
-            this.winScreen.drawWinScreen(this.ctx);
+
+        if (!this.character) {
+            cancelAnimationFrame(this.animationId);
+            return;
+        }
+
+        if (this.character.isDead()) {
+            cancelAnimationFrame(this.animationId);
             return;
         }
         this.clearCanvas();
@@ -90,6 +101,17 @@ class World {
         this.translateCamera();
         this.resetCameraTranslation();
         this.requestNextFrame();
+    }
+
+
+    /**
+     * Starts the game loop by calling the draw() method.
+     * The draw() method is responsible for clearing the canvas, drawing the background objects, translating the camera to the character's position,
+     * drawing the character, drawing the dynamic objects, resetting the camera translation, drawing the fixed objects, and requesting the next frame.
+     * @todo This function could be private, but it is currently called by the `startGame` function in the game.js file.
+     */
+    startGameLoop() {
+        this.draw();
     }
 
 

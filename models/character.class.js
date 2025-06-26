@@ -269,12 +269,15 @@ class Character extends MovableObject {
         if (this.isDead()) {
             this.handleDeadState();
             this.x = 0;
+
+            this.world.stopGameLoop();
+
             setTimeout(() => {
                 gameOverScreen.drawGameOverScreen(this.world.ctx);
-                world.stopGameLoop();
                 gameOverScreen.hideButton();
                 soundManager.stopAll();
             }, 1000);
+            return;
         } else if (this.isHurt()) {
             this.handleHurtState();
         } else if (this.isAboveGround()) {

@@ -16,17 +16,24 @@ let intervalId = [];
 
 
 /**
- * Initializes the game by getting the canvas element, initializing the level, and
- * starting the bottle spawning mechanism. After a delay of 1000 milliseconds, it
- * creates a new World object and sets the current muted state of the sound manager.
+ * Initializes the application.
+ * 
+ * Gets the canvas element and assigns it to the global `canvas` variable.
+ * Initializes the level by calling the `initLevel` function.
+ * Starts the bottle spawner by calling the `startSpawning` method.
+ * After a 1-second delay, creates a new World instance with the canvas and keyboard
+ * and starts the game loop by calling the `startGameLoop` method.
+ * Finally, sets the current muted state for all audio elements in the SoundManager.
  */
 function init() {
     canvas = document.getElementById('canvas');
+
     initLevel();
     bottleSpawner.startSpawning();
 
     setTimeout(() => {
         world = new World(canvas, keyboard);
+        world.startGameLoop();
         soundManager.setCurrentMutedState();
     }, 1000);
 }
@@ -113,6 +120,7 @@ function updateUIForRestart() {
     document.body.classList.remove('game');
     document.body.classList.add('startscreen');
     document.getElementById('touch').style.display = 'flex';
+    document.getElementById('startImage').classList.add('d-none');
 
     let newGameMenu = document.getElementById('newGameMenu');
     newGameMenu.classList.add('d-none');
@@ -123,13 +131,24 @@ function updateUIForRestart() {
 
 
 /**
- * Restarts the game by calling `updateUIForRestart` to update the UI for a game restart,
- * `startGame` to start the game, and `init` to initialize the game.
+ * Restarts the game by stopping the current game loop, updating the UI 
+ * for a restart, and reinitializing the game after a delay.
+ * 
+ * If a game world is active, it stops the game loop to halt the ongoing game.
+ * The UI is then updated to reflect the restart state.
+ * After a 1-second delay, the game is reinitialized and started again.
  */
 function restartGame() {
+    if (window.world) {
+        window.world.stopGameLoop();
+    }
+
     updateUIForRestart();
-    startGame();
-    init();
+
+    setTimeout(() => {
+        init();
+        startGame();
+    }, 1000);
 }
 
 
