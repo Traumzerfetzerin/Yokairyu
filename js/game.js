@@ -160,6 +160,7 @@ function restartGame() {
  */
 function resetToMenuView() {
     document.getElementById('start').style.display = 'flex';
+    document.getElementById('startImage').style.display = 'flex';
     document.getElementById('menu').classList.remove('d-none');
     document.getElementById('soundbar').style.display = 'none';
     document.getElementById('footer').classList.remove('d-none');
