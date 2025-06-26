@@ -65,16 +65,20 @@ class World {
 
 
     /**
-     * Validates if the draw loop should continue.
+     * Checks if the draw loop should continue.
      * 
-     * Checks if the World object's id matches the currently active World object's id.
-     * If not, it cancels the current animation frame and returns false.
-     * It also checks if the character is dead or if the character attribute is null.
-     * If either condition is true, it cancels the current animation frame and returns false.
-     * If the conditions are not met, it returns true, indicating that the draw loop should continue.
-     * @return {boolean} - True if the draw loop should continue, false otherwise.
+     * Checks if the game has been won, if the active world has been changed, or if the character is dead.
+     * If any of these conditions are true, cancels the current animation frame and returns false.
+     * Otherwise, returns true to continue drawing the game scene.
+     * @returns {boolean} - Whether the draw loop should continue.
      */
     validateDraw() {
+        if (this.showWinScreen) {
+            this.clearCanvas();
+            this.winScreen.drawWinScreen(this.ctx);
+            return false;
+        }
+
         if (this.worldId !== window.activeWorldId) {
             cancelAnimationFrame(this.animationId);
             return false;

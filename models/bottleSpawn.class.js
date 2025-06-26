@@ -23,11 +23,18 @@ class BottleSpawner {
         this.spawnIntervalId = setInterval(() => {
             let bottle = new Bottles();
             bottle.x = bottle.getNonOverlappingX(500, 1660, 90);
+
+            console.log("[BottleSpawner] Bottle spawned at x =", bottle.x);
+
             if (world !== undefined && world.level && world.level.bottles) {
                 world.level.bottles.push(bottle);
+                console.log("[BottleSpawner] Bottle added to world.level.bottles. Total bottles:", world.level.bottles.length);
+            } else {
+                console.warn("[BottleSpawner] Bottle not added – world or level missing");
             }
         }, 2000);
     }
+
 
 
     /**
