@@ -14,26 +14,18 @@ class Collissions {
 
 
     /**
-       * Checks if the character is colliding with an enemy and if the character is above only one enemy.
-       * If the character is colliding with an enemy and is above only one enemy, the enemy is killed and the character jumps.
-       * The enemy is then made to fall to the ground with the makeEnemyFall() method.
-       */
+     * Checks for collisions between the character and all enemies in the level.
+     * If a collision is detected and the character is above the enemy, the collision is handled.
+     * The collision is handled by calling handleEnemyCollision, which sets an interval to repeatedly
+     * check for ongoing collisions between the character and the specified enemy.
+     */
     checkCharacterHitEnemy() {
         world.level.enemies.forEach((enemy, index) => {
-            if (!enemy.isUsed && world.character.isCharacterAboveEnemy(enemy) && this.isCharacterAboveOnlyOneEnemy(enemy)) {
+            if (!enemy.isUsed && world.character.isCharacterAboveEnemy(enemy)) {
                 enemy.isUsed = true;
                 this.handleEnemyCollision(enemy, index);
             }
         });
-    }
-
-
-    /**
-     * Checks if the character is above only one enemy.
-     * @returns {boolean} true if the character is above only one enemy, false otherwise.
-     */
-    isCharacterAboveOnlyOneEnemy(enemy) {
-        return world.level.enemies.filter(e => world.character.isCharacterAboveEnemy(e)).length === 1;
     }
 
 
