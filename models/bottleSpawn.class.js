@@ -1,19 +1,26 @@
 class BottleSpawner {
     /**
      * Initializes a new instance of the BottleSpawner class.
-     * Sets the `bottleIntervalStarted` property to false, which indicates that the bottle spawning interval has not yet been started.
+     * Sets the bottleIntervalStarted flag to false.
+     * Sets up a repeating interval that checks if the bottle array is empty every 1000 milliseconds.
      */
     constructor() {
         this.bottleIntervalStarted = false;
+
+        setInterval(() => {
+            this.checkForEmptyBottleArray();
+        }, 1000);
     }
 
 
     /**
      * Starts the bottle spawning mechanism.
-     * If the bottle spawning interval has already been started, this function does nothing.
+     * If the bottle spawning interval has already been started, this method does nothing.
      * Otherwise, it sets the `bottleIntervalStarted` property to true and starts an interval that
-     * creates a new bottle every 10 seconds and adds it to the level's bottle array, if the level
-     * and its bottle array exist.
+     * spawns a bottle every 2000 milliseconds.
+     * The interval spawns a bottle at a random non-overlapping position between 500 and 1660 on the x-axis.
+     * If the world and its level are defined, the spawned bottle is added to the level's bottles array.
+     * If the world or level are not yet defined, a warning is logged to the console.
      */
     startSpawning() {
         if (this.bottleIntervalStarted) return;
@@ -24,17 +31,12 @@ class BottleSpawner {
             let bottle = new Bottles();
             bottle.x = bottle.getNonOverlappingX(500, 1660, 90);
 
-            console.log("[BottleSpawner] Bottle spawned at x =", bottle.x);
-
             if (world !== undefined && world.level && world.level.bottles) {
                 world.level.bottles.push(bottle);
-                console.log("[BottleSpawner] Bottle added to world.level.bottles. Total bottles:", world.level.bottles.length);
             } else {
-                console.warn("[BottleSpawner] Bottle not added – world or level missing");
             }
         }, 2000);
     }
-
 
 
     /**
@@ -44,5 +46,22 @@ class BottleSpawner {
     stopSpawning() {
         clearInterval(this.spawnIntervalId);
         this.bottleIntervalStarted = false;
+    }
+
+
+    /**
+     * Checks if the bottle array in the world.level is empty and restarts the bottle spawning if so.
+     * If the world or level are not yet defined, this method does nothing.
+     * @private
+     */
+    checkForEmptyBottleArray() {
+        if (typeof world === 'undefined' || !world.level || !Array.isArray(world.level.bottles)) {
+            return;
+        }
+
+        if (world.level.bottles.length === 0) {
+            this.bottleIntervalStarted = false;
+            this.startSpawning();
+        }
     }
 }
